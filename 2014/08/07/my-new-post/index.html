@@ -10,7 +10,11 @@
 停止RAC：
             emctl stop dbconsole
             srvctl stop instance -d rac -i rac1  
-            srvctl stop instance -d rac -i r">
+            srvctl stop instance -d rac -i rac2
+            srvctl stop asm -n rac1
+            srvctl stop asm -n rac2
+            srvctl stop nodeapps -n rac1
+            srvctl stop nodeapps -n rac2">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -75,7 +79,8 @@
             srvctl <span class="keyword">stop</span> asm -<span class="keyword">n</span> rac2
             srvctl <span class="keyword">stop</span> nodeapps -<span class="keyword">n</span> rac1
             srvctl <span class="keyword">stop</span> nodeapps -<span class="keyword">n</span> rac2
-</code></pre><h3 id="启动RAC：">启动RAC：</h3>
+</code></pre><p><a id="more"></a></p>
+<h3 id="启动RAC：">启动RAC：</h3>
 <pre><code>            和上面的步骤正好相反即
             srvctl <span class="operator"><span class="keyword">start</span> nodeapps -n rac1
             srvctl <span class="keyword">start</span> nodeapps -n rac2
@@ -146,7 +151,7 @@
   <h3 class="title">分类</h3>
   <ul class="entry">
   
-    <li><a href="/categories/Hexo/">Hexo</a><small>1</small></li>
+    <li><a href="/categories/Hexo/">Hexo</a><small>2</small></li>
   
     <li><a href="/categories/Oracle/">Oracle</a><small>2</small></li>
   
@@ -158,7 +163,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/Hexo/" style="font-size: 10.00px;">Hexo</a><a href="/tags/Oracle/" style="font-size: 20.00px;">Oracle</a><a href="/tags/RAC/" style="font-size: 10.00px;">RAC</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a>
+    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/Hexo/" style="font-size: 20.00px;">Hexo</a><a href="/tags/Oracle/" style="font-size: 20.00px;">Oracle</a><a href="/tags/RAC/" style="font-size: 10.00px;">RAC</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a>
   </div>
 </div>
 
@@ -167,6 +172,10 @@
 <div class="widget tag">
   <h3 class="title">最新文章</h3>
   <ul class="entry">
+    
+      <li>
+        <a href="/2014/08/08/my-new-post-2/">利用Hexo搭建Blog</a>
+      </li>
     
       <li>
         <a href="/2014/08/07/my-new-post-1/">使用rlwrap调用sqlplus中历史命令</a>

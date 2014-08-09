@@ -3,16 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>使用rlwrap调用sqlplus中历史命令 | Horace&#39;s IT Blog！</title>
+  <title>RAC启动与停止的先后顺序小结 | Horace&#39;s IT Blog！</title>
   <meta name="author" content="Horace Wong">
   
-  <meta name="description" content="当在Linux Shell中运行SQL*Plus的时候，并不提供浏览历史命令行的功能。为了在Linux中达到“使用向上，向下键来跳回之前已经执行过的SQL语句”的目的，可以安装 rlwrap。
-rlwrap最新的版本rlwrap-0.37.tar.gz，">
+  <meta name="description" content="RAC启动与停止的先后顺序小结
+停止RAC：
+            emctl stop dbconsole
+            srvctl stop instance -d rac -i rac1  
+            srvctl stop instance -d rac -i rac2
+            srvctl stop asm -n rac1
+            srvctl stop asm -n rac2
+            srvctl stop nodeapps -n rac1
+            srvctl stop nodeapps -n rac2">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="使用rlwrap调用sqlplus中历史命令"/>
+  <meta property="og:title" content="RAC启动与停止的先后顺序小结"/>
   <meta property="og:site_name" content="Horace&#39;s IT Blog！"/>
 
   
@@ -53,27 +60,36 @@ rlwrap最新的版本rlwrap-0.37.tar.gz，">
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-07T08:05:12.000Z"><a href="/2014/08/07/my-new-post-1/">8月 7 2014</a></time>
+        <time datetime="2014-08-07T06:59:56.000Z"><a href="/2014/08/07/RAC-start-stop/">8月 7 2014</a></time>
       
       
   
-    <h1 class="title">使用rlwrap调用sqlplus中历史命令</h1>
+    <h1 class="title">RAC启动与停止的先后顺序小结</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>当在Linux Shell中运行SQL*Plus的时候，并不提供浏览历史命令行的功能。为了在Linux中达到“使用向上，向下键来跳回之前已经执行过的SQL语句”的目的，可以安装 rlwrap。</p>
-<p>rlwrap最新的版本rlwrap-0.37.tar.gz，<br><a id="more"></a><br>[官方主页]：<a href="http://utopia.knoware.nl/~hlub/uck/rlwrap/" target="_blank" rel="external">http://utopia.knoware.nl/~hlub/uck/rlwrap/</a></p>
-<p>安装完成后，可使用如下命令：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/usr/</span>local<span class="regexp">/rlwrap/</span>bin<span class="regexp">/rlwrap sqlplus</span></div></pre></td></tr></table></figure>
-
-<p>然后就可以使用 上、下、左、右 键来编辑已执行过的命令；</p>
-<p>如果嫌每次输入这么长的命令很麻烦的话，可以在 oracle用户下的  <strong>.bash_profil</strong>中加入一条alias，如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alias</span> sqlplus=<span class="string">'/usr/local/rlwrap/bin/rlwrap sqlplus'</span></div></pre></td></tr></table></figure>
-
-<p>这样每次只要直接输入 sqlplus命令就可以使用回调命令的功能了。</p>
-
+        <p>RAC启动与停止的先后顺序小结</p>
+<h3 id="停止RAC：">停止RAC：</h3>
+<pre><code>            emctl <span class="keyword">stop</span> dbconsole
+            srvctl <span class="keyword">stop</span> instance -<span class="keyword">d</span> rac -<span class="keyword">i</span> rac1  
+            srvctl <span class="keyword">stop</span> instance -<span class="keyword">d</span> rac -<span class="keyword">i</span> rac2
+            srvctl <span class="keyword">stop</span> asm -<span class="keyword">n</span> rac1
+            srvctl <span class="keyword">stop</span> asm -<span class="keyword">n</span> rac2
+            srvctl <span class="keyword">stop</span> nodeapps -<span class="keyword">n</span> rac1
+            srvctl <span class="keyword">stop</span> nodeapps -<span class="keyword">n</span> rac2
+</code></pre><p><a id="more"></a></p>
+<h3 id="启动RAC：">启动RAC：</h3>
+<pre><code>            和上面的步骤正好相反即
+            srvctl <span class="operator"><span class="keyword">start</span> nodeapps -n rac1
+            srvctl <span class="keyword">start</span> nodeapps -n rac2
+            srvctl <span class="keyword">start</span> asm -n rac1
+            srvctl <span class="keyword">start</span> asm -n rac2
+            srvctl <span class="keyword">start</span> instance -d rac -i rac2
+            srvctl <span class="keyword">start</span> instance -d rac -i rac1
+            emctl <span class="keyword">start</span> dbconsole </span>
+</code></pre>
       
     </div>
     <footer>
@@ -87,27 +103,11 @@ rlwrap最新的版本rlwrap-0.37.tar.gz，">
         
   
   <div class="tags">
-    <a href="/tags/Oracle/">Oracle</a>, <a href="/tags/sqlplus/">sqlplus</a>
+    <a href="/tags/Oracle/">Oracle</a>, <a href="/tags/RAC/">RAC</a>
   </div>
 
-        
-  <div class="addthis addthis_toolbox addthis_default_style">
-    
-      <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
-    
-    
-      <a class="addthis_button_tweet"></a>
-    
-    
-      <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
-    
-    
-      <a class="addthis_button_pinterest_pinit" pi:pinit:layout="horizontal"></a>
-    
-    <a class="addthis_counter addthis_pill_style"></a>
-  </div>
-  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js"></script>
-
+		<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
       
       <div class="clearfix"></div>
     </footer>
@@ -158,15 +158,15 @@ rlwrap最新的版本rlwrap-0.37.tar.gz，">
   <ul class="entry">
     
       <li>
-        <a href="/2014/08/08/my-new-post-2/">利用Hexo搭建Blog</a>
+        <a href="/2014/08/08/Hexo-buildblog/">利用Hexo搭建Blog</a>
       </li>
     
       <li>
-        <a href="/2014/08/07/my-new-post-1/">使用rlwrap调用sqlplus中历史命令</a>
+        <a href="/2014/08/07/rlwrap-sqlplus/">使用rlwrap调用sqlplus中历史命令</a>
       </li>
     
       <li>
-        <a href="/2014/08/07/my-new-post/">RAC启动与停止的先后顺序小结</a>
+        <a href="/2014/08/07/RAC-start-stop/">RAC启动与停止的先后顺序小结</a>
       </li>
     
       <li>

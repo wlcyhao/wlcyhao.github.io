@@ -1,0 +1,288 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>ORACLE RAC安装过程中碰到问题及解决方法 | Horace&#39;s IT Blog！</title>
+  <meta name="author" content="Horace">
+  
+  <meta name="description" content="有志者,事竟成,破釜沉舟,百二秦关终属楚；苦心人,天不负,卧薪尝胆,三千越甲可吞吴！">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="ORACLE RAC安装过程中碰到问题及解决方法"/>
+  <meta property="og:site_name" content="Horace&#39;s IT Blog！"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.png" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Horace&#39;s IT Blog！" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Horace&#39;s IT Blog！</a></h1>
+  <h2><a href="/">仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-09T03:19:25.000Z"><a href="/2014/08/09/RAC-Promblem-solution/">8月 9 2014</a></time>
+      
+      
+  
+    <h1 class="title">ORACLE RAC安装过程中碰到问题及解决方法</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。">这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。</h2>
+<h3 id="错误一：">错误一：</h3>
+<p>配置共享磁盘的问题。如果共享磁盘本身有内容，可能会导致在安装完CLUSTERWARE后，执行root.sh时出错，错误信息为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed <span class="keyword">to</span> upgrade Oracle Cluster Registry <span class="keyword">configuration</span>。</div></pre></td></tr></table></figure>
+
+
+
+<p>这时可以利用dd命令来清除ocr和voting disk的共享磁盘。类似命令为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dd <span class="variable">if=</span>/dev/zero <span class="variable">of=</span>/dev/rdsk/c2t0d2s3 <span class="variable">bs=</span><span class="number">1073741824</span> <span class="variable">count=</span><span class="number">1</span></div></pre></td></tr></table></figure>
+
+<p>其中of指定需要清除的共享磁盘设备，而bs指定该设备的空间大小。<br>清除之后，再次运行root.sh，则问题消失。<br><a id="more"></a>  </p>
+<h3 id="错误二：">错误二：</h3>
+<p>Oracle默认不会使用s0分区，如果指定了s0分区作为ocr或voting disk,<br>那么在执行root.sh时也会收到同样的错误信息：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed <span class="keyword">to</span> upgrade Oracle Cluster Registry <span class="keyword">configuration</span>。</div></pre></td></tr></table></figure>
+
+<p>这个时候可以指定其他的分区来替换s0分区。</p>
+<h3 id="错误三：">错误三：</h3>
+<p>vip找不到public interface的问题。这个问题实际上是Oracle的bug。<br>Oracle认为192.168.<em>.</em>、10.<em>.</em>.<em>、172.16.</em>.<em>——172.31.</em>.*等ip属于private IP。因此无法自动绑定到interface上。<br>在使用cluvfy工具验证时会出现下面的错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR: Could <span class="operator">not</span> find <span class="operator">a</span> suitable <span class="built_in">set</span> <span class="operator">of</span> interfaces <span class="keyword">for</span> VIPs.</div></pre></td></tr></table></figure>
+
+<p>而在安装完ClusterWare后，第二个节点执行root.sh脚本之后，会出现下面的错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">The given <span class="keyword">interface</span>(s), <span class="string">"ce0"</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">public</span>. <span class="keyword">Public</span> interfaces should be used <span class="keyword">to</span> configure virtual IPs.</div></pre></td></tr></table></figure>
+
+<p>这个的解决方法就是用root身份手工启动VIPCA，进行手工配置。</p>
+<p>Oracle对这个问题的详细描述是：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Doc ID:Note:<span class="number">316583.1</span>：Subject:VIPCA FAILS COMPLAINING THAT <span class="keyword">INTERFACE</span> <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="keyword">PUBLIC</span>。</div></pre></td></tr></table></figure>
+
+<p>相关的bug信息是：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Bug <span class="number">4437727</span> - VIPCA FAILS COMPLAINING THAT <span class="keyword">INTERFACE</span> <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="keyword">PUBLIC</span>。</div></pre></td></tr></table></figure>
+
+
+
+<h3 id="错误四：">错误四：</h3>
+<p>那就是如果没有设置默认的网关信息，那么手工配置VIPCA的时候会出错。<br>如果/etc/defaultrouter没有正确的配置，那么启动vipca后，进行正确的配置。<br>Oracle会执行6个步骤，Create VIP application resource、Create GSD application resource、Create ONS application resource、Start VIP application resource、Start GSD application resource、Start ONS application resource。</p>
+<p>当执行到第四个步骤Starting VIP application resource时后出现错误。错误信息为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">CRS-1006</span>: <span class="string">No more members to consider   </span></div><div class="line"><span class="attribute">CRS-0215</span>: <span class="string">Could not start resource 'racnode1-vip'.   </span></div><div class="line"><span class="attribute">CRS-1006</span>: <span class="string">No more members to consider   </span></div><div class="line"><span class="attribute">CRS-0215</span>: <span class="string">Could not start resource 'racnode2-vip'.</span></div></pre></td></tr></table></figure>
+
+
+<p>配置了默认路由，就可以解决这个问题了。</p>
+<h3 id="错误五：">错误五：</h3>
+<p>也是在安装ClusterWare时碰到的。对于绑定PRIVATE ID的概念理解的不是很清晰，在加上cluvfy工具验证时出现的错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR: Could <span class="operator">not</span> find <span class="operator">a</span> suitable <span class="built_in">set</span> <span class="operator">of</span> interfaces <span class="keyword">for</span> VIPs.</div></pre></td></tr></table></figure>
+
+<p>因此尝试手工通过下面的命令绑定VIP。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="title">ifconfig</span> eth0:<span class="number">1</span> plumb  </div><div class="line">ifconfig eth0:<span class="number">1</span> <span class="number">172.25.198.224</span> netmask <span class="number">255.255.0.0</span>              broadcast <span class="number">172.25.255.255</span> up</div></pre></td></tr></table></figure>
+
+<p>但是Oracle需要自动绑定这个虚拟IP，这种通过手工绑定的方式会导致ClusterWare安装配置IP时出现下面的错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SEVERE: The virtual hostname(s), vip-node1,vip-node2, you have specified appears <span class="built_in">to</span> be already assigned <span class="built_in">to</span> another <span class="keyword">system</span> <span class="command"><span class="keyword">on</span> <span class="title">the</span> <span class="title">network</span></span></div></pre></td></tr></table></figure>
+
+<p>解决方法就是去掉手工绑定的VIP，通过Oracle的配置工具使得Oracle自动进行绑定。</p>
+<h3 id="错误六：">错误六：</h3>
+<p>在数据库安装阶段碰到了。在Oracle编译racg_install时出现编译错误。检查log文件发现类似下面的问题：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">makefile</span> <span class="string">'/data/oracle/product/10.2/racg/lib/ins_has.mk'</span> 的目标 <span class="string">'racg_install'</span> 时出错。</div></pre></td></tr></table></figure>
+
+<p>在make.log中出现类型下面的错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="title">racg_install</span>// <span class="typedef"><span class="keyword">data</span> /oracle/product/10.2/racg/lib/ins_has.mk:7: /<span class="keyword">data</span>/oracle/product/10.2/crs/lib/env_has.mk: </span></div><div class="line">没有那个文件或目录 make:\*** 没有规则可以创建目标“/<span class="typedef"><span class="keyword">data</span>/oracle/product/10.2/crs/lib/env_has.mk”。 停止。</span></div></pre></td></tr></table></figure>
+
+<p>根据错误信息发现是找不到env_has.mk文件造成的问题。而这个错误居然在METALINK和GOOGLE上都找不到产生问题的原因。</p>
+<p>到$ORACLE_HOME/crs/lib目录下，确实找不到相应的env_has.mk。但是在$ORACLE_HOME/crs/crs/lib目录下可以找到这个文件。</p>
+<p>造成这个错误出现的主要原因是CRS的主目录和ORACLE_HOME主目录出现冲突。</p>
+<p>当时设置的ORACLE_HOME是/data/oracle/product/10.2，而安装Oracle的ClusterWare时指定的主目录是/data/oracle/product/10.2/crs。由于两个目录存在着嵌套关系，导致了这个问题的产生。</p>
+<p>而后将ORACLE_HOME设置为/data/oracle/product/10.2/database，而Oracle的ClusterWare目录不变，仍为/data/oracle/product/10.2/crs，错误不在出现。</p>
+<h3 id="错误七：">错误七：</h3>
+<p>在第二次重建系统时出现的。由于存储设备没有进行格式化。因此存储设备本身保留了ASM的配置信息。</p>
+<p>这种情况下第一次已经分配的ASM磁盘对于新的ASM实例是不可用的。</p>
+<p>解决方法是通过第一个问题中介绍的清除ocr和voting disk的方式来清除裸设备的信息，比如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dd <span class="variable">if=</span>/dev/zero <span class="variable">of=</span>/dev/rdsk/c2t0d2s3 <span class="variable">bs=</span><span class="number">1073741824</span> <span class="variable">count=</span><span class="number">1</span></div></pre></td></tr></table></figure>
+
+<p>更为重要的是，选择ASM磁盘组的时候，不能选择和上次配置同名的磁盘组，否则会出现错误信息：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ORA-15032和ORA-15063。</div></pre></td></tr></table></figure>
+
+<p>指定另外的ASM磁盘组名称后，问题得以解决。</p>
+<h3 id="错误八：">错误八：</h3>
+<p>在安装5117016补丁集后出现的节点2上的数据库无法启动的错误。</p>
+<p>错误信息为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ORA-<span class="number">01078</span>: failure <span class="keyword">in</span> processing system parameters </div><div class="line">ORA-<span class="number">01565</span>: <span class="keyword">error</span> <span class="keyword">in</span> identifying <span class="type">file</span> '+DISK/testrac/spfiletestrac.ora' </div><div class="line">ORA-<span class="number">17503</span>: ksfdopn:<span class="number">2</span> Failed <span class="keyword">to</span> open <span class="type">file</span> +DISK/testrac/spfiletestrac.ora </div><div class="line">ORA-<span class="number">03113</span>: <span class="keyword">end</span>-<span class="keyword">of</span>-<span class="type">file</span> <span class="function_start"><span class="keyword">on</span></span> communication channel</div></pre></td></tr></table></figure>
+
+<p>同时从后台的alert文件中可以看到如下的错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Errors <span class="keyword">in</span> <span class="keyword">file</span> /data/oracle/admin/testrac/udump/testrac2_ora_4598.trc: </div><div class="line">ORA-<span class="number">07445</span>: 出现异常错误: 核心转储 [kkxcms()+<span class="number">1160</span>] [SIGSEGV] [Address <span class="keyword">not</span> mapped <span class="keyword">to</span> <span class="keyword">object</span>] [<span class="number">0</span>x000000168] [] []</div></pre></td></tr></table></figure>
+
+<p>Oracle的Note:390591.1上有详细的描述和解决方法。</p>
+<p>整个过程碰到的比较麻烦和难于处理的问题都已经列出来了。安装过程中碰到的小问题更多。可能这些问题对于一个有了一定安装经验的人来说，不算什么。 但是对于缺少安装经验的人或者第一次尝试安装RAC环境的人，每个问题都是一次考验。考验你是否进行了充分的知识准备；考验你的问题分析、解决能力；考验 你搜索、寻找问题解决方法的能力；最重要的是考验你的信心、耐心和毅力。</p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Oracle/">Oracle</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/Oracle/">Oracle</a>, <a href="/tags/RAC/">RAC</a>
+  </div>
+
+		<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="请将此处替换成文章在你的站点中的ID" data-title="请替换成文章的标题" data-url="请替换成文章的网址"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"horace"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:wlcyhao.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Hexo/">Hexo</a><small>2</small></li>
+  
+    <li><a href="/categories/Oracle/">Oracle</a><small>3</small></li>
+  
+    <li><a href="/categories/虚拟机/">虚拟机</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/Hexo/" style="font-size: 15.00px;">Hexo</a><a href="/tags/Oracle/" style="font-size: 20.00px;">Oracle</a><a href="/tags/RAC/" style="font-size: 15.00px;">RAC</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a><a href="/tags/虚拟机，64/" style="font-size: 10.00px;">虚拟机，64</a>
+  </div>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2014/08/09/RAC-Promblem-solution/">ORACLE RAC安装过程中碰到问题及解决方法</a>
+      </li>
+    
+      <li>
+        <a href="/2014/08/09/VirtuleMachine-Support64bit/">让虚拟机支持安装64位操作系统的处理方法</a>
+      </li>
+    
+      <li>
+        <a href="/2014/08/08/Hexo-buildblog/">利用Hexo搭建Blog</a>
+      </li>
+    
+      <li>
+        <a href="/2014/08/07/rlwrap-sqlplus/">使用rlwrap调用sqlplus中历史命令</a>
+      </li>
+    
+      <li>
+        <a href="/2014/08/07/RAC-start-stop/">RAC启动与停止的先后顺序小结</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://wlcyhao.github.io/" title="Horace's IT Blog!">Horace</a></li>
+</ul>
+</div>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 Horace
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>使用rlwrap调用sqlplus中历史命令 | Horace&#39;s IT Blog！</title>
+  <title>Cisco交换机接口模式精解 | Horace&#39;s IT Blog！</title>
   <meta name="author" content="Horace">
   
   <meta name="description" content="有志者,事竟成,破釜沉舟,百二秦关终属楚；苦心人,天不负,卧薪尝胆,三千越甲可吞吴！">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="使用rlwrap调用sqlplus中历史命令"/>
+  <meta property="og:title" content="Cisco交换机接口模式精解"/>
   <meta property="og:site_name" content="Horace&#39;s IT Blog！"/>
 
   
@@ -52,26 +52,31 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-07T08:05:12.000Z"><a href="/2014/08/07/rlwrap-sqlplus/">8月 7 2014</a></time>
+        <time datetime="2014-08-09T06:56:54.000Z"><a href="/2014/08/09/cisco-swith-interface-mode/">8月 9 2014</a></time>
       
       
   
-    <h1 class="title">使用rlwrap调用sqlplus中历史命令</h1>
+    <h1 class="title">Cisco交换机接口模式精解</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>当在Linux Shell中运行SQL*Plus的时候，并不提供浏览历史命令行的功能。为了在Linux中达到“使用向上，向下键来跳回之前已经执行过的SQL语句”的目的，可以安装 rlwrap。</p>
-<p>rlwrap最新的版本rlwrap-0.37.tar.gz，<br><a id="more"></a><br>[官方主页]：<a href="http://utopia.knoware.nl/~hlub/uck/rlwrap/" target="_blank" rel="external">http://utopia.knoware.nl/~hlub/uck/rlwrap/</a></p>
-<p>安装完成后，可使用如下命令：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/usr/</span>local<span class="regexp">/rlwrap/</span>bin<span class="regexp">/rlwrap sqlplus</span></div></pre></td></tr></table></figure>
-
-<p>然后就可以使用 上、下、左、右 键来编辑已执行过的命令；</p>
-<p>如果嫌每次输入这么长的命令很麻烦的话，可以在 oracle用户下的  <strong>.bash_profil</strong>中加入一条alias，如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alias</span> sqlplus=<span class="string">'/usr/local/rlwrap/bin/rlwrap sqlplus'</span></div></pre></td></tr></table></figure>
-
-<p>这样每次只要直接输入 sqlplus命令就可以使用回调命令的功能了。</p>
+        <p>cisco网络中，交换机在局域网中最终稳定状态的接口类型主要有四种：access/ trunk/ multi/ dot1q-tunnel。  </p>
+<ol>
+<li>access: 主要用来接入终端设备，如PC机、服务器、打印服务器等。</li>
+<li>trunk: 主要用在连接其它交换机，以便在线路上承载多个vlan。</li>
+<li>multi: 在一个线路中承载多个vlan，但不像trunk,它不对承载的数据打 标签。主要用于接入支持多vlan的服务器或者一些网络分析设备。现在基本不使用此类接口，在cisco的网络设备中，也基本不支持此类接口了。</li>
+<li><p>dot1q-tunnel: 用在Q-in-Q隧道配置中。<br><a id="more"></a><br>Cisco网络设备支持动态协商端口的工作状态，这为网络设备的实施提供了一定的方便（但不建议使用动态方式）。cisco动态协商协议从最初的DISL（Cisco私有协议）发展到DTP（公有协议）。根据动态协议的实现方式，Cisco网络设备接口主要分为下面几种模式：</p>
+</li>
+<li><p>switchport mode access:  强制接口成为access接口，并且可以与对方主动进行协商，诱使对方成为access模式。  </p>
+</li>
+<li>switchport mode dynamic desirable:  主动与对协商成为Trunk接口的可能性，如果邻居接口模式为Trunk/desirable/auto之一，则接口将变成trunk接口工作。如果不能形成trunk模式，则工作在access模式。这种模式是现在交换机的默认模式。  </li>
+<li>switchport mode dynamic auto:  只有邻居交换机主动与自己协商时才会变成Trunk接口，所以它是一种被动模式，当邻居接口为Trunk／desirable之一时，才会成为Trunk。如果不能形成trunk模式，则工作在access模式。  </li>
+<li>switchport mode trunk:  强制接口成为Trunk接口，并且主动诱使对方成为Trunk模式，所以当邻居交换机接口为trunk/desirable/auto时会成为Trunk接口。  </li>
+<li>switchport nonegotiate:  严格的说，这不算是种接口模式，它的作用只是阻止交换机接口发出DTP数据包，它必须与switchport mode trunk或者switchport mode access一起使用。  </li>
+<li>switchport mode dot1q-tunnel：　配置交换机接口为隧道接口（非Trunk），以便与用户交换机的Trunk接口形成不对称链路。</li>
+</ol>
 
       
     </div>
@@ -80,13 +85,13 @@
         
   
   <div class="categories">
-    <a href="/categories/Oracle/">Oracle</a>
+    <a href="/categories/Swtitch&Router/">Swtitch&Router</a>
   </div>
 
         
   
   <div class="tags">
-    <a href="/tags/Oracle/">Oracle</a>, <a href="/tags/sqlplus/">sqlplus</a>
+    <a href="/tags/cisco/">cisco</a>, <a href="/tags/交换机/">交换机</a>
   </div>
 
 		<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>

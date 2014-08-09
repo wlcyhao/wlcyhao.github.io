@@ -1,0 +1,763 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[Horace's IT Blog！]]></title>
+  <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://wlcyhao.github.io/"/>
+  <updated>2014-08-09T07:30:06.958Z</updated>
+  <id>http://wlcyhao.github.io/</id>
+  
+  <author>
+    <name><![CDATA[Horace]]></name>
+    <email><![CDATA[wlcyhao@gmail.com]]></email>
+  </author>
+  
+  <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Cisco交换机接口模式精解]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/09/cisco-swith-interface-mode/"/>
+    <id>http://wlcyhao.github.io/2014/08/09/cisco-swith-interface-mode/</id>
+    <published>2014-08-09T06:56:54.000Z</published>
+    <updated>2014-08-09T07:14:11.000Z</updated>
+    <content type="html"><![CDATA[<p>cisco网络中，交换机在局域网中最终稳定状态的接口类型主要有四种：access/ trunk/ multi/ dot1q-tunnel。  </p>
+<p>1、access: 主要用来接入终端设备，如PC机、服务器、打印服务器等。<br>2、trunk: 主要用在连接其它交换机，以便在线路上承载多个vlan。<br>3、multi: 在一个线路中承载多个vlan，但不像trunk,它不对承载的数据打 标签。主要用于接入支持多vlan的服务器或者一些网络分析设备。现在基本不使用此类接口，在cisco的网络设备中，也基本不支持此类接口了。<br>4、dot1q-tunnel: 用在Q-in-Q隧道配置中。<br><a id="more"></a><br>Cisco网络设备支持动态协商端口的工作状态，这为网络设备的实施提供了一定的方便（但不建议使用动态方式）。cisco动态协商协议从最初的DISL（Cisco私有协议）发展到DTP（公有协议）。根据动态协议的实现方式，Cisco网络设备接口主要分为下面几种模式：</p>
+<p>1、switchport mode access:  强制接口成为access接口，并且可以与对方主动进行协商，诱使对方成为access模式。<br>2、switchport mode dynamic desirable:  主动与对协商成为Trunk接口的可能性，如果邻居接口模式为Trunk/desirable/auto之一，则接口将变成trunk接口工作。如果不能形成trunk模式，则工作在access模式。这种模式是现在交换机的默认模式。<br>3、switchport mode dynamic auto:  只有邻居交换机主动与自己协商时才会变成Trunk接口，所以它是一种被动模式，当邻居接口为Trunk／desirable之一时，才会成为Trunk。如果不能形成trunk模式，则工作在access模式。<br>4、switchport mode trunk:  强制接口成为Trunk接口，并且主动诱使对方成为Trunk模式，所以当邻居交换机接口为trunk/desirable/auto时会成为Trunk接口。<br>5、switchport nonegotiate:  严格的说，这不算是种接口模式，它的作用只是阻止交换机接口发出DTP数据包，它必须与switchport mode trunk或者switchport mode access一起使用。<br>6、switchport mode dot1q-tunnel：　配置交换机接口为隧道接口（非Trunk），以便与用户交换机的Trunk接口形成不对称链路。</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>cisco网络中，交换机在局域网中最终稳定状态的接口类型主要有四种：access/ trunk/ multi/ dot1q-tunnel。  </p>
+<p>1、access: 主要用来接入终端设备，如PC机、服务器、打印服务器等。<br>2、trunk: 主要用在连接其它交换机，以便在线路上承载多个vlan。<br>3、multi: 在一个线路中承载多个vlan，但不像trunk,它不对承载的数据打 标签。主要用于接入支持多vlan的服务器或者一些网络分析设备。现在基本不使用此类接口，在cisco的网络设备中，也基本不支持此类接口了。<br>4、dot1q-tunnel: 用在Q-in-Q隧道配置中。<br>]]></summary>
+    
+      <category term="cisco" scheme="http://wlcyhao.github.io/tags/cisco/"/>
+    
+      <category term="交换机" scheme="http://wlcyhao.github.io/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/"/>
+    
+      <category term="Swtitch&amp;Router" scheme="http://wlcyhao.github.io/categories/Swtitch&Router/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[交换机&路由器命令小全（带中文注释）]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/09/switch-and-router-command/"/>
+    <id>http://wlcyhao.github.io/2014/08/09/switch-and-router-command/</id>
+    <published>2014-08-09T06:45:22.000Z</published>
+    <updated>2014-08-09T06:59:38.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="1-_交换机支持的命令：">1. 交换机支持的命令：</h2>
+<p>交换机基本状态： </p>
+<pre><code>
+switch: ；ROM状态， 路由器是rommon>
+
+hostname> ；用户模式
+
+hostname# ；特权模式
+
+hostname(config)# ；全局配置模式
+
+hostname(config-if)# ；接口状态
+</code></pre>
+<a id="more"></a>
+交换机口令设置： 
+
+<pre><code>
+switch>enable ；进入特权模式
+
+switch#config terminal ；进入全局配置模式
+
+switch(config)#hostname  ；设置交换机的主机名
+
+switch(config)#enable secret xxx ；设置特权加密口令
+
+switch(config)#enable password xxa ；设置特权非密口令
+
+switch(config)#line console 0 ；进入控制台口
+
+switch(config-line)#line vty 0 4 ；进入虚拟终端
+
+switch(config-line)#login ；允许登录
+
+switch(config-line)#password xx ；设置登录口令xx
+
+switch#exit ；返回命令
+
+</code></pre>
+
+<p>交换机VLAN设置：</p>
+<pre><code>
+switch#vlan database ；进入VLAN设置
+
+switch(vlan)#vlan 2 ；建VLAN 2
+
+switch(vlan)#no vlan 2 ；删vlan 2
+
+switch(config)#int f0/1 ；进入端口1
+
+switch(config-if)#switchport access vlan 2 ；当前端口加入vlan 2
+
+switch(config-if)#switchport mode trunk ；设置为干线
+
+switch(config-if)#switchport trunk allowed vlan 1，2 ；设置允许的vlan
+
+switch(config-if)#switchport trunk encap dot1q ；设置vlan 中继
+
+switch(config)#vtp domain  ；设置发vtp域名
+
+switch(config)#vtp password  ；设置发vtp密码
+
+switch(config)#vtp mode server ；设置发vtp模式
+
+switch(config)#vtp mode client ；设置发vtp模式
+</code></pre>
+
+<p>交换机设置IP地址：</p>
+<pre><code>
+switch(config)#interface vlan 1 ；进入vlan 1
+
+switch(config-if)#ip address   ；设置IP地址
+
+switch(config)#ip default-gateway  ；设置默认网关
+
+switch#dir flash: ；查看闪存
+</code></pre>
+
+<p>交换机显示命令：</p>
+<pre><code>
+switch#write ；保存配置信息
+
+switch#show vtp ；查看vtp配置信息
+
+switch#show run ；查看当前配置信息
+
+switch#show vlan ；查看vlan配置信息
+
+switch#show interface ；查看端口信息
+
+switch#show int f0/0 ；查看指定端口信息    
+</code></pre>
+
+<h2 id="2-_路由器支持的命令：">2. 路由器支持的命令：</h2>
+<p>路由器显示命令：</p>
+<pre><code>
+router#show run ；显示配置信息
+
+router#show interface ；显示接口信息
+
+router#show ip route ；显示路由信息
+
+router#show cdp nei ；显示邻居信息
+
+router#reload 　 　 ；重新起动
+</code></pre>
+
+<p>路由器口令设置：</p>
+<pre><code>
+router>enable ；进入特权模式
+
+router#config terminal ；进入全局配置模式
+
+router(config)#hostname  ；设置交换机的主机名
+
+router(config)#enable secret xxx ；设置特权加密口令
+
+router(config)#enable password xxb ；设置特权非密口令
+
+router(config)#line console 0 ；进入控制台口
+
+router(config-line)#line vty 0 4 ；进入虚拟终端
+
+router(config-line)#login ；要求口令验证
+
+router(config-line)#password xx ；设置登录口令xx
+
+router(config)#(Ctrl+z) ； 返回特权模式
+
+router#exit ；返回命令
+</code></pre>
+
+<p>路由器配置：</p>
+<pre><code>
+router(config)#int s0/0 ；进入Serail接口
+
+router(config-if)#no shutdown ；激活当前接口
+
+router(config-if)#clock rate 64000 ；设置同步时钟
+
+router(config-if)#ip address   ；设置IP地址
+
+router(config-if)#ip address  second ；设置第二个IP
+
+router(config-if)#int f0/0.1 ；进入子接口
+
+router(config-subif.1)#ip address  ；设置子接口IP
+
+router(config-subif.1)#encapsulation dot1q  ；绑定vlan中继协议
+
+router(config)#config-register 0x2142 ；跳过配置文件
+
+router(config)#config-register 0x2102 ；正常使用配置文件
+
+router#reload ；重新引导
+</code></pre>
+
+<p>路由器文件操作：</p>
+<pre><code>
+router#copy running-config startup-config ；保存配置
+
+router#copy running-config tftp ；保存配置到tftp
+
+router#copy startup-config tftp ；开机配置存到tftp
+
+router#copy tftp flash: ；下传文件到flash
+
+router#copy tftp startup-config；下载配置文件
+ROM状态：
+
+Ctrl+Break ；进入ROM监控状态
+
+rommon>confreg 0x2142 ；跳过配置文件
+
+rommon>confreg 0x2102 ；恢复配置文件
+
+rommon>reset　 ；重新引导
+
+rommon>copy xmodem: flash: ；从console传输文件
+rommon>IP_ADDRESS=10.65.1.2 ；设置路由器IP
+
+rommon>IP_SUBNET_MASK=255.255.0.0 ；设置路由器掩码
+
+rommon>TFTP_SERVER=10.65.1.1 ；指定TFTP服务器IP
+
+rommon>TFTP_FILE=c2600.bin ；指定下载的文件
+
+rommon>tftpdnld ；从tftp下载
+
+rommon>dir flash: ；查看闪存内容
+
+rommon>boot ；引导IOS
+</code></pre>
+
+<p>静态路由：</p>
+<pre><code>
+ip route    ；命令格式
+
+router(config)#ip route 2.0.0.0 255.0.0.0 1.1.1.2 ；静态路由举例
+
+router(config)#ip route 0.0.0.0 0.0.0.0 1.1.1.2 ；默认路由举例
+</code></pre>
+
+<p>动态路由：</p>
+<pre><code>
+router(config)#ip routing ；启动路由转发
+
+router(config)#router rip ；启动RIP路由协议。
+
+router(config-router)#network  ；设置发布路由
+
+router(config-router)#negihbor  ；点对点帧中继用。
+</code></pre>
+
+<p>帧中继命令：</p>
+<pre><code>
+router(config)#frame-relay switching ；使能帧中继交换
+
+router(config-s0)#encapsulation frame-relay ；使能帧中继
+
+router(config-s0)#fram-relay lmi-type cisco ；设置管理类型
+
+router(config-s0)#frame-relay intf-type DCE ；设置为DCE
+
+router(config-s0)#frame-relay dlci 16 ；
+
+router(config-s0)#frame-relay local-dlci 20 ；设置虚电路号
+
+router(config-s0)#frame-relay interface-dlci 16 ；
+
+router(config)#log-adjacency-changes ；记录邻接变化
+
+router(config)#int s0/0.1 point-to-point ；设置子接口点对点
+
+router#show frame pvc ；显示永久虚电路
+
+router#show frame map ；显示映射 
+</code></pre>
+
+<p>基本访问控制列表：</p>
+<pre><code>
+router(config)#access-list  permit|deny  
+
+router(config)#interface  ；default:deny any
+
+router(config-if)#ip access-group  in|out ；default:out
+例1：
+
+router(config)#access-list 4 permit 10.8.1.1
+
+router(config)#access-list 4 deny 10.8.1.0 0.0.0.255
+
+router(config)#access-list 4 permit 10.8.0.0 0.0.255.255
+
+router(config)#access-list 4 deny 10.0.0.0 0.255.255.255
+
+router(config)#access-list 4 permit any
+
+router(config)#int f0/0
+
+router(config-if)#ip access-group 4 in
+</code></pre>
+
+<p>扩展访问控制列表：</p>
+<pre><code>
+access-list  permit|deny icmp  <destinationip wild="">[type]
+
+access-list  permit|deny tcp  <destinationip wild="">[port]
+
+例2：
+
+router(config)#access-list 101 deny icmp any 10.64.0.2 0.0.0.0 echo
+
+router(config)#access-list 101 permit ip any any
+
+router(config)#int s0/0
+
+router(config-if)#ip access-group 101 in
+
+例3：
+
+router(config)#access-list 102 deny tcp any 10.65.0.2 0.0.0.0 eq 80
+
+router(config)#access-list 102 permit ip any any
+
+router(config)#interface s0/1
+
+router(config-if)#ip access-group 102 out
+</destinationip></destinationip></code></pre>
+
+<p>删除访问控制例表:</p>
+<pre><code>
+router(config)#no access-list 102
+
+router(config-if)#no ip access-group 101 in
+</code></pre>
+
+<p>路由器的nat配置</p>
+<pre><code>
+Router(config-if)#ip nat inside ；当前接口指定为内部接口
+
+Router(config-if)#ip nat outside ；当前接口指定为外部接口
+
+Router(config)#ip nat inside source static [p] <私有ip><公网ip> [port]
+
+Router(config)#ip nat inside source static 10.65.1.2 60.1.1.1
+
+Router(config)#ip nat inside source static tcp 10.65.1.3 80 60.1.1.1 80
+
+Router(config)#ip nat pool p1 60.1.1.1 60.1.1.20 255.255.255.0
+
+Router(config)#ip nat inside source list 1 pool p1
+
+Router(config)#ip nat inside destination list 2 pool p2
+
+Router(config)#ip nat inside source list 2 interface s0/0 overload
+
+Router(config)#ip nat pool p2 10.65.1.2 10.65.1.4 255.255.255.0 type rotary
+
+Router#show ip nat translation
+
+rotary 参数是轮流的意思，地址池中的IP轮流与NAT分配的地址匹配。
+
+overload参数用于PAT 将内部IP映射到一个公网IP不同的端口上。
+</公网ip></私有ip></code></pre>
+
+<p>外部网关协议配置：</p>
+<pre><code>
+routerA(config)#router bgp 100
+
+routerA(config-router)#network 19.0.0.0
+
+routerA(config-router)#neighbor 8.1.1.2 remote-as 200
+</code></pre>
+
+<p>配置PPP验证：</p>
+<pre><code>
+RouterA(config)#username  password 
+
+RouterA(config)#int s0
+
+RouterA(config-if)#ppp authentication {chap|pap}
+</code></pre>
+
+<p>3．PIX防火墙命令</p>
+<pre><code>
+Pix525(config)#nameif ethernet0 outside security0 ；命名接口和级别
+
+Pix525(config)#interface ethernet0 auto ；设置接口方式
+
+Pix525(config)#interface ethernet1 100full ；设置接口方式
+
+Pix525(config)#interface ethernet1 100full shutdown
+
+Pix525(config)#ip address inside 192.168.0.1 255.255.255.0
+
+Pix525(config)#ip address outside 133.0.0.1 255.255.255.252
+Pix525(config)#global (if_name) natid ip-ip ；定义公网IP区间
+
+Pix525(config)#global (outside) 1 7.0.0.1-7.0.0.15 ；例句
+
+Pix525(config)#global (outside) 1 133.0.0.1 ；例句
+
+Pix525(config)#no global (outside) 1 133.0.0.1 ；去掉设置
+Pix525(config)#nat (if_name) nat_id local_ip [netmark]
+
+Pix525(config)#nat (inside) 1 0 0
+
+内网所有主机(0代表0.0.0.0)可以访问global 1指定的外网。
+
+Pix525(config)#nat (inside) 1 172.16.5.0 255.255.0.0
+
+内网172.16.5.0/16网段的主机可以访问global 1指定的外网。
+Pix525(config)#route if_name 0 0 gateway_ip [metric] ；命令格式
+
+Pix525(config)#route outside 0 0 133.0.0.1 1 ；例句
+
+Pix525(config)#route inside 10.1.0.0 255.255.0.0 10.8.0.1 1 ；例句
+Pix525(config)#static (inside， outside) 133.0.0.1 192.168.0.8
+
+表示内部ip地址192.168.0.8，访问外部时被翻译成133.0.0.1全局地址。
+Pix525(config)#static (dmz， outside) 133.0.0.1 172.16.0.8
+
+中间区域ip地址172.16.0.8，访问外部时被翻译成133.0.0.1全局地址。
+</code></pre>]]></content>
+    <summary type="html"><![CDATA[<h2 id="1-_交换机支持的命令：">1. 交换机支持的命令：</h2>
+<p>交换机基本状态： </p>
+<pre><code>
+switch: ；ROM状态， 路由器是rommon>
+
+hostname> ；用户模式
+
+hostname# ；特权模式
+
+hostname(config)# ；全局配置模式
+
+hostname(config-if)# ；接口状态
+</code></pre>
+]]></summary>
+    
+      <category term="交换机" scheme="http://wlcyhao.github.io/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/"/>
+    
+      <category term="路由器" scheme="http://wlcyhao.github.io/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/"/>
+    
+      <category term="Swtitch&amp;Router" scheme="http://wlcyhao.github.io/categories/Swtitch&Router/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Oracle RAC安装过程中碰到问题及解决方法]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/09/RAC-Promblem-solution/"/>
+    <id>http://wlcyhao.github.io/2014/08/09/RAC-Promblem-solution/</id>
+    <published>2014-08-09T03:19:25.000Z</published>
+    <updated>2014-08-09T05:58:22.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。">这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。</h2>
+<h3 id="错误一：">错误一：</h3>
+<p>配置共享磁盘的问题。如果共享磁盘本身有内容，可能会导致在安装完CLUSTERWARE后，执行root.sh时出错，错误信息为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed <span class="keyword">to</span> upgrade Oracle Cluster Registry <span class="keyword">configuration</span>。</div></pre></td></tr></table></figure>
+
+
+
+<p>这时可以利用dd命令来清除ocr和voting disk的共享磁盘。类似命令为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dd <span class="variable">if=</span>/dev/zero <span class="variable">of=</span>/dev/rdsk/c2t0d2s3 <span class="variable">bs=</span><span class="number">1073741824</span> <span class="variable">count=</span><span class="number">1</span></div></pre></td></tr></table></figure>
+
+<p>其中of指定需要清除的共享磁盘设备，而bs指定该设备的空间大小。<br>清除之后，再次运行root.sh，则问题消失。<br><a id="more"></a>  </p>
+<h3 id="错误二：">错误二：</h3>
+<p>Oracle默认不会使用s0分区，如果指定了s0分区作为ocr或voting disk,<br>那么在执行root.sh时也会收到同样的错误信息：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed <span class="keyword">to</span> upgrade Oracle Cluster Registry <span class="keyword">configuration</span>。</div></pre></td></tr></table></figure>
+
+<p>这个时候可以指定其他的分区来替换s0分区。</p>
+<h3 id="错误三：">错误三：</h3>
+<p>vip找不到public interface的问题。这个问题实际上是Oracle的bug。<br>Oracle认为192.168.<em>.</em>、10.<em>.</em>.<em>、172.16.</em>.<em>——172.31.</em>.*等ip属于private IP。因此无法自动绑定到interface上。<br>在使用cluvfy工具验证时会出现下面的错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR: Could <span class="operator">not</span> find <span class="operator">a</span> suitable <span class="built_in">set</span> <span class="operator">of</span> interfaces <span class="keyword">for</span> VIPs.</div></pre></td></tr></table></figure>
+
+<p>而在安装完ClusterWare后，第二个节点执行root.sh脚本之后，会出现下面的错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">The given <span class="keyword">interface</span>(s), <span class="string">"ce0"</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">public</span>. <span class="keyword">Public</span> interfaces should be used <span class="keyword">to</span> configure virtual IPs.</div></pre></td></tr></table></figure>
+
+<p>这个的解决方法就是用root身份手工启动VIPCA，进行手工配置。</p>
+<p>Oracle对这个问题的详细描述是：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Doc ID:Note:<span class="number">316583.1</span>：Subject:VIPCA FAILS COMPLAINING THAT <span class="keyword">INTERFACE</span> <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="keyword">PUBLIC</span>。</div></pre></td></tr></table></figure>
+
+<p>相关的bug信息是：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Bug <span class="number">4437727</span> - VIPCA FAILS COMPLAINING THAT <span class="keyword">INTERFACE</span> <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="keyword">PUBLIC</span>。</div></pre></td></tr></table></figure>
+
+
+
+<h3 id="错误四：">错误四：</h3>
+<p>那就是如果没有设置默认的网关信息，那么手工配置VIPCA的时候会出错。<br>如果/etc/defaultrouter没有正确的配置，那么启动vipca后，进行正确的配置。<br>Oracle会执行6个步骤，Create VIP application resource、Create GSD application resource、Create ONS application resource、Start VIP application resource、Start GSD application resource、Start ONS application resource。</p>
+<p>当执行到第四个步骤Starting VIP application resource时后出现错误。错误信息为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">CRS-1006</span>: <span class="string">No more members to consider   </span></div><div class="line"><span class="attribute">CRS-0215</span>: <span class="string">Could not start resource 'racnode1-vip'.   </span></div><div class="line"><span class="attribute">CRS-1006</span>: <span class="string">No more members to consider   </span></div><div class="line"><span class="attribute">CRS-0215</span>: <span class="string">Could not start resource 'racnode2-vip'.</span></div></pre></td></tr></table></figure>
+
+
+<p>配置了默认路由，就可以解决这个问题了。</p>
+<h3 id="错误五：">错误五：</h3>
+<p>也是在安装ClusterWare时碰到的。对于绑定PRIVATE ID的概念理解的不是很清晰，在加上cluvfy工具验证时出现的错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR: Could <span class="operator">not</span> find <span class="operator">a</span> suitable <span class="built_in">set</span> <span class="operator">of</span> interfaces <span class="keyword">for</span> VIPs.</div></pre></td></tr></table></figure>
+
+<p>因此尝试手工通过下面的命令绑定VIP。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="title">ifconfig</span> eth0:<span class="number">1</span> plumb  </div><div class="line">ifconfig eth0:<span class="number">1</span> <span class="number">172.25.198.224</span> netmask <span class="number">255.255.0.0</span>              broadcast <span class="number">172.25.255.255</span> up</div></pre></td></tr></table></figure>
+
+<p>但是Oracle需要自动绑定这个虚拟IP，这种通过手工绑定的方式会导致ClusterWare安装配置IP时出现下面的错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SEVERE: The virtual hostname(s), vip-node1,vip-node2, you have specified appears <span class="built_in">to</span> be already assigned <span class="built_in">to</span> another <span class="keyword">system</span> <span class="command"><span class="keyword">on</span> <span class="title">the</span> <span class="title">network</span></span></div></pre></td></tr></table></figure>
+
+<p>解决方法就是去掉手工绑定的VIP，通过Oracle的配置工具使得Oracle自动进行绑定。</p>
+<h3 id="错误六：">错误六：</h3>
+<p>在数据库安装阶段碰到了。在Oracle编译racg_install时出现编译错误。检查log文件发现类似下面的问题：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">makefile</span> <span class="string">'/data/oracle/product/10.2/racg/lib/ins_has.mk'</span> 的目标 <span class="string">'racg_install'</span> 时出错。</div></pre></td></tr></table></figure>
+
+<p>在make.log中出现类型下面的错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="title">racg_install</span>// <span class="typedef"><span class="keyword">data</span> /oracle/product/10.2/racg/lib/ins_has.mk:7: /<span class="keyword">data</span>/oracle/product/10.2/crs/lib/env_has.mk: </span></div><div class="line">没有那个文件或目录 make:\*** 没有规则可以创建目标“/<span class="typedef"><span class="keyword">data</span>/oracle/product/10.2/crs/lib/env_has.mk”。 停止。</span></div></pre></td></tr></table></figure>
+
+<p>根据错误信息发现是找不到env_has.mk文件造成的问题。而这个错误居然在METALINK和GOOGLE上都找不到产生问题的原因。</p>
+<p>到$ORACLE_HOME/crs/lib目录下，确实找不到相应的env_has.mk。但是在$ORACLE_HOME/crs/crs/lib目录下可以找到这个文件。</p>
+<p>造成这个错误出现的主要原因是CRS的主目录和ORACLE_HOME主目录出现冲突。</p>
+<p>当时设置的ORACLE_HOME是/data/oracle/product/10.2，而安装Oracle的ClusterWare时指定的主目录是/data/oracle/product/10.2/crs。由于两个目录存在着嵌套关系，导致了这个问题的产生。</p>
+<p>而后将ORACLE_HOME设置为/data/oracle/product/10.2/database，而Oracle的ClusterWare目录不变，仍为/data/oracle/product/10.2/crs，错误不在出现。</p>
+<h3 id="错误七：">错误七：</h3>
+<p>在第二次重建系统时出现的。由于存储设备没有进行格式化。因此存储设备本身保留了ASM的配置信息。</p>
+<p>这种情况下第一次已经分配的ASM磁盘对于新的ASM实例是不可用的。</p>
+<p>解决方法是通过第一个问题中介绍的清除ocr和voting disk的方式来清除裸设备的信息，比如：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dd <span class="variable">if=</span>/dev/zero <span class="variable">of=</span>/dev/rdsk/c2t0d2s3 <span class="variable">bs=</span><span class="number">1073741824</span> <span class="variable">count=</span><span class="number">1</span></div></pre></td></tr></table></figure>
+
+<p>更为重要的是，选择ASM磁盘组的时候，不能选择和上次配置同名的磁盘组，否则会出现错误信息：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ORA-15032和ORA-15063。</div></pre></td></tr></table></figure>
+
+<p>指定另外的ASM磁盘组名称后，问题得以解决。</p>
+<h3 id="错误八：">错误八：</h3>
+<p>在安装5117016补丁集后出现的节点2上的数据库无法启动的错误。</p>
+<p>错误信息为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ORA-<span class="number">01078</span>: failure <span class="keyword">in</span> processing system parameters </div><div class="line">ORA-<span class="number">01565</span>: <span class="keyword">error</span> <span class="keyword">in</span> identifying <span class="type">file</span> '+DISK/testrac/spfiletestrac.ora' </div><div class="line">ORA-<span class="number">17503</span>: ksfdopn:<span class="number">2</span> Failed <span class="keyword">to</span> open <span class="type">file</span> +DISK/testrac/spfiletestrac.ora </div><div class="line">ORA-<span class="number">03113</span>: <span class="keyword">end</span>-<span class="keyword">of</span>-<span class="type">file</span> <span class="function_start"><span class="keyword">on</span></span> communication channel</div></pre></td></tr></table></figure>
+
+<p>同时从后台的alert文件中可以看到如下的错误：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Errors <span class="keyword">in</span> <span class="keyword">file</span> /data/oracle/admin/testrac/udump/testrac2_ora_4598.trc: </div><div class="line">ORA-<span class="number">07445</span>: 出现异常错误: 核心转储 [kkxcms()+<span class="number">1160</span>] [SIGSEGV] [Address <span class="keyword">not</span> mapped <span class="keyword">to</span> <span class="keyword">object</span>] [<span class="number">0</span>x000000168] [] []</div></pre></td></tr></table></figure>
+
+<p>Oracle的Note:390591.1上有详细的描述和解决方法。</p>
+<p>整个过程碰到的比较麻烦和难于处理的问题都已经列出来了。安装过程中碰到的小问题更多。可能这些问题对于一个有了一定安装经验的人来说，不算什么。 但是对于缺少安装经验的人或者第一次尝试安装RAC环境的人，每个问题都是一次考验。考验你是否进行了充分的知识准备；考验你的问题分析、解决能力；考验 你搜索、寻找问题解决方法的能力；最重要的是考验你的信心、耐心和毅力。</p>
+]]></content>
+    <summary type="html"><![CDATA[<h2 id="这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。">这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。</h2>
+<h3 id="错误一：">错误一：</h3>
+<p>配置共享磁盘的问题。如果共享磁盘本身有内容，可能会导致在安装完CLUSTERWARE后，执行root.sh时出错，错误信息为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed <span class="keyword">to</span> upgrade Oracle Cluster Registry <span class="keyword">configuration</span>。</div></pre></td></tr></table></figure>
+
+
+
+<p>这时可以利用dd命令来清除ocr和voting disk的共享磁盘。类似命令为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dd <span class="variable">if=</span>/dev/zero <span class="variable">of=</span>/dev/rdsk/c2t0d2s3 <span class="variable">bs=</span><span class="number">1073741824</span> <span class="variable">count=</span><span class="number">1</span></div></pre></td></tr></table></figure>
+
+<p>其中of指定需要清除的共享磁盘设备，而bs指定该设备的空间大小。<br>清除之后，再次运行root.sh，则问题消失。<br>]]></summary>
+    
+      <category term="Oracle" scheme="http://wlcyhao.github.io/tags/Oracle/"/>
+    
+      <category term="RAC" scheme="http://wlcyhao.github.io/tags/RAC/"/>
+    
+      <category term="Oracle" scheme="http://wlcyhao.github.io/categories/Oracle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[让虚拟机支持安装64位操作系统的处理方法]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/09/VirtuleMachine-Support64bit/"/>
+    <id>http://wlcyhao.github.io/2014/08/09/VirtuleMachine-Support64bit/</id>
+    <published>2014-08-09T02:59:39.000Z</published>
+    <updated>2014-08-09T06:04:03.000Z</updated>
+    <content type="html"><![CDATA[<p>尝试虚拟的操作系统是CentOS-5.4-x86_64，因此在系统选项中选择了Other Linux 64bit，尝试系统后系统报错：  </p>
+<p>This CPU is VT-capable, but VT is not enabled (check your BIOS settings).<br>You have configured this virtual machine as a 64-bit guest operating system. However, this host’s CPU is not capable of running 64-bit virtual machines or this virtual machine has 64-bit support disabled.<br>For more detailed information, see <a href="http://www.vmware.com/info?id=152" target="_blank" rel="external">http://www.vmware.com/info?id=152</a></p>
+<p><a id="more"></a><br>点击确定，屏幕显示错误信息为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Your CPU does <span class="operator">not</span> support <span class="keyword">long</span> mode. Use <span class="operator">a</span> <span class="number">32</span>bit distribution.</div></pre></td></tr></table></figure>
+
+<p>对于这种情况，需要设置本机的BIOS，将【Inter Virtualization Technology】选项设置为：<strong>ENABLE</strong>，然后重启系统，就可以了.</p>
+<p><strong>注意</strong>：这里指的是本机的BIOS，而非虚拟机的BIOS，如果BIOS设置了没有类似的设置，那么系统就无法虚拟64位的系统了。</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>尝试虚拟的操作系统是CentOS-5.4-x86_64，因此在系统选项中选择了Other Linux 64bit，尝试系统后系统报错：  </p>
+<p>This CPU is VT-capable, but VT is not enabled (check your BIOS settings).<br>You have configured this virtual machine as a 64-bit guest operating system. However, this host’s CPU is not capable of running 64-bit virtual machines or this virtual machine has 64-bit support disabled.<br>For more detailed information, see <a href="http://www.vmware.com/info?id=152" target="_blank" rel="external">http://www.vmware.com/info?id=152</a></p>
+<p>]]></summary>
+    
+      <category term="虚拟机，64位" scheme="http://wlcyhao.github.io/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%8C64%E4%BD%8D/"/>
+    
+      <category term="虚拟机" scheme="http://wlcyhao.github.io/categories/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[利用Hexo搭建Blog]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/08/Hexo-buildblog/"/>
+    <id>http://wlcyhao.github.io/2014/08/08/Hexo-buildblog/</id>
+    <published>2014-08-08T08:01:14.000Z</published>
+    <updated>2014-08-08T08:21:04.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="注意：本文只针对Windows用户。">注意：本文只针对Windows用户。</h3>
+<h2 id="安装Git">安装Git</h2>
+<p>下载<a href="http://msysgit.github.io/" target="_blank" rel="external">msysgit</a> 并执行即可完成安装。</p>
+<h2 id="安装Node-js">安装Node.js</h2>
+<p>在 Windows 环境下安装 Node.js 非常简单，仅须<a href="http://nodejs.org/" target="_blank" rel="external">下载</a>安装文件并执行即可完成安装。</p>
+<p><a id="more"></a></p>
+<h2 id="安装hexo">安装hexo</h2>
+<p>利用 npm 命令即可安装。（在任意位置点击鼠标右键，选择Git bash）</p>
+<pre><code>npm <span class="operator"><span class="keyword">install</span> -g hexo</span>
+</code></pre><h2 id="创建hexo文件夹">创建hexo文件夹</h2>
+<p>安装完成后，在你喜爱的文件夹下（如D:\hexo），执行以下指令(在D:\hexo内点击鼠标右键，选择Git bash)，Hexo 即会自动在目标文件夹建立网站所需要的所有文件。</p>
+<pre><code>hexo <span class="keyword">init</span>
+</code></pre><h2 id="安装依赖包">安装依赖包</h2>
+<pre><code>npm <span class="operator"><span class="keyword">install</span></span>
+</code></pre><h2 id="本地查看">本地查看</h2>
+<p>现在我们已经搭建起本地的hexo博客了，执行以下命令(在D:\hexo)，然后到浏览器输入localhost:4000看看。</p>
+<pre><code>hexo generate                                
+hexo <span class="keyword">server</span>
+</code></pre><h2 id="安装light主题">安装light主题</h2>
+<h3 id="Install">Install</h3>
+<pre><code>git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/hexojs/hexo-theme-light.git themes/light
+</code></pre><h3 id="Update">Update</h3>
+<pre><code><span class="built_in">cd</span> themes/light
+
+git pull
+</code></pre><p>好了，至此，本地博客已经搭建起来了，只是本地哦，别人看不到的。下面，我们要部署到Github。</p>
+<h2 id="注册Github账号">注册Github账号</h2>
+<p>已有账号可以跳过，没有的，请<a href="https://github.com/" target="_blank" rel="external">在此</a>进行注册，很简单，这里就不介绍了。</p>
+<h2 id="创建repository">创建repository</h2>
+<p>在自己<a href="https://github.com/" target="_blank" rel="external">Github</a>主页右下角，创建一个新的repository。比如我的<a href="https://github.com/" target="_blank" rel="external">Github</a>账号是abc，那么我应该创建的repository名字应该是abc.github.io。</p>
+<h2 id="部署">部署</h2>
+<p>编辑_config.yml(在D:\hexo下)。你在部署时，要把下面的abc都换成你的账号名。</p>
+<pre><code><span class="attribute">deploy</span>: <span class="string">          </span>
+<span class="attribute">type</span>: <span class="string">github</span>
+<span class="attribute">repository</span>: <span class="string">https://github.com/abc/abc.github.io.git</span>
+<span class="attribute">branch</span>: <span class="string">master</span>
+</code></pre><p>执行下列指令即可完成部署。</p>
+<pre><code>hexo <span class="keyword">generate</span>
+hexo deploy
+</code></pre><p><strong>注意</strong>：有些新用户需要设置 ssh，否则上述命令会失败。ssh 的介绍和设置方法请看<a href="https://help.github.com/articles/generating-ssh-keys" target="_blank" rel="external">官方教程</a>，不用担心，很简单。</p>
+<p><strong>记住</strong>：每次修改本地文件后，需要hexo generate才能保存。每次使用命令时，都要在D:\hexo目录下。<br>Okay,我们的博客已经完全搭建起来了，在浏览器访问abc.github.io就能看到你的成就了！</p>
+<h2 id="tips">tips</h2>
+<p>hexo现在支持更加简单的命令格式了，比如：</p>
+<p>hexo g == hexo generate</p>
+<p>hexo d == hexo deploy</p>
+<p>hexo s == hexo server</p>
+<p>hexo n == hexo new</p>
+]]></content>
+    <summary type="html"><![CDATA[<h3 id="注意：本文只针对Windows用户。">注意：本文只针对Windows用户。</h3>
+<h2 id="安装Git">安装Git</h2>
+<p>下载<a href="http://msysgit.github.io/" target="_blank" rel="external">msysgit</a> 并执行即可完成安装。</p>
+<h2 id="安装Node-js">安装Node.js</h2>
+<p>在 Windows 环境下安装 Node.js 非常简单，仅须<a href="http://nodejs.org/" target="_blank" rel="external">下载</a>安装文件并执行即可完成安装。</p>
+<p>]]></summary>
+    
+      <category term="Hexo" scheme="http://wlcyhao.github.io/tags/Hexo/"/>
+    
+      <category term="Blog" scheme="http://wlcyhao.github.io/tags/Blog/"/>
+    
+      <category term="Hexo" scheme="http://wlcyhao.github.io/categories/Hexo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[使用rlwrap调用sqlplus中历史命令]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/07/rlwrap-sqlplus/"/>
+    <id>http://wlcyhao.github.io/2014/08/07/rlwrap-sqlplus/</id>
+    <published>2014-08-07T08:05:12.000Z</published>
+    <updated>2014-08-08T08:22:18.000Z</updated>
+    <content type="html"><![CDATA[<p>当在Linux Shell中运行SQL*Plus的时候，并不提供浏览历史命令行的功能。为了在Linux中达到“使用向上，向下键来跳回之前已经执行过的SQL语句”的目的，可以安装 rlwrap。</p>
+<p>rlwrap最新的版本rlwrap-0.37.tar.gz，<br><a id="more"></a><br>[官方主页]：<a href="http://utopia.knoware.nl/~hlub/uck/rlwrap/" target="_blank" rel="external">http://utopia.knoware.nl/~hlub/uck/rlwrap/</a></p>
+<p>安装完成后，可使用如下命令：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="regexp">/usr/</span>local<span class="regexp">/rlwrap/</span>bin<span class="regexp">/rlwrap sqlplus</span></div></pre></td></tr></table></figure>
+
+<p>然后就可以使用 上、下、左、右 键来编辑已执行过的命令；</p>
+<p>如果嫌每次输入这么长的命令很麻烦的话，可以在 oracle用户下的  <strong>.bash_profil</strong>中加入一条alias，如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">alias</span> sqlplus=<span class="string">'/usr/local/rlwrap/bin/rlwrap sqlplus'</span></div></pre></td></tr></table></figure>
+
+<p>这样每次只要直接输入 sqlplus命令就可以使用回调命令的功能了。</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>当在Linux Shell中运行SQL*Plus的时候，并不提供浏览历史命令行的功能。为了在Linux中达到“使用向上，向下键来跳回之前已经执行过的SQL语句”的目的，可以安装 rlwrap。</p>
+<p>rlwrap最新的版本rlwrap-0.37.tar.gz，<br>]]></summary>
+    
+      <category term="Oracle" scheme="http://wlcyhao.github.io/tags/Oracle/"/>
+    
+      <category term="sqlplus" scheme="http://wlcyhao.github.io/tags/sqlplus/"/>
+    
+      <category term="Oracle" scheme="http://wlcyhao.github.io/categories/Oracle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[RAC启动与停止的先后顺序小结]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/07/RAC-start-stop/"/>
+    <id>http://wlcyhao.github.io/2014/08/07/RAC-start-stop/</id>
+    <published>2014-08-07T06:59:56.000Z</published>
+    <updated>2014-08-08T08:22:36.000Z</updated>
+    <content type="html"><![CDATA[<p>RAC启动与停止的先后顺序小结</p>
+<h3 id="停止RAC：">停止RAC：</h3>
+<pre><code>            emctl <span class="keyword">stop</span> dbconsole
+            srvctl <span class="keyword">stop</span> instance -<span class="keyword">d</span> rac -<span class="keyword">i</span> rac1  
+            srvctl <span class="keyword">stop</span> instance -<span class="keyword">d</span> rac -<span class="keyword">i</span> rac2
+            srvctl <span class="keyword">stop</span> asm -<span class="keyword">n</span> rac1
+            srvctl <span class="keyword">stop</span> asm -<span class="keyword">n</span> rac2
+            srvctl <span class="keyword">stop</span> nodeapps -<span class="keyword">n</span> rac1
+            srvctl <span class="keyword">stop</span> nodeapps -<span class="keyword">n</span> rac2
+</code></pre><p><a id="more"></a></p>
+<h3 id="启动RAC：">启动RAC：</h3>
+<pre><code>            和上面的步骤正好相反即
+            srvctl <span class="operator"><span class="keyword">start</span> nodeapps -n rac1
+            srvctl <span class="keyword">start</span> nodeapps -n rac2
+            srvctl <span class="keyword">start</span> asm -n rac1
+            srvctl <span class="keyword">start</span> asm -n rac2
+            srvctl <span class="keyword">start</span> instance -d rac -i rac2
+            srvctl <span class="keyword">start</span> instance -d rac -i rac1
+            emctl <span class="keyword">start</span> dbconsole </span>
+</code></pre>]]></content>
+    <summary type="html"><![CDATA[<p>RAC启动与停止的先后顺序小结</p>
+<h3 id="停止RAC：">停止RAC：</h3>
+<pre><code>            emctl <span class="keyword">stop</span> dbconsole
+            srvctl <span class="keyword">stop</span> instance -<span class="keyword">d</span> rac -<span class="keyword">i</span> rac1  
+            srvctl <span class="keyword">stop</span> instance -<span class="keyword">d</span> rac -<span class="keyword">i</span> rac2
+            srvctl <span class="keyword">stop</span> asm -<span class="keyword">n</span> rac1
+            srvctl <span class="keyword">stop</span> asm -<span class="keyword">n</span> rac2
+            srvctl <span class="keyword">stop</span> nodeapps -<span class="keyword">n</span> rac1
+            srvctl <span class="keyword">stop</span> nodeapps -<span class="keyword">n</span> rac2
+</code></pre><p>]]></summary>
+    
+      <category term="Oracle" scheme="http://wlcyhao.github.io/tags/Oracle/"/>
+    
+      <category term="RAC" scheme="http://wlcyhao.github.io/tags/RAC/"/>
+    
+      <category term="Oracle" scheme="http://wlcyhao.github.io/categories/Oracle/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Hello World，Hello Hexo!]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/07/hello-world/"/>
+    <id>http://wlcyhao.github.io/2014/08/07/hello-world/</id>
+    <published>2014-08-07T02:59:25.000Z</published>
+    <updated>2014-08-08T08:22:56.000Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2>
+<a id="more"></a>
+
+<h3 id="Create_a_new_post">Create a new post</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server">Run server</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files">Generate static files</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
+
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
+
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    <summary type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2>
+]]></summary>
+    
+      <category term="Hexo" scheme="http://wlcyhao.github.io/tags/Hexo/"/>
+    
+      <category term="Hexo" scheme="http://wlcyhao.github.io/categories/Hexo/"/>
+    
+  </entry>
+  
+</feed>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wlcyhao.github.io/"/>
-  <updated>2014-08-09T12:56:03.150Z</updated>
+  <updated>2014-08-09T13:08:43.562Z</updated>
   <id>http://wlcyhao.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://wlcyhao.github.io/2014/08/09/upload-to-github/"/>
     <id>http://wlcyhao.github.io/2014/08/09/upload-to-github/</id>
     <published>2014-08-09T12:47:37.000Z</published>
-    <updated>2014-08-09T12:55:33.000Z</updated>
+    <updated>2014-08-09T13:07:16.000Z</updated>
     <content type="html"><![CDATA[<h2 id="第一步、建立先仓库">第一步、建立先仓库</h2>
 <p>第一步的话看一般的提示就知道了，在github新建一个repository（谷歌可以解决），都是可视化的界面操作，所以难度不大。或者看这里：<a href="https://help.github.com/articles/create-a-repo" target="_blank" rel="external">官方help</a> ，虽然是英文的，但是基本都是图和代码，所以很容易读懂。</p>
 <p>在github首页的右上角，点击红框中的Create New Repo。<br><img src="/img/2012082415173733.png" alt="Create New Repo"></p>
@@ -41,6 +41,14 @@ Warning: Permanently added 'github.com,207.97.227.239' (RSA) to the list of know
 Hi findingsea! You've successfully authenticated, but GitHub does not provide shell access.
 </code></pre>
 
+<p>会有一个Warning，不用理会。</p>
+<p>接下来对库进行clone，如下：</p>
+<pre><code>
+git clone https://github.com/findingsea/myRepoForBlog.git
+</code></pre>
+
+<p>上面的地址可以在如下界面找到：</p>
+<p><img src="/img/2012082417211682.png" alt="Create repository"></p>
 <p>clone成功如下：</p>
 <pre><code>
 Cloning into 'myRepoForBlog'...

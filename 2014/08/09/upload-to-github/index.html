@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>让虚拟机支持安装64位操作系统的处理方法 | Horace&#39;s IT Blog！</title>
+  <title>关于上传文件到github的方法 | Horace&#39;s IT Blog！</title>
   <meta name="author" content="Horace">
   
   <meta name="description" content="有志者,事竟成,破釜沉舟,百二秦关终属楚；苦心人,天不负,卧薪尝胆,三千越甲可吞吴！">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="让虚拟机支持安装64位操作系统的处理方法"/>
+  <meta property="og:title" content="关于上传文件到github的方法"/>
   <meta property="og:site_name" content="Horace&#39;s IT Blog！"/>
 
   
@@ -53,23 +53,106 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-09T02:59:39.000Z"><a href="/2014/08/09/VirtuleMachine-Support64bit/">8月 9 2014</a></time>
+        <time datetime="2014-08-09T12:47:37.000Z"><a href="/2014/08/09/upload-to-github/">8月 9 2014</a></time>
       
       
   
-    <h1 class="title">让虚拟机支持安装64位操作系统的处理方法</h1>
+    <h1 class="title">关于上传文件到github的方法</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>尝试虚拟的操作系统是CentOS-5.4-x86_64，因此在系统选项中选择了Other Linux 64bit，尝试系统后系统报错：  </p>
-<p>This CPU is VT-capable, but VT is not enabled (check your BIOS settings).<br>You have configured this virtual machine as a 64-bit guest operating system. However, this host’s CPU is not capable of running 64-bit virtual machines or this virtual machine has 64-bit support disabled.<br>For more detailed information, see <a href="http://www.vmware.com/info?id=152" target="_blank" rel="external">http://www.vmware.com/info?id=152</a></p>
-<p><a id="more"></a><br>点击确定，屏幕显示错误信息为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Your CPU does <span class="operator">not</span> support <span class="keyword">long</span> mode. Use <span class="operator">a</span> <span class="number">32</span>bit distribution.</div></pre></td></tr></table></figure>
+        <h2 id="第一步、建立先仓库">第一步、建立先仓库</h2>
+<p>第一步的话看一般的提示就知道了，在github新建一个repository（谷歌可以解决），都是可视化的界面操作，所以难度不大。或者看这里：<a href="https://help.github.com/articles/create-a-repo" target="_blank" rel="external">官方help</a> ，虽然是英文的，但是基本都是图和代码，所以很容易读懂。</p>
+<p>在github首页的右上角，点击红框中的Create New Repo。<br><img src="/img/2012082415173733.png" alt="Create New Repo"></p>
+<p><a id="more"></a><br>进入新建仓库的界面  </p>
+<p><img src="/img/2012082416481736.png" alt="Create repository"></p>
+<p>填一下仓库名称，Initialize this repository with a README是可选的，不过本人建议最好选上，可以在后面省一个步骤。填好之后，点Create repository就行了。  </p>
+<h2 id="第二步、克隆仓库">第二步、克隆仓库</h2>
+<p>第二步开始就基本进入命令行模式了，不过要先从github上下载命令行工具。<a href="http://windows.github.com/" target="_blank" rel="external">下载地址</a></p>
+<p>然后进行简单的安装之后，会在桌面上创建两个图标，GitHub和Git Shell，GitHub是图形界面，Git Shell是命令行模式，而且默认的Git仓库是建在C盘的，建议要把路径重设下。</p>
+<p>点开Git Shell，进入命令行。首先我们先要把GitHub上的我们新建的仓库clone下来，为了演示，我在GitHub上新建了一个名称为myRepoForBlog的git。</p>
+<p>在初始化版本库之前，先要确认认证的公钥是否正确，如下：</p>
+<pre><code>
+ssh -T git@github.com
+</code></pre>
 
-<p>对于这种情况，需要设置本机的BIOS，将【Inter Virtualization Technology】选项设置为：<strong>ENABLE</strong>，然后重启系统，就可以了.</p>
-<p><strong>注意</strong>：这里指的是本机的BIOS，而非虚拟机的BIOS，如果BIOS设置了没有类似的设置，那么系统就无法虚拟64位的系统了。</p>
+<p>正确地结果如下：</p>
+<pre><code>
+Warning: Permanently added 'github.com,207.97.227.239' (RSA) to the list of known hosts.  
+Hi findingsea! You've successfully authenticated, but GitHub does not provide shell access.
+</code></pre>
+
+<p>clone成功如下：</p>
+<pre><code>
+Cloning into 'myRepoForBlog'...
+Warning: Permanently added 'github.com,207.97.227.239' (RSA) to the list of known hosts.
+remote: Counting objects: 3, done.
+remote: Total 3 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (3/3), done.
+</code></pre>
+
+<h2 id="第三步、上传README-md文件">第三步、上传README.md文件</h2>
+<p>这个时候，我们的GitHub文件夹下就多了一个myRepoForBlog文件夹，进入文件夹目录，对仓库进行初始化，如果我们之前没有勾选创建README，则要先创建README.md文件，不然上传文件会报错。如果在第一步就勾选过了<strong>Initialize this repository with a README</strong>,<br>则可以直接进入第四步。</p>
+<pre><code>
+git init  
+touch README.md  
+git add README.md  
+git commit -m 'first_commit'  
+git remote add origin https://github.com/findingsea/  myRepoForBlog.git
+git push origin master
+</code></pre>
+
+<h2 id="第四步、push文件">第四步、push文件</h2>
+<p>创建完README.md后，就可以push了，代码类似。</p>
+<pre><code>
+git add .  
+git commit -m 'first_commit'  
+git remote add origin https://github.com/findingsea/myRepoForBlog.git  
+git push origin master  
+</code></pre>
+
+<p>如果执行</p>
+<pre><code>
+git remote add origin https://github.com/findingsea/myRepoForBlog.git，
+</code></pre>
+
+<p>出现错误：</p>
+<pre><code>
+fatal: remote origin already exists
+</code></pre>
+
+<p>则执行以下语句：</p>
+<pre><code>
+git remote rm origin
+</code></pre>
+
+<p>再往后执行</p>
+<pre><code>
+git remote add origin https://github.com/findingsea/myRepoForBlog.git
+</code></pre>
+
+
+<p>再执行</p>
+<pre><code>
+git push origin master
+</code></pre>
+
+<p>如果出现报错：</p>
+<pre><code>
+error:failed to push som refs to.......
+</code></pre>
+
+<p>则执行以下语句：</p>
+<pre><code>
+git pull origin master
+</code></pre>
+
+<p>先把远程服务器github上面的文件拉先来，再push 上去。</p>
+<p>【结束】</p>
+<p>再次要强调这篇文章主要是对初学者的，也就我这种github菜鸟的。</p>
+<p>最后感谢那些无私分享自己经验和知识的博主们。</p>
 
       
     </div>
@@ -78,13 +161,13 @@
         
   
   <div class="categories">
-    <a href="/categories/虚拟机/">虚拟机</a>
+    <a href="/categories/github/">github</a>
   </div>
 
         
   
   <div class="tags">
-    <a href="/tags/虚拟机，64位/">虚拟机，64位</a>
+    <a href="/tags/github/">github</a>, <a href="/tags/上传文件/">上传文件</a>
   </div>
 
 		<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>

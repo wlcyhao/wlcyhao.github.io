@@ -4,7 +4,7 @@
   <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wlcyhao.github.io/"/>
-  <updated>2014-08-09T13:32:06.039Z</updated>
+  <updated>2014-08-14T01:44:37.725Z</updated>
   <id>http://wlcyhao.github.io/</id>
   
   <author>
@@ -704,7 +704,7 @@ hostname(config-if)# ；接口状态
     <link href="http://wlcyhao.github.io/2014/08/08/Hexo-buildblog/"/>
     <id>http://wlcyhao.github.io/2014/08/08/Hexo-buildblog/</id>
     <published>2014-08-08T08:01:14.000Z</published>
-    <updated>2014-08-08T08:21:04.000Z</updated>
+    <updated>2014-08-14T01:23:27.000Z</updated>
     <content type="html"><![CDATA[<h3 id="注意：本文只针对Windows用户。">注意：本文只针对Windows用户。</h3>
 <h2 id="安装Git">安装Git</h2>
 <p>下载<a href="http://msysgit.github.io/" target="_blank" rel="external">msysgit</a> 并执行即可完成安装。</p>
@@ -720,7 +720,7 @@ hostname(config-if)# ；接口状态
 </code></pre><h2 id="安装依赖包">安装依赖包</h2>
 <pre><code>npm <span class="operator"><span class="keyword">install</span></span>
 </code></pre><h2 id="本地查看">本地查看</h2>
-<p>现在我们已经搭建起本地的hexo博客了，执行以下命令(在D:\hexo)，然后到浏览器输入localhost:4000看看。</p>
+<p>现在我们已经搭建起本地的hexo博客了，执行以下命令(在D:\hexo)，然后到浏览器输入:<a href="localhost:4000" target="_blank" rel="external">地址</a>看看。</p>
 <pre><code>hexo generate                                
 hexo <span class="keyword">server</span>
 </code></pre><h2 id="安装light主题">安装light主题</h2>

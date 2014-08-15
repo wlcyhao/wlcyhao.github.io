@@ -4,7 +4,7 @@
   <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wlcyhao.github.io/"/>
-  <updated>2014-08-15T12:44:26.957Z</updated>
+  <updated>2014-08-15T15:24:31.290Z</updated>
   <id>http://wlcyhao.github.io/</id>
   
   <author>
@@ -13,6 +13,74 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Hexo博客优化：添加返回顶部功能]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/15/hexo_add_backtotop/"/>
+    <id>http://wlcyhao.github.io/2014/08/15/hexo_add_backtotop/</id>
+    <published>2014-08-15T15:21:26.000Z</published>
+    <updated>2014-08-15T15:22:59.000Z</updated>
+    <content type="html"><![CDATA[<p>1.添加HTML代码。新建文件 /themes/light/layout/_partial/totop.ejs ，在文件中加入HTML代码：</p>
+<pre><code> <span class="tag">&lt;<span class="title">DIV</span> <span class="attribute">style</span>=<span class="value">"DISPLAY: none"</span> <span class="attribute">id</span>=<span class="value">goTopBtn</span> <span class="attribute">title</span>=<span class="value">"Scroll Back to Top"</span>&gt;</span><span class="tag">&lt;<span class="title">IMG</span> <span class="attribute">border</span>=<span class="value">0</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;images/top.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">DIV</span>&gt;</span>
+ <span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span>&gt;</span><span class="javascript">goTopEx();</span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
+</code></pre><p>2、在文件hemes/light/layout/_partial/head.ejs 添加</p>
+<pre><code><span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;js/scrolltop.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
+</code></pre><a id="more"></a> 
+
+<p>3.添加JS代码。新建文件 /themes/light/source/js/scrolltop.js，在文件中添加javascript代码：</p>
+<pre><code> <span class="comment">// JavaScript Document</span>
+<span class="function"><span class="keyword">function</span> <span class="title">goTopEx</span><span class="params">()</span></span>{
+<span class="keyword">var</span> obj=<span class="built_in">document</span>.getElementById(<span class="string">"goTopBtn"</span>);
+<span class="function"><span class="keyword">function</span> <span class="title">getScrollTop</span><span class="params">()</span></span>{
+    <span class="keyword">return</span> <span class="built_in">document</span>.documentElement.scrollTop+<span class="built_in">document</span>.body.scrollTop;
+}
+<span class="function"><span class="keyword">function</span> <span class="title">setScrollTop</span><span class="params">(value)</span></span>{
+    <span class="keyword">if</span>(<span class="built_in">document</span>.documentElement.scrollTop){
+        <span class="built_in">document</span>.documentElement.scrollTop=value;
+    }<span class="keyword">else</span>{
+        <span class="built_in">document</span>.body.scrollTop=value;
+    }
+} 
+<span class="built_in">window</span>.onscroll=<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{getScrollTop()&gt;<span class="number">0</span>?obj.style.display=<span class="string">""</span>:obj.style.display=<span class="string">"none"</span>;}
+obj.onclick=<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
+    <span class="keyword">var</span> goTop=setInterval(scrollMove,<span class="number">10</span>);
+    <span class="function"><span class="keyword">function</span> <span class="title">scrollMove</span><span class="params">()</span></span>{
+        setScrollTop(getScrollTop()/<span class="number">1.1</span>);
+        <span class="keyword">if</span>(getScrollTop()&lt;<span class="number">1</span>)clearInterval(goTop);
+    }
+}
+}
+</code></pre><p>4、在目录themes/light/source/css/_partial新建文件scrolltop.styl，内容如下：</p>
+<pre><code> <span class="id">#goTopBtn</span>
+  <span class="attribute">POSITION</span> <span class="value">fixed</span>
+  <span class="attribute">TEXT-ALIGN</span> <span class="value">center</span>
+  -<span class="attribute">HEIGHT</span> 30px
+   <span class="attribute">WIDTH</span> 45px
+   <span class="attribute">BOTTOM</span> 35px
+   <span class="attribute">HEIGHT</span> 47px
+   <span class="attribute">FONT-SIZE</span> 12px
+   <span class="attribute">CURSOR</span> <span class="value">pointer</span>
+   <span class="attribute">RIGHT</span> 10px
+   _position <span class="value">absolute</span>
+   _right <span class="attribute">auto</span>
+</code></pre><p>5、在文件themes/light/source/css/style.styl添加：</p>
+<pre><code>@<span class="keyword">import</span> <span class="string">'_partial/scrolltop'</span>
+</code></pre><p>6、添加按钮图片，将图片复制到themes/light/source/images，文件名为top.jpg</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>1.添加HTML代码。新建文件 /themes/light/layout/_partial/totop.ejs ，在文件中加入HTML代码：</p>
+<pre><code> <span class="tag">&lt;<span class="title">DIV</span> <span class="attribute">style</span>=<span class="value">"DISPLAY: none"</span> <span class="attribute">id</span>=<span class="value">goTopBtn</span> <span class="attribute">title</span>=<span class="value">"Scroll Back to Top"</span>&gt;</span><span class="tag">&lt;<span class="title">IMG</span> <span class="attribute">border</span>=<span class="value">0</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;images/top.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">DIV</span>&gt;</span>
+ <span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span>&gt;</span><span class="javascript">goTopEx();</span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
+</code></pre><p>2、在文件hemes/light/layout/_partial/head.ejs 添加</p>
+<pre><code><span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;js/scrolltop.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
+</code></pre>]]></summary>
+    
+      <category term="hexo" scheme="http://wlcyhao.github.io/tags/hexo/"/>
+    
+      <category term="返回顶部" scheme="http://wlcyhao.github.io/tags/%E8%BF%94%E5%9B%9E%E9%A1%B6%E9%83%A8/"/>
+    
+      <category term="Hexo" scheme="http://wlcyhao.github.io/categories/Hexo/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[hexo博客的优化技巧]]></title>

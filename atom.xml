@@ -4,7 +4,7 @@
   <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wlcyhao.github.io/"/>
-  <updated>2014-08-15T12:42:49.760Z</updated>
+  <updated>2014-08-15T12:44:26.957Z</updated>
   <id>http://wlcyhao.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://wlcyhao.github.io/2014/08/15/hexo_yohua/"/>
     <id>http://wlcyhao.github.io/2014/08/15/hexo_yohua/</id>
     <published>2014-08-15T12:37:43.000Z</published>
-    <updated>2014-08-15T12:42:21.000Z</updated>
+    <updated>2014-08-15T12:44:12.000Z</updated>
     <content type="html"><![CDATA[<h2 id="添加“多说”评论">添加“多说”评论</h2>
 <p>1、在<a href="http://duoshuo.com/" target="_blank" rel="external">多说</a>进行注册，获得通用代码。<br>2、将通用代码粘贴到themes<em>\light\layout_partial\comment.ejs</em>里面，如下：  </p>
 <pre><code><span class="vbscript">&lt;% <span class="keyword">if</span> ( page.comments){ %&gt;</span>
@@ -94,7 +94,7 @@
     
       <category term="优化" scheme="http://wlcyhao.github.io/tags/%E4%BC%98%E5%8C%96/"/>
     
-      <category term="hexo" scheme="http://wlcyhao.github.io/categories/hexo/"/>
+      <category term="Hexo" scheme="http://wlcyhao.github.io/categories/Hexo/"/>
     
   </entry>
   

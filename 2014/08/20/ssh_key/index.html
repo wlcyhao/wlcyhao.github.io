@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Oracle | Horace&#39;s IT Blog！</title>
+  <title>ssh指定私钥的配置管理 | Horace&#39;s IT Blog！</title>
   <meta name="author" content="Horace">
   
   <meta name="description" content="有志者,事竟成,破釜沉舟,百二秦关终属楚；苦心人,天不负,卧薪尝胆,三千越甲可吞吴！">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="ssh指定私钥的配置管理"/>
   <meta property="og:site_name" content="Horace&#39;s IT Blog！"/>
 
   
@@ -49,49 +49,86 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-<h2 class="archive-title category">Oracle</h2>
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-20T03:40:50.000Z"><a href="/2014/08/20/ssh_key/">8月 20 2014</a></time>
+      
+      
+  
+    <h1 class="title">ssh指定私钥的配置管理</h1>
+  
 
+    </header>
+    <div class="entry">
+      
+        <h1 id="ssh指定私钥的配置管理">ssh指定私钥的配置管理</h1>
+<p>用ssh 公钥认证方式登录非常常见，快速方便，通常就是用<code>ssh-keygen -t rsa</code> 在 ~/.ssh 目录下生成默认名称的id_rsa和id_rsa.pub 文件</p>
+<p>特别是git流行之后，用ssh的方式访问git服务器，部署起来最容易</p>
+<p>实际上，ssh 私钥的名称和生成地点都可以单独指定的, <strong>和硬件操作系统无关</strong><br><a id="more"></a><br>你可以在任意一台服务器上生成 公钥,私钥对，保存起来，到处分发使用</p>
+<p>指定的配置文件叫做 ssh_config , man ssh_config ，有详细说明</p>
+<h2 id="个性化指定_私钥的步骤">个性化指定 私钥的步骤</h2>
+<p>vi ~/.ssh/config文件，加入如下 配置行</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="number">1.</span>   Host xxxx</div><div class="line"><span class="number">2.</span>   IdentityFile 私钥文件名（不是id_rsa.pub)</div><div class="line"><span class="number">3.</span>   Port 端口号</div><div class="line"><span class="number">4.</span>   User 你登陆xxxx服务器用的账号</div><div class="line">     <span class="keyword">...</span></div></pre></td></tr></table></figure>
 
-  <div class="archive">
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2014-08-09T03:19:25.000Z"><a href="/2014/08/09/RAC-Promblem-solution/">8月 9 2014</a></time>
-            
-              <h1 class="title"><a href="/2014/08/09/RAC-Promblem-solution/">Oracle RAC安装过程中碰到问题及解决方法</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2014-08-07T08:05:12.000Z"><a href="/2014/08/07/rlwrap-sqlplus/">8月 7 2014</a></time>
-            
-              <h1 class="title"><a href="/2014/08/07/rlwrap-sqlplus/">使用rlwrap调用sqlplus中历史命令</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2014-08-07T06:59:56.000Z"><a href="/2014/08/07/RAC-start-stop/">8月 7 2014</a></time>
-            
-              <h1 class="title"><a href="/2014/08/07/RAC-start-stop/">RAC启动与停止的先后顺序小结</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
+<p><strong>注意：</strong></p>
+<ul>
+<li>这个文件没有格式，一行一条记录，不需要tab缩进</li>
+<li>你可以在这个文件里面指定多个Host</li>
+<li>一个 Host开头的行 到下一个 Host开头的行 是 这个host的细节设置</li>
+<li>全局的ssh config 文件在<code>/etc/ssh/ssh_config</code></li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/服务器运维/">服务器运维</a>
   </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/ssh/">ssh</a>
+  </div>
+
+		<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="请将此处替换成文章在你的站点中的ID" data-title="请替换成文章的标题" data-url="请替换成文章的网址"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"horace"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+
+</section>
+
 </div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wlcyhao.github.io/"/>
-  <updated>2014-08-19T09:36:27.239Z</updated>
+  <updated>2014-08-20T03:43:26.803Z</updated>
   <id>http://wlcyhao.github.io/</id>
   
   <author>
@@ -15,11 +15,45 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[ssh指定私钥的配置管理]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/20/ssh_key/"/>
+    <id>http://wlcyhao.github.io/2014/08/20/ssh_key/</id>
+    <published>2014-08-20T03:40:50.000Z</published>
+    <updated>2014-08-20T03:42:51.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="ssh指定私钥的配置管理">ssh指定私钥的配置管理</h1>
+<p>用ssh 公钥认证方式登录非常常见，快速方便，通常就是用<code>ssh-keygen -t rsa</code> 在 ~/.ssh 目录下生成默认名称的id_rsa和id_rsa.pub 文件</p>
+<p>特别是git流行之后，用ssh的方式访问git服务器，部署起来最容易</p>
+<p>实际上，ssh 私钥的名称和生成地点都可以单独指定的, <strong>和硬件操作系统无关</strong><br><a id="more"></a><br>你可以在任意一台服务器上生成 公钥,私钥对，保存起来，到处分发使用</p>
+<p>指定的配置文件叫做 ssh_config , man ssh_config ，有详细说明</p>
+<h2 id="个性化指定_私钥的步骤">个性化指定 私钥的步骤</h2>
+<p>vi ~/.ssh/config文件，加入如下 配置行</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="number">1.</span>   Host xxxx</div><div class="line"><span class="number">2.</span>   IdentityFile 私钥文件名（不是id_rsa.pub)</div><div class="line"><span class="number">3.</span>   Port 端口号</div><div class="line"><span class="number">4.</span>   User 你登陆xxxx服务器用的账号</div><div class="line">     <span class="keyword">...</span></div></pre></td></tr></table></figure>
+
+<p><strong>注意：</strong></p>
+<ul>
+<li>这个文件没有格式，一行一条记录，不需要tab缩进</li>
+<li>你可以在这个文件里面指定多个Host</li>
+<li>一个 Host开头的行 到下一个 Host开头的行 是 这个host的细节设置</li>
+<li>全局的ssh config 文件在<code>/etc/ssh/ssh_config</code></li>
+</ul>
+]]></content>
+    <summary type="html"><![CDATA[<h1 id="ssh指定私钥的配置管理">ssh指定私钥的配置管理</h1>
+<p>用ssh 公钥认证方式登录非常常见，快速方便，通常就是用<code>ssh-keygen -t rsa</code> 在 ~/.ssh 目录下生成默认名称的id_rsa和id_rsa.pub 文件</p>
+<p>特别是git流行之后，用ssh的方式访问git服务器，部署起来最容易</p>
+<p>实际上，ssh 私钥的名称和生成地点都可以单独指定的, <strong>和硬件操作系统无关</strong><br>]]></summary>
+    
+      <category term="ssh" scheme="http://wlcyhao.github.io/tags/ssh/"/>
+    
+      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Markdown语法入门]]></title>
     <link href="http://wlcyhao.github.io/2014/08/19/markdown_rumen/"/>
     <id>http://wlcyhao.github.io/2014/08/19/markdown_rumen/</id>
     <published>2014-08-19T09:29:11.000Z</published>
-    <updated>2014-08-19T09:36:14.000Z</updated>
+    <updated>2014-08-19T09:37:21.000Z</updated>
     <content type="html"><![CDATA[<h2 id="基本符号">基本符号</h2>
 <ul>
 <li>*,-,+ 3个符号效果都一样，这3个符号被称为<strong>Markdown</strong>符号</li>
@@ -30,8 +64,12 @@
 <ul>
 <li>单一段落( \<p\>) 用一个空白行</p\></li>
 <li>连续两个空格 会变成一个 \<br\></br\></li>
-<li>连续3个符号，然后是空行，表示 hr横线<br><a id="more"></a><h2 id="标题">标题</h2>
-</li>
+<li>连续3个符号，然后是空行，表示 hr横线</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="标题">标题</h2>
+<ul>
 <li>生成h1—h6,在文字前面加上 1—6个# 来实现</li>
 <li>文字加粗是通过 文字左右各两个符号</li>
 </ul>
@@ -76,7 +114,9 @@
 <ul>
 <li>单一段落( \<p\>) 用一个空白行</p\></li>
 <li>连续两个空格 会变成一个 \<br\></br\></li>
-<li>连续3个符号，然后是空行，表示 hr横线<br>]]></summary>
+<li>连续3个符号，然后是空行，表示 hr横线</li>
+</ul>
+]]></summary>
     
       <category term="Markdown" scheme="http://wlcyhao.github.io/tags/Markdown/"/>
     

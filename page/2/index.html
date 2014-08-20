@@ -56,25 +56,75 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-09T06:56:54.000Z"><a href="/2014/08/09/cisco-swith-interface-mode/">8月 9 2014</a></time>
+        <time datetime="2014-08-20T07:00:45.000Z"><a href="/2014/08/20/securecrt_vps_bug/">8月 20 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2014/08/09/cisco-swith-interface-mode/">Cisco交换机接口模式精解</a></h1>
+    <h1 class="title"><a href="/2014/08/20/securecrt_vps_bug/">修复secureCRT 登录 vps 中文乱码问题</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>cisco网络中，交换机在局域网中最终稳定状态的接口类型主要有四种：access/ trunk/ multi/ dot1q-tunnel。  </p>
-<p>1、access: 主要用来接入终端设备，如PC机、服务器、打印服务器等。<br>2、trunk: 主要用在连接其它交换机，以便在线路上承载多个vlan。<br>3、multi: 在一个线路中承载多个vlan，但不像trunk,它不对承载的数据打 标签。主要用于接入支持多vlan的服务器或者一些网络分析设备。现在基本不使用此类接口，在cisco的网络设备中，也基本不支持此类接口了。<br>4、dot1q-tunnel: 用在Q-in-Q隧道配置中。<br>
+        <p>让vps正常显示中文，只需要三步</p>
+<ol>
+<li><p><code>vim ~/.profile</code> 加入下面一行 export LANG=”zh_CN.UTF-8”</p>
+</li>
+<li><p>修改SecureCRT 编码<br>选项-&gt;会话选项-&gt;外观-&gt;字符编码-&gt;uft-8，退出重新登录就行了</p>
+</li>
+<li><p>让vim支持中文显示，修改文件（如果没有就新建一个）:~/.vimrc，添加下面三行<br>```</p>
+<ol>
+<li>set encoding=utf-8</li>
+<li>set fileencodings=utf-8,gb2312,gb18030,gbk</li>
+<li>set termencoding=utf-8</li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-20T06:52:13.000Z"><a href="/2014/08/20/shell_monitor_vps/">8月 20 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/08/20/shell_monitor_vps/">用shell脚本监控vps实时流量</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>一般来说，实时流量监控有两种方法</p>
+<ul>
+<li>安装iftop，它会通过ascii图形化显示实时流量数据，比较直观</li>
+<li>用shell脚本采集<code>/proc/net/dev</code>中的实时数据，很简单，不依赖任何安装包，对于内网linux服务器特别有帮助</li>
+</ul>
+
       
     </div>
     <footer>
       
         
           <div class="alignleft">
-            <a href="/2014/08/09/cisco-swith-interface-mode/#more" class="more-link">Read More</a>
+            <a href="/2014/08/20/shell_monitor_vps/#more" class="more-link">Read More</a>
           </div>
         
         
@@ -93,37 +143,27 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-09T06:45:22.000Z"><a href="/2014/08/09/switch-and-router-command/">8月 9 2014</a></time>
+        <time datetime="2014-08-20T06:45:32.000Z"><a href="/2014/08/20/master_crontab/">8月 20 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2014/08/09/switch-and-router-command/">交换机&amp;路由器命令小全（带中文注释）</a></h1>
+    <h1 class="title"><a href="/2014/08/20/master_crontab/">一分钟学会crontab使用</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <h2 id="1-_交换机支持的命令：">1. 交换机支持的命令：</h2>
-<p>交换机基本状态： </p>
-<pre><code>
-switch: ；ROM状态， 路由器是rommon>
-
-hostname> ；用户模式
-
-hostname# ；特权模式
-
-hostname(config)# ；全局配置模式
-
-hostname(config-if)# ；接口状态
-</code></pre>
-
+        <p>crontab 是在linux服务器上部署定时任务的方法</p>
+<p><code>0 5 * * * /usr/bin/python /data/www/tools/mysql_backup.py</code></p>
+<p>cmd之前有5个项目要填，分别对应</p>
+<p><code>分钟 小时 天 月 一周当中第几天( 0-6 ,0表示星期天)</code><br>
       
     </div>
     <footer>
       
         
           <div class="alignleft">
-            <a href="/2014/08/09/switch-and-router-command/#more" class="more-link">Read More</a>
+            <a href="/2014/08/20/master_crontab/#more" class="more-link">Read More</a>
           </div>
         
         
@@ -142,34 +182,32 @@ hostname(config-if)# ；接口状态
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-09T03:19:25.000Z"><a href="/2014/08/09/RAC-Promblem-solution/">8月 9 2014</a></time>
+        <time datetime="2014-08-20T06:07:00.000Z"><a href="/2014/08/20/1921681124/">8月 20 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2014/08/09/RAC-Promblem-solution/">Oracle RAC安装过程中碰到问题及解决方法</a></h1>
+    <h1 class="title"><a href="/2014/08/20/1921681124/">192.168.1.1/24是什么含义</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <h2 id="这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。">这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。</h2>
-<h3 id="错误一：">错误一：</h3>
-<p>配置共享磁盘的问题。如果共享磁盘本身有内容，可能会导致在安装完CLUSTERWARE后，执行root.sh时出错，错误信息为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed <span class="keyword">to</span> upgrade Oracle Cluster Registry <span class="keyword">configuration</span>。</div></pre></td></tr></table></figure>
-
-
-
-<p>这时可以利用dd命令来清除ocr和voting disk的共享磁盘。类似命令为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dd <span class="variable">if=</span>/dev/zero <span class="variable">of=</span>/dev/rdsk/c2t0d2s3 <span class="variable">bs=</span><span class="number">1073741824</span> <span class="variable">count=</span><span class="number">1</span></div></pre></td></tr></table></figure>
-
-<p>其中of指定需要清除的共享磁盘设备，而bs指定该设备的空间大小。<br>清除之后，再次运行root.sh，则问题消失。<br>
+        <h1 id="IP的定义">IP的定义</h1>
+<p>ip 是32位无符号整数，最小，最大分别是</p>
+<ul>
+<li>0.0.0.0 - 255.255.255.255 具体来说，由一个ip由 Net-ID+Host-ID 两部分组成，Net-ID 相同，那么就说明在一个网段内，可以用mac数据帧直接通信。</li>
+</ul>
+<p>给定一个Net-ID</p>
+<ul>
+<li>host-ID全为0的ip，(192.168.2.0)代表整子小网络，</li>
+<li><p>host-ID全为1的ip，是这个子网络的广播地址<br>ip总共就32个字节，当 HostID 所占用的位越大，亦即 HostID 数量越多时，表示同一个网络内可用以设定主机的 IP 数量越多<br>
       
     </div>
     <footer>
       
         
           <div class="alignleft">
-            <a href="/2014/08/09/RAC-Promblem-solution/#more" class="more-link">Read More</a>
+            <a href="/2014/08/20/1921681124/#more" class="more-link">Read More</a>
           </div>
         
         
@@ -188,67 +226,27 @@ hostname(config-if)# ；接口状态
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-09T02:59:39.000Z"><a href="/2014/08/09/VirtuleMachine-Support64bit/">8月 9 2014</a></time>
+        <time datetime="2014-08-20T03:40:50.000Z"><a href="/2014/08/20/ssh_key/">8月 20 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2014/08/09/VirtuleMachine-Support64bit/">让虚拟机支持安装64位操作系统的处理方法</a></h1>
+    <h1 class="title"><a href="/2014/08/20/ssh_key/">ssh指定私钥的配置管理</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>尝试虚拟的操作系统是CentOS-5.4-x86_64，因此在系统选项中选择了Other Linux 64bit，尝试系统后系统报错：  </p>
-<p>This CPU is VT-capable, but VT is not enabled (check your BIOS settings).<br>You have configured this virtual machine as a 64-bit guest operating system. However, this host’s CPU is not capable of running 64-bit virtual machines or this virtual machine has 64-bit support disabled.<br>For more detailed information, see <a href="http://www.vmware.com/info?id=152" target="_blank" rel="external">http://www.vmware.com/info?id=152</a></p>
-<p>
+        <h1 id="ssh指定私钥的配置管理">ssh指定私钥的配置管理</h1>
+<p>用ssh 公钥认证方式登录非常常见，快速方便，通常就是用<code>ssh-keygen -t rsa</code> 在 ~/.ssh 目录下生成默认名称的id_rsa和id_rsa.pub 文件</p>
+<p>特别是git流行之后，用ssh的方式访问git服务器，部署起来最容易</p>
+<p>实际上，ssh 私钥的名称和生成地点都可以单独指定的, <strong>和硬件操作系统无关</strong><br>
       
     </div>
     <footer>
       
         
           <div class="alignleft">
-            <a href="/2014/08/09/VirtuleMachine-Support64bit/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-08T08:01:14.000Z"><a href="/2014/08/08/Hexo-buildblog/">8月 8 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/08/Hexo-buildblog/">利用Hexo搭建Blog</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h3 id="注意：本文只针对Windows用户。">注意：本文只针对Windows用户。</h3>
-<h2 id="安装Git">安装Git</h2>
-<p>下载<a href="http://msysgit.github.io/" target="_blank" rel="external">msysgit</a> 并执行即可完成安装。</p>
-<h2 id="安装Node-js">安装Node.js</h2>
-<p>在 Windows 环境下安装 Node.js 非常简单，仅须<a href="http://nodejs.org/" target="_blank" rel="external">下载</a>安装文件并执行即可完成安装。</p>
-<p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/08/Hexo-buildblog/#more" class="more-link">Read More</a>
+            <a href="/2014/08/20/ssh_key/#more" class="more-link">Read More</a>
           </div>
         
         
@@ -294,7 +292,7 @@ hostname(config-if)# ；接口状态
   
     <li><a href="/categories/github/">github</a><small>1</small></li>
   
-    <li><a href="/categories/服务器运维/">服务器运维</a><small>1</small></li>
+    <li><a href="/categories/服务器运维/">服务器运维</a><small>10</small></li>
   
     <li><a href="/categories/虚拟机/">虚拟机</a><small>1</small></li>
   
@@ -306,7 +304,7 @@ hostname(config-if)# ；接口状态
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/Hexo/" style="font-size: 15.00px;">Hexo</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/Oracle/" style="font-size: 20.00px;">Oracle</a><a href="/tags/RAC/" style="font-size: 15.00px;">RAC</a><a href="/tags/cisco/" style="font-size: 10.00px;">cisco</a><a href="/tags/github/" style="font-size: 10.00px;">github</a><a href="/tags/hexo/" style="font-size: 15.00px;">hexo</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a><a href="/tags/ssh/" style="font-size: 10.00px;">ssh</a><a href="/tags/上传文件/" style="font-size: 10.00px;">上传文件</a><a href="/tags/交换机/" style="font-size: 15.00px;">交换机</a><a href="/tags/优化/" style="font-size: 10.00px;">优化</a><a href="/tags/虚拟机，64位/" style="font-size: 10.00px;">虚拟机，64位</a><a href="/tags/语法/" style="font-size: 10.00px;">语法</a><a href="/tags/路由器/" style="font-size: 10.00px;">路由器</a><a href="/tags/返回顶部/" style="font-size: 10.00px;">返回顶部</a>
+    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a><a href="/tags/IP/" style="font-size: 10.00px;">IP</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/Oracle/" style="font-size: 16.67px;">Oracle</a><a href="/tags/RAC/" style="font-size: 13.33px;">RAC</a><a href="/tags/cisco/" style="font-size: 10.00px;">cisco</a><a href="/tags/crontab/" style="font-size: 10.00px;">crontab</a><a href="/tags/github/" style="font-size: 10.00px;">github</a><a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a><a href="/tags/iftop/" style="font-size: 10.00px;">iftop</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/login/" style="font-size: 10.00px;">login</a><a href="/tags/ping/" style="font-size: 10.00px;">ping</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a><a href="/tags/ssh/" style="font-size: 16.67px;">ssh</a><a href="/tags/ubuntu/" style="font-size: 10.00px;">ubuntu</a><a href="/tags/vagrant/" style="font-size: 10.00px;">vagrant</a><a href="/tags/vim/" style="font-size: 10.00px;">vim</a><a href="/tags/vps/" style="font-size: 13.33px;">vps</a><a href="/tags/上传文件/" style="font-size: 10.00px;">上传文件</a><a href="/tags/交换机/" style="font-size: 13.33px;">交换机</a><a href="/tags/优化/" style="font-size: 10.00px;">优化</a><a href="/tags/安全/" style="font-size: 10.00px;">安全</a><a href="/tags/流量监控/" style="font-size: 10.00px;">流量监控</a><a href="/tags/网络/" style="font-size: 10.00px;">网络</a><a href="/tags/虚拟机，64位/" style="font-size: 10.00px;">虚拟机，64位</a><a href="/tags/语法/" style="font-size: 10.00px;">语法</a><a href="/tags/路由器/" style="font-size: 10.00px;">路由器</a><a href="/tags/返回顶部/" style="font-size: 10.00px;">返回顶部</a>
   </div>
 </div>
 
@@ -317,23 +315,23 @@ hostname(config-if)# ；接口状态
   <ul class="entry">
     
       <li>
-        <a href="/2014/08/20/ssh_key/">ssh指定私钥的配置管理</a>
+        <a href="/2014/08/20/ping_network_speed/">ping服务器网速的工具</a>
       </li>
     
       <li>
-        <a href="/2014/08/19/markdown_rumen/">Markdown语法入门</a>
+        <a href="/2014/08/20/cacel_ubuntu_sudo/">取消ubuntu让人崩溃的sudo</a>
       </li>
     
       <li>
-        <a href="/2014/08/15/hexo_add_backtotop/">Hexo博客优化：添加返回顶部功能</a>
+        <a href="/2014/08/20/vps_safety/">3步做好vps安全防范</a>
       </li>
     
       <li>
-        <a href="/2014/08/15/hexo_yohua/">hexo博客的优化技巧</a>
+        <a href="/2014/08/20/ssh_login/">提高ssh登录服务器的响应速度</a>
       </li>
     
       <li>
-        <a href="/2014/08/09/upload-to-github/">关于上传文件到github的方法</a>
+        <a href="/2014/08/20/vi_backspace_colour/">消除 vi 突然显示空格的颜色</a>
       </li>
     
   </ul>

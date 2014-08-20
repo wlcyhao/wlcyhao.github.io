@@ -1,0 +1,243 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>用shell脚本监控vps实时流量 | Horace&#39;s IT Blog！</title>
+  <meta name="author" content="Horace">
+  
+  <meta name="description" content="有志者,事竟成,破釜沉舟,百二秦关终属楚；苦心人,天不负,卧薪尝胆,三千越甲可吞吴！">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="用shell脚本监控vps实时流量"/>
+  <meta property="og:site_name" content="Horace&#39;s IT Blog！"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="Horace&#39;s IT Blog！" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+<SCRIPT type=text/javascript src="/js/scrolltop.js"></SCRIPT>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Horace&#39;s IT Blog！</a></h1>
+  <h2><a href="/">仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+	<li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-20T06:52:13.000Z"><a href="/2014/08/20/shell_monitor_vps/">8月 20 2014</a></time>
+      
+      
+  
+    <h1 class="title">用shell脚本监控vps实时流量</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>一般来说，实时流量监控有两种方法</p>
+<ul>
+<li>安装iftop，它会通过ascii图形化显示实时流量数据，比较直观</li>
+<li>用shell脚本采集<code>/proc/net/dev</code>中的实时数据，很简单，不依赖任何安装包，对于内网linux服务器特别有帮助</li>
+</ul>
+<a id="more"></a>
+
+<p>脚本如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="shebang">#!/bin/bash</span></div><div class="line"></div><div class="line"><span class="comment"># test network width</span></div><div class="line"></div><div class="line">function usage</div><div class="line"></div><div class="line">{</div><div class="line"></div><div class="line">        <span class="built_in">echo</span> <span class="string">"Usage: <span class="variable">$0</span>  "</span></div><div class="line"></div><div class="line">        <span class="built_in">echo</span> <span class="string">"    e.g. <span class="variable">$0</span> eth0 2"</span></div><div class="line"></div><div class="line">        <span class="keyword">exit</span> <span class="number">65</span></div><div class="line"></div><div class="line">}</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> <span class="operator">-lt</span> <span class="number">2</span> ];<span class="keyword">then</span></div><div class="line">usage</div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="built_in">typeset</span> <span class="keyword">in</span> <span class="keyword">in</span>_old dif_<span class="keyword">in</span></div><div class="line"><span class="built_in">typeset</span> out out_old dif_out</div><div class="line"><span class="built_in">typeset</span> timer</div><div class="line"><span class="built_in">typeset</span> eth</div><div class="line"></div><div class="line">eth=<span class="variable">$1</span></div><div class="line">timer=<span class="variable">$2</span></div><div class="line"></div><div class="line"><span class="keyword">in</span>_old=$(cat /proc/net/dev | grep <span class="variable">$eth</span> | sed <span class="operator">-e</span> <span class="string">"s/\(.*\)\:\(.*\)/\2/g"</span> | awk <span class="string">' { print $1 }'</span> )</div><div class="line">out_old=$(cat /proc/net/dev | grep <span class="variable">$eth</span> | sed <span class="operator">-e</span> <span class="string">"s/\(.*\)\:\(.*\)/\2/g"</span> | awk <span class="string">' { print $9 }'</span> )</div><div class="line"></div><div class="line"><span class="keyword">while</span> <span class="literal">true</span></div><div class="line"><span class="keyword">do</span></div><div class="line">sleep <span class="variable">${timer}</span></div><div class="line"><span class="keyword">in</span>=$(cat /proc/net/dev | grep <span class="variable">$eth</span> | sed <span class="operator">-e</span> <span class="string">"s/\(.*\)\:\(.*\)/\2/g"</span> | awk <span class="string">' { print $1 }'</span> )</div><div class="line">out=$(cat /proc/net/dev | grep <span class="variable">$eth</span> | sed <span class="operator">-e</span> <span class="string">"s/\(.*\)\:\(.*\)/\2/g"</span> | awk <span class="string">' { print $9 }'</span> )</div><div class="line">dif_<span class="keyword">in</span>=$(((<span class="keyword">in</span>-in_old)/timer))</div><div class="line">dif_out=$(((out-out_old)/timer))</div><div class="line"><span class="built_in">echo</span> <span class="string">"IN: <span class="variable">${dif_in}</span> Byte/s OUT: <span class="variable">${dif_out}</span> Byte/s "</span></div><div class="line"><span class="keyword">in</span>_old=<span class="variable">${in}</span></div><div class="line">out_old=<span class="variable">${out}</span></div><div class="line"><span class="keyword">done</span></div><div class="line"><span class="keyword">exit</span> <span class="number">0</span></div></pre></td></tr></table></figure>
+
+<p>使用很简单，只有两个参数</p>
+<ul>
+<li>参数1， 网卡设备号，一般就是 eth0</li>
+<li>参数2，统计间隔的秒数，2 表示2秒计算一次</li>
+<li>流量统计单位是 Byte/s</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/服务器运维/">服务器运维</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/linux/">linux</a>, <a href="/tags/iftop/">iftop</a>, <a href="/tags/流量监控/">流量监控</a>
+  </div>
+
+		<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="请将此处替换成文章在你的站点中的ID" data-title="请替换成文章的标题" data-url="请替换成文章的网址"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"horace"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:wlcyhao.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Hexo/">Hexo</a><small>4</small></li>
+  
+    <li><a href="/categories/Markdown/">Markdown</a><small>1</small></li>
+  
+    <li><a href="/categories/Oracle/">Oracle</a><small>3</small></li>
+  
+    <li><a href="/categories/Swtitch&Router/">Swtitch&amp;Router</a><small>2</small></li>
+  
+    <li><a href="/categories/github/">github</a><small>1</small></li>
+  
+    <li><a href="/categories/服务器运维/">服务器运维</a><small>10</small></li>
+  
+    <li><a href="/categories/虚拟机/">虚拟机</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a><a href="/tags/IP/" style="font-size: 10.00px;">IP</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/Oracle/" style="font-size: 16.67px;">Oracle</a><a href="/tags/RAC/" style="font-size: 13.33px;">RAC</a><a href="/tags/cisco/" style="font-size: 10.00px;">cisco</a><a href="/tags/crontab/" style="font-size: 10.00px;">crontab</a><a href="/tags/github/" style="font-size: 10.00px;">github</a><a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a><a href="/tags/iftop/" style="font-size: 10.00px;">iftop</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/login/" style="font-size: 10.00px;">login</a><a href="/tags/ping/" style="font-size: 10.00px;">ping</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a><a href="/tags/ssh/" style="font-size: 16.67px;">ssh</a><a href="/tags/ubuntu/" style="font-size: 10.00px;">ubuntu</a><a href="/tags/vagrant/" style="font-size: 10.00px;">vagrant</a><a href="/tags/vim/" style="font-size: 10.00px;">vim</a><a href="/tags/vps/" style="font-size: 13.33px;">vps</a><a href="/tags/上传文件/" style="font-size: 10.00px;">上传文件</a><a href="/tags/交换机/" style="font-size: 13.33px;">交换机</a><a href="/tags/优化/" style="font-size: 10.00px;">优化</a><a href="/tags/安全/" style="font-size: 10.00px;">安全</a><a href="/tags/流量监控/" style="font-size: 10.00px;">流量监控</a><a href="/tags/网络/" style="font-size: 10.00px;">网络</a><a href="/tags/虚拟机，64位/" style="font-size: 10.00px;">虚拟机，64位</a><a href="/tags/语法/" style="font-size: 10.00px;">语法</a><a href="/tags/路由器/" style="font-size: 10.00px;">路由器</a><a href="/tags/返回顶部/" style="font-size: 10.00px;">返回顶部</a>
+  </div>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2014/08/20/ping_network_speed/">ping服务器网速的工具</a>
+      </li>
+    
+      <li>
+        <a href="/2014/08/20/cacel_ubuntu_sudo/">取消ubuntu让人崩溃的sudo</a>
+      </li>
+    
+      <li>
+        <a href="/2014/08/20/vps_safety/">3步做好vps安全防范</a>
+      </li>
+    
+      <li>
+        <a href="/2014/08/20/ssh_login/">提高ssh登录服务器的响应速度</a>
+      </li>
+    
+      <li>
+        <a href="/2014/08/20/vi_backspace_colour/">消除 vi 突然显示空格的颜色</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://wlcyhao.github.io/" title="Horace's IT Blog!">Horace</a></li>
+<li><a href="https://github.com/" title="github">Github</a></li>
+</ul>
+</div>
+
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 Horace
+  
+</div>
+<div class="clearfix"></div>
+
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
+
+<a href="https://github.com/wlcyhao"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+
+<DIV style="DISPLAY: none" id=goTopBtn title="返回顶部"><IMG border=0 src="/images/top.jpg"></DIV>
+  <SCRIPT type=text/javascript>goTopEx();</SCRIPT>

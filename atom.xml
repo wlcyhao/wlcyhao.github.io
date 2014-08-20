@@ -4,7 +4,7 @@
   <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wlcyhao.github.io/"/>
-  <updated>2014-08-20T03:43:26.803Z</updated>
+  <updated>2014-08-20T07:37:47.881Z</updated>
   <id>http://wlcyhao.github.io/</id>
   
   <author>
@@ -13,6 +13,298 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[ping服务器网速的工具]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/20/ping_network_speed/"/>
+    <id>http://wlcyhao.github.io/2014/08/20/ping_network_speed/</id>
+    <published>2014-08-20T07:35:44.000Z</published>
+    <updated>2014-08-20T07:36:34.000Z</updated>
+    <content type="html"><![CDATA[<p>购买vps之前评测中国用户访问速度，或者网站运营异常的时候测试网速，判断dns是否配置正确，都可以简单 ping一下，初步了解情况</p>
+<ol>
+<li>面向国内用户的中文网站，用 <a href="http://ping.chinaz.com/" target="_blank" rel="external">http://ping.chinaz.com/</a></li>
+<li>面向全球用户的英文网站，用 <a href="http://www.just-ping.com/" target="_blank" rel="external">http://www.just-ping.com/</a></li>
+</ol>
+]]></content>
+    
+    
+      <category term="ping" scheme="http://wlcyhao.github.io/tags/ping/"/>
+    
+      <category term="vps" scheme="http://wlcyhao.github.io/tags/vps/"/>
+    
+      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[取消ubuntu让人崩溃的sudo]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/20/cacel_ubuntu_sudo/"/>
+    <id>http://wlcyhao.github.io/2014/08/20/cacel_ubuntu_sudo/</id>
+    <published>2014-08-20T07:23:35.000Z</published>
+    <updated>2014-08-20T07:29:17.000Z</updated>
+    <content type="html"><![CDATA[<p>使用Vagrant，因为大部分box都是基于ubuntu的，初始化之后，它会自动生成一个账号 <em>vagrant</em>，这货不是root，于是执行各种命令前都要加一个<code>sudo</code></p>
+<p>本地虚拟机，就自己一个人用，还要sudo，这种脑残设定太恶心了</p>
+<p>在ubuntu中取消默认的sudo，方法如下：</p>
+<pre><code><span class="built_in">cd</span> ~
+<span class="built_in">echo</span> <span class="string">"sudo bash"</span>&gt;&gt;.bash_login
+</code></pre><p>重新登录之后，你就发现 root 在等你</p>
+]]></content>
+    
+    
+      <category term="ubuntu" scheme="http://wlcyhao.github.io/tags/ubuntu/"/>
+    
+      <category term="vagrant" scheme="http://wlcyhao.github.io/tags/vagrant/"/>
+    
+      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[3步做好vps安全防范]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/20/vps_safety/"/>
+    <id>http://wlcyhao.github.io/2014/08/20/vps_safety/</id>
+    <published>2014-08-20T07:19:21.000Z</published>
+    <updated>2014-08-20T07:21:33.000Z</updated>
+    <content type="html"><![CDATA[<p>如果有垃圾扫描vps的sshd端口，烦不胜烦，赶紧加强一下防范，图个清静</p>
+<ol>
+<li><code>passwd</code> 把登陆密码改成30位以上，越多越好，字母数字符号大小写都要包括，然后日常管理用ssh密钥对的方式登陆</li>
+<li><p>改掉sshd标准的22端口，修改<code>/etc/ssh/sshd_config</code>这个文件即可，记得要重启sshd<br>&gt;<br> /etc/init.d/ssh restart</p>
+</li>
+<li><p>把 <code>iptables -I INPUT -p tcp -s 要封的IP --dport 骚扰的端口 -j DROP</code> 这条命令放在手边，随时可以执行</p>
+</li>
+</ol>
+<p>攻击日志在/var/log/secure里面，经常查看，如果这个文件不存在,那么可以在 <code>/etc/syslog.conf</code> 里面配置</p>
+]]></content>
+    
+    
+      <category term="linux" scheme="http://wlcyhao.github.io/tags/linux/"/>
+    
+      <category term="安全" scheme="http://wlcyhao.github.io/tags/%E5%AE%89%E5%85%A8/"/>
+    
+      <category term="ssh" scheme="http://wlcyhao.github.io/tags/ssh/"/>
+    
+      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[提高ssh登录服务器的响应速度]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/20/ssh_login/"/>
+    <id>http://wlcyhao.github.io/2014/08/20/ssh_login/</id>
+    <published>2014-08-20T07:09:04.000Z</published>
+    <updated>2014-08-20T07:11:11.000Z</updated>
+    <content type="html"><![CDATA[<p>server A—&gt; server B</p>
+<p>从A登录B，修改服务器B上的ssh配置文件: <code>/etc/ssh/sshd_config</code> 在文件尾部添加一行</p>
+<p><code>UseDNS no</code></p>
+<p>重启sshd，明显可以感觉到ssh登录速度的提升</p>
+]]></content>
+    
+    
+      <category term="ssh" scheme="http://wlcyhao.github.io/tags/ssh/"/>
+    
+      <category term="login" scheme="http://wlcyhao.github.io/tags/login/"/>
+    
+      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[消除 vi 突然显示空格的颜色]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/20/vi_backspace_colour/"/>
+    <id>http://wlcyhao.github.io/2014/08/20/vi_backspace_colour/</id>
+    <published>2014-08-20T07:05:47.000Z</published>
+    <updated>2014-08-20T07:06:57.000Z</updated>
+    <content type="html"><![CDATA[<p>不知道为什么，用vi打开代码文件，空格的地方全部是黄色亮块，清楚办法</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cd</span> ~</div><div class="line"></div><div class="line"><span class="keyword">open</span> .vimrc</div><div class="line"></div><div class="line">加入一行 <span class="keyword">set</span> nohls</div></pre></td></tr></table></figure>
+
+<p>set nohls在vim里面可以直接用，只限于当前session，写入到vimrc中，可以持久化保存，vimrc里面还可以放入更多的配置指令</p>
+<p>另外</p>
+<p><code>cd -</code> 是个好命令，可以回到上一次路径</p>
+]]></content>
+    
+    
+      <category term="vim" scheme="http://wlcyhao.github.io/tags/vim/"/>
+    
+      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[修复secureCRT 登录 vps 中文乱码问题]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/20/securecrt_vps_bug/"/>
+    <id>http://wlcyhao.github.io/2014/08/20/securecrt_vps_bug/</id>
+    <published>2014-08-20T07:00:45.000Z</published>
+    <updated>2014-08-20T07:02:19.000Z</updated>
+    <content type="html"><![CDATA[<p>让vps正常显示中文，只需要三步</p>
+<ol>
+<li><p><code>vim ~/.profile</code> 加入下面一行 export LANG=”zh_CN.UTF-8”</p>
+</li>
+<li><p>修改SecureCRT 编码<br>选项-&gt;会话选项-&gt;外观-&gt;字符编码-&gt;uft-8，退出重新登录就行了</p>
+</li>
+<li><p>让vim支持中文显示，修改文件（如果没有就新建一个）:~/.vimrc，添加下面三行<br>```</p>
+<ol>
+<li>set encoding=utf-8</li>
+<li>set fileencodings=utf-8,gb2312,gb18030,gbk</li>
+<li>set termencoding=utf-8</li>
+</ol>
+</li>
+</ol>
+]]></content>
+    
+    
+      <category term="linux" scheme="http://wlcyhao.github.io/tags/linux/"/>
+    
+      <category term="vps" scheme="http://wlcyhao.github.io/tags/vps/"/>
+    
+      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[用shell脚本监控vps实时流量]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/20/shell_monitor_vps/"/>
+    <id>http://wlcyhao.github.io/2014/08/20/shell_monitor_vps/</id>
+    <published>2014-08-20T06:52:13.000Z</published>
+    <updated>2014-08-20T06:54:39.000Z</updated>
+    <content type="html"><![CDATA[<p>一般来说，实时流量监控有两种方法</p>
+<ul>
+<li>安装iftop，它会通过ascii图形化显示实时流量数据，比较直观</li>
+<li>用shell脚本采集<code>/proc/net/dev</code>中的实时数据，很简单，不依赖任何安装包，对于内网linux服务器特别有帮助</li>
+</ul>
+<a id="more"></a>
+
+<p>脚本如下:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="shebang">#!/bin/bash</span></div><div class="line"></div><div class="line"><span class="comment"># test network width</span></div><div class="line"></div><div class="line">function usage</div><div class="line"></div><div class="line">{</div><div class="line"></div><div class="line">        <span class="built_in">echo</span> <span class="string">"Usage: <span class="variable">$0</span>  "</span></div><div class="line"></div><div class="line">        <span class="built_in">echo</span> <span class="string">"    e.g. <span class="variable">$0</span> eth0 2"</span></div><div class="line"></div><div class="line">        <span class="keyword">exit</span> <span class="number">65</span></div><div class="line"></div><div class="line">}</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> <span class="operator">-lt</span> <span class="number">2</span> ];<span class="keyword">then</span></div><div class="line">usage</div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="built_in">typeset</span> <span class="keyword">in</span> <span class="keyword">in</span>_old dif_<span class="keyword">in</span></div><div class="line"><span class="built_in">typeset</span> out out_old dif_out</div><div class="line"><span class="built_in">typeset</span> timer</div><div class="line"><span class="built_in">typeset</span> eth</div><div class="line"></div><div class="line">eth=<span class="variable">$1</span></div><div class="line">timer=<span class="variable">$2</span></div><div class="line"></div><div class="line"><span class="keyword">in</span>_old=$(cat /proc/net/dev | grep <span class="variable">$eth</span> | sed <span class="operator">-e</span> <span class="string">"s/\(.*\)\:\(.*\)/\2/g"</span> | awk <span class="string">' { print $1 }'</span> )</div><div class="line">out_old=$(cat /proc/net/dev | grep <span class="variable">$eth</span> | sed <span class="operator">-e</span> <span class="string">"s/\(.*\)\:\(.*\)/\2/g"</span> | awk <span class="string">' { print $9 }'</span> )</div><div class="line"></div><div class="line"><span class="keyword">while</span> <span class="literal">true</span></div><div class="line"><span class="keyword">do</span></div><div class="line">sleep <span class="variable">${timer}</span></div><div class="line"><span class="keyword">in</span>=$(cat /proc/net/dev | grep <span class="variable">$eth</span> | sed <span class="operator">-e</span> <span class="string">"s/\(.*\)\:\(.*\)/\2/g"</span> | awk <span class="string">' { print $1 }'</span> )</div><div class="line">out=$(cat /proc/net/dev | grep <span class="variable">$eth</span> | sed <span class="operator">-e</span> <span class="string">"s/\(.*\)\:\(.*\)/\2/g"</span> | awk <span class="string">' { print $9 }'</span> )</div><div class="line">dif_<span class="keyword">in</span>=$(((<span class="keyword">in</span>-in_old)/timer))</div><div class="line">dif_out=$(((out-out_old)/timer))</div><div class="line"><span class="built_in">echo</span> <span class="string">"IN: <span class="variable">${dif_in}</span> Byte/s OUT: <span class="variable">${dif_out}</span> Byte/s "</span></div><div class="line"><span class="keyword">in</span>_old=<span class="variable">${in}</span></div><div class="line">out_old=<span class="variable">${out}</span></div><div class="line"><span class="keyword">done</span></div><div class="line"><span class="keyword">exit</span> <span class="number">0</span></div></pre></td></tr></table></figure>
+
+<p>使用很简单，只有两个参数</p>
+<ul>
+<li>参数1， 网卡设备号，一般就是 eth0</li>
+<li>参数2，统计间隔的秒数，2 表示2秒计算一次</li>
+<li>流量统计单位是 Byte/s</li>
+</ul>
+]]></content>
+    <summary type="html"><![CDATA[<p>一般来说，实时流量监控有两种方法</p>
+<ul>
+<li>安装iftop，它会通过ascii图形化显示实时流量数据，比较直观</li>
+<li>用shell脚本采集<code>/proc/net/dev</code>中的实时数据，很简单，不依赖任何安装包，对于内网linux服务器特别有帮助</li>
+</ul>
+]]></summary>
+    
+      <category term="linux" scheme="http://wlcyhao.github.io/tags/linux/"/>
+    
+      <category term="iftop" scheme="http://wlcyhao.github.io/tags/iftop/"/>
+    
+      <category term="流量监控" scheme="http://wlcyhao.github.io/tags/%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7/"/>
+    
+      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[一分钟学会crontab使用]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/20/master_crontab/"/>
+    <id>http://wlcyhao.github.io/2014/08/20/master_crontab/</id>
+    <published>2014-08-20T06:45:32.000Z</published>
+    <updated>2014-08-20T06:47:14.000Z</updated>
+    <content type="html"><![CDATA[<p>crontab 是在linux服务器上部署定时任务的方法</p>
+<p><code>0 5 * * * /usr/bin/python /data/www/tools/mysql_backup.py</code></p>
+<p>cmd之前有5个项目要填，分别对应</p>
+<p><code>分钟 小时 天 月 一周当中第几天( 0-6 ,0表示星期天)</code><br><a id="more"></a><br>填写方法</p>
+<ul>
+<li><ul>
+<li>表示都满足，例如 <em> </em> <em> </em> <em> 表示每分钟执行一次，如果每小时执行一次，那应该这样写<br>1 </em> <em> </em> * (每小时第一分钟执行，1可以随便改成60以内的数字)</li>
+</ul>
+</li>
+<li>/n 表示隔n个单位执行一次  <ul>
+<li>/3 <em> </em> <em> </em> 3分钟执行一次  </li>
+<li>1 <em>/3 </em> <em> </em> 表示每隔3个小时的第一分钟执行一次  </li>
+<li>1 1 <em>/3 </em> * 表示每隔3天，当天的1点1分执行一次  </li>
+<li>1 12 <em> </em> 2,3,4,5,6 表示每周二到周6,每天中午12点1分执行  </li>
+</ul>
+</li>
+</ul>
+<p><strong>只需要掌握这2种时间用法，crontab就ok了</strong></p>
+<p>提示：</p>
+<ul>
+<li>crontab 最小粒度是一分钟执行一次，要更快，得用其它办法，比如说写一个daemon程序,用while true: 来做</li>
+<li><code>crontab -l</code> 查看所有crontab 列表</li>
+<li><code>cronta -e</code>编辑crontab</li>
+<li>crontab条目是以文件方式存储的，可以用<code>ls /etc/cron*</code>查看</li>
+</ul>
+]]></content>
+    <summary type="html"><![CDATA[<p>crontab 是在linux服务器上部署定时任务的方法</p>
+<p><code>0 5 * * * /usr/bin/python /data/www/tools/mysql_backup.py</code></p>
+<p>cmd之前有5个项目要填，分别对应</p>
+<p><code>分钟 小时 天 月 一周当中第几天( 0-6 ,0表示星期天)</code><br>]]></summary>
+    
+      <category term="linux" scheme="http://wlcyhao.github.io/tags/linux/"/>
+    
+      <category term="crontab" scheme="http://wlcyhao.github.io/tags/crontab/"/>
+    
+      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[192.168.1.1/24是什么含义]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/20/1921681124/"/>
+    <id>http://wlcyhao.github.io/2014/08/20/1921681124/</id>
+    <published>2014-08-20T06:07:00.000Z</published>
+    <updated>2014-08-20T06:10:31.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="IP的定义">IP的定义</h1>
+<p>ip 是32位无符号整数，最小，最大分别是</p>
+<ul>
+<li>0.0.0.0 - 255.255.255.255 具体来说，由一个ip由 Net-ID+Host-ID 两部分组成，Net-ID 相同，那么就说明在一个网段内，可以用mac数据帧直接通信。</li>
+</ul>
+<p>给定一个Net-ID</p>
+<ul>
+<li>host-ID全为0的ip，(192.168.2.0)代表整子小网络，</li>
+<li><p>host-ID全为1的ip，是这个子网络的广播地址<br>ip总共就32个字节，当 HostID 所占用的位越大，亦即 HostID 数量越多时，表示同一个网络内可用以设定主机的 IP 数量越多<br><a id="more"></a><br>国际NIC组织把ip分成5类</p>
+</li>
+<li><p>Class A : 0xxxxxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx ==&gt; NetI_D 的开头是 0<br>|—net—|————-host——————|</p>
+</li>
+<li>Class B : 10xxxxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx ==&gt; NetI_D 的开头是 10<br>|———net———-|———host———|</li>
+<li>Class C : 110xxxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx ==&gt; NetI_D 的开头是 110<br>|—————-net—————-|-host—|</li>
+<li>Class D : 1110xxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx ==&gt; NetI_D 的开头是 1110</li>
+<li>Class E : 1111xxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx ==&gt; NetI_D 的开头是 1111</li>
+</ul>
+<p>class D用作特殊用途，class E保留，因此，能够用来设定在一般系统上面的，就只有 Class A、B、C 三种等级的IP。</p>
+<h1 id="Netmask">Netmask</h1>
+<p>这个数值就是用一种很直观的方式表明Net-ID/Host-ID各有多少位</p>
+<p>netmark的定义非常简单，netmask 也是 32 位，在数值上，位于 Net-ID 的为 1 而 Host-ID 为 0</p>
+<p>例如一个常见的C类IP地址</p>
+<p>&gt;<br>    net-id=24位，host-id=8位，拥有2**8-2=254个ip</p>
+<p>一个传统的c类网络，比如 192.168.10.0，它的netmark是必然是255.255.255.0 如果在把这个网络分成2个子网络，很简单，设定net-id使用25位，host-id就只有7位了 那么这个时候的 netmark= 255.255.255.1 0000000 = 255.255.255.128，这次划分得到的两个子网分别是</p>
+<ul>
+<li>129.168.10.0/25</li>
+<li>192.168.10.128/25</li>
+</ul>
+<p>&gt;<br>    python 自带的bin函数，可以非常方便的把int转换为二进制字符串表示</p>
+<p>很显然，<code>/25</code>    <strong>就是标示 这个ip中net-id 占用的位数</strong>（这2个ip的host-id全部为0，所以这两个ip代表的是其所在的子网络）</p>
+<p>这种表示方法很好计算子网络的规模，例如</p>
+<ul>
+<li>192.168.0.0/27 表示2的5(32-27=5)次方-2(每个网段的第一个和最后一个地址都被特殊用途占用)=62个ip</li>
+<li>192.168.0.0/28,表示2的4(32-28=4)次方-2=30个ip</li>
+</ul>
+<p>所以 192.168.1.1/24 标示的是一个子网络192.168.1.0（拥有254个ip地址： 从192.168.1.1到192.168.1.254）</p>
+]]></content>
+    <summary type="html"><![CDATA[<h1 id="IP的定义">IP的定义</h1>
+<p>ip 是32位无符号整数，最小，最大分别是</p>
+<ul>
+<li>0.0.0.0 - 255.255.255.255 具体来说，由一个ip由 Net-ID+Host-ID 两部分组成，Net-ID 相同，那么就说明在一个网段内，可以用mac数据帧直接通信。</li>
+</ul>
+<p>给定一个Net-ID</p>
+<ul>
+<li>host-ID全为0的ip，(192.168.2.0)代表整子小网络，</li>
+<li><p>host-ID全为1的ip，是这个子网络的广播地址<br>ip总共就32个字节，当 HostID 所占用的位越大，亦即 HostID 数量越多时，表示同一个网络内可用以设定主机的 IP 数量越多<br>]]></summary>
+    
+      <category term="IP" scheme="http://wlcyhao.github.io/tags/IP/"/>
+    
+      <category term="网络" scheme="http://wlcyhao.github.io/tags/%E7%BD%91%E7%BB%9C/"/>
+    
+      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[ssh指定私钥的配置管理]]></title>
@@ -1057,88 +1349,6 @@ hexo deploy
       <category term="sqlplus" scheme="http://wlcyhao.github.io/tags/sqlplus/"/>
     
       <category term="Oracle" scheme="http://wlcyhao.github.io/categories/Oracle/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[RAC启动与停止的先后顺序小结]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/07/RAC-start-stop/"/>
-    <id>http://wlcyhao.github.io/2014/08/07/RAC-start-stop/</id>
-    <published>2014-08-07T06:59:56.000Z</published>
-    <updated>2014-08-08T08:22:36.000Z</updated>
-    <content type="html"><![CDATA[<p>RAC启动与停止的先后顺序小结</p>
-<h3 id="停止RAC：">停止RAC：</h3>
-<pre><code>            emctl <span class="keyword">stop</span> dbconsole
-            srvctl <span class="keyword">stop</span> instance -<span class="keyword">d</span> rac -<span class="keyword">i</span> rac1  
-            srvctl <span class="keyword">stop</span> instance -<span class="keyword">d</span> rac -<span class="keyword">i</span> rac2
-            srvctl <span class="keyword">stop</span> asm -<span class="keyword">n</span> rac1
-            srvctl <span class="keyword">stop</span> asm -<span class="keyword">n</span> rac2
-            srvctl <span class="keyword">stop</span> nodeapps -<span class="keyword">n</span> rac1
-            srvctl <span class="keyword">stop</span> nodeapps -<span class="keyword">n</span> rac2
-</code></pre><p><a id="more"></a></p>
-<h3 id="启动RAC：">启动RAC：</h3>
-<pre><code>            和上面的步骤正好相反即
-            srvctl <span class="operator"><span class="keyword">start</span> nodeapps -n rac1
-            srvctl <span class="keyword">start</span> nodeapps -n rac2
-            srvctl <span class="keyword">start</span> asm -n rac1
-            srvctl <span class="keyword">start</span> asm -n rac2
-            srvctl <span class="keyword">start</span> instance -d rac -i rac2
-            srvctl <span class="keyword">start</span> instance -d rac -i rac1
-            emctl <span class="keyword">start</span> dbconsole </span>
-</code></pre>]]></content>
-    <summary type="html"><![CDATA[<p>RAC启动与停止的先后顺序小结</p>
-<h3 id="停止RAC：">停止RAC：</h3>
-<pre><code>            emctl <span class="keyword">stop</span> dbconsole
-            srvctl <span class="keyword">stop</span> instance -<span class="keyword">d</span> rac -<span class="keyword">i</span> rac1  
-            srvctl <span class="keyword">stop</span> instance -<span class="keyword">d</span> rac -<span class="keyword">i</span> rac2
-            srvctl <span class="keyword">stop</span> asm -<span class="keyword">n</span> rac1
-            srvctl <span class="keyword">stop</span> asm -<span class="keyword">n</span> rac2
-            srvctl <span class="keyword">stop</span> nodeapps -<span class="keyword">n</span> rac1
-            srvctl <span class="keyword">stop</span> nodeapps -<span class="keyword">n</span> rac2
-</code></pre><p>]]></summary>
-    
-      <category term="Oracle" scheme="http://wlcyhao.github.io/tags/Oracle/"/>
-    
-      <category term="RAC" scheme="http://wlcyhao.github.io/tags/RAC/"/>
-    
-      <category term="Oracle" scheme="http://wlcyhao.github.io/categories/Oracle/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Hello World，Hello Hexo!]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/07/hello-world/"/>
-    <id>http://wlcyhao.github.io/2014/08/07/hello-world/</id>
-    <published>2014-08-07T02:59:25.000Z</published>
-    <updated>2014-08-08T08:22:56.000Z</updated>
-    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2>
-<a id="more"></a>
-
-<h3 id="Create_a_new_post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-]]></content>
-    <summary type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2>
-]]></summary>
-    
-      <category term="Hexo" scheme="http://wlcyhao.github.io/tags/Hexo/"/>
-    
-      <category term="Hexo" scheme="http://wlcyhao.github.io/categories/Hexo/"/>
     
   </entry>
   

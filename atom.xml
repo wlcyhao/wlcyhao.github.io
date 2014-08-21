@@ -4,7 +4,7 @@
   <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wlcyhao.github.io/"/>
-  <updated>2014-08-21T02:06:12.064Z</updated>
+  <updated>2014-08-21T13:56:57.215Z</updated>
   <id>http://wlcyhao.github.io/</id>
   
   <author>
@@ -15,14 +15,182 @@
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[何为交换机背板带宽?]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/21/switch_beibandaikaun/"/>
+    <id>http://wlcyhao.github.io/2014/08/21/switch_beibandaikaun/</id>
+    <published>2014-08-21T13:52:50.000Z</published>
+    <updated>2014-08-21T13:54:21.000Z</updated>
+    <content type="html"><![CDATA[<p>背板带宽，是交换机接口处理器或接口卡和数据总线间所能吞吐的最大数据量。一台交换机的背板带宽越高，所能处理数据的能力就越强，但同时设计成本也会上去。<br><a id="more"></a><br>但是，我们如何去考察一个交换机的背板带宽是否够用呢？显然，通过估算的方法是没有用的，我认为应该从两个方面来考虑：<br>1、）所有端口容量X端口数量之和的2倍应该小于背板带宽，可实现全双工无阻塞交换，证明交换机具有发挥最大数据交换性能的条件。</p>
+<p>2、）满配置吞吐量(Mpps)=满配置GE端口数×1.488Mpps其中1个千兆端口在包长为64字节时的理论吞吐量为1.488Mpps。例如，一台最多可以提供64个千兆端口的交换机，其满配置吞吐量应达到 64×1.488Mpps = 95.2Mpps，才能够确保在所有端口均线速工作时，提供无阻塞的包交换。如果一台交换机最多能够提供176个千兆端口，而宣称的吞吐量为不到261.8Mpps(176 x 1.488Mpps = 261.8)，那么用户有理由认为该交换机采用的是有阻塞的结构设计。一般是两者都满足的交换机才是合格的交换机。</p>
+<p>背板相对大，吞吐量相对小的交换机，除了保留了升级扩展的能力外就是软件效率/专用芯片电路设计有问题；背板相对小。吞吐量相对大的交换机，整体性能比较高。不过背板带宽是可以相信厂家的宣传的，可吞吐量是无法相信厂家的宣传的，因为后者是个设计值，测试很困难的并且意义不是很大。</p>
+<p>交换机的背版速率一般是：Mbps,指的是第二层，对于三层以上的交换才采用Mpps</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>背板带宽，是交换机接口处理器或接口卡和数据总线间所能吞吐的最大数据量。一台交换机的背板带宽越高，所能处理数据的能力就越强，但同时设计成本也会上去。<br>]]></summary>
+    
+      <category term="交换机，背板带宽" scheme="http://wlcyhao.github.io/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA%EF%BC%8C%E8%83%8C%E6%9D%BF%E5%B8%A6%E5%AE%BD/"/>
+    
+      <category term="交换路由" scheme="http://wlcyhao.github.io/categories/%E4%BA%A4%E6%8D%A2%E8%B7%AF%E7%94%B1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[haiming_code]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/21/haiming_code/"/>
+    <id>http://wlcyhao.github.io/2014/08/21/haiming_code/</id>
+    <published>2014-08-21T13:50:38.000Z</published>
+    <updated>2014-08-21T13:52:16.000Z</updated>
+    <content type="html"><![CDATA[<p>在网上看到的一个海明码的计算方法，感觉很不错的。。。<br><a id="more"></a><br><img src="http://i.imgur.com/Py6s9Rk.jpg" alt=""></p>
+]]></content>
+    <summary type="html"><![CDATA[<p>在网上看到的一个海明码的计算方法，感觉很不错的。。。<br>]]></summary>
+    
+      <category term="海明码" scheme="http://wlcyhao.github.io/tags/%E6%B5%B7%E6%98%8E%E7%A0%81/"/>
+    
+      <category term="交换路由" scheme="http://wlcyhao.github.io/categories/%E4%BA%A4%E6%8D%A2%E8%B7%AF%E7%94%B1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[光纤跳线如何区分单模和多模]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/21/qufen_guanxian/"/>
+    <id>http://wlcyhao.github.io/2014/08/21/qufen_guanxian/</id>
+    <published>2014-08-21T13:46:59.000Z</published>
+    <updated>2014-08-21T13:49:07.000Z</updated>
+    <content type="html"><![CDATA[<p>单模光纤：中心玻璃芯较细（芯径一般为9或10μm），只能传一种模式的光。因此，其模间色散很小，适用于远程通讯，但其色度色散起主要作用，这样单模光纤对光源的谱宽和稳定性有较高的要求，即谱宽要窄，稳定性要好;远距离情况使用。<br><a id="more"></a><br>单模跳线的印字有”<strong>SM</strong>“或“G652”、“G655”、“G657”、“9/125”的字样，<strong>颜色是淡黄色</strong></p>
+<p>多模光纤：中心玻璃芯较粗（50或62.5μm），可传多种模式的光。但其模间色散较大，这就限制了传输数字信号的频率，而且随距离的增加会更加严重。例如：600MB/KM的光纤在2KM时则只有300MB的带宽了。因此，多模光纤传输的距离就比较近，一般只有几公里。</p>
+<p>多模跳线的印字有“<strong>MM</strong>“或”OM3″,”50/125″、”62.5/125″的字样，<strong>颜色是橙黄色</strong></p>
+]]></content>
+    <summary type="html"><![CDATA[<p>单模光纤：中心玻璃芯较细（芯径一般为9或10μm），只能传一种模式的光。因此，其模间色散很小，适用于远程通讯，但其色度色散起主要作用，这样单模光纤对光源的谱宽和稳定性有较高的要求，即谱宽要窄，稳定性要好;远距离情况使用。<br>]]></summary>
+    
+      <category term="光线，多模，单模，跳线" scheme="http://wlcyhao.github.io/tags/%E5%85%89%E7%BA%BF%EF%BC%8C%E5%A4%9A%E6%A8%A1%EF%BC%8C%E5%8D%95%E6%A8%A1%EF%BC%8C%E8%B7%B3%E7%BA%BF/"/>
+    
+      <category term="交换路由" scheme="http://wlcyhao.github.io/categories/%E4%BA%A4%E6%8D%A2%E8%B7%AF%E7%94%B1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[windows下定期自动备份本地文件(文件夹)]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/21/beifen_wenjianjia/"/>
+    <id>http://wlcyhao.github.io/2014/08/21/beifen_wenjianjia/</id>
+    <published>2014-08-21T13:36:32.000Z</published>
+    <updated>2014-08-21T13:42:42.000Z</updated>
+    <content type="html"><![CDATA[<p>虽然网上有一些免费的文件自动备份软件，但是没有自己编写一段批处理来完成备份任务来的放心，而且不用占用系统资源。</p>
+<p>下面介绍一下如何利用批处理完成本地文件或者文件夹的备份。<br><a id="more"></a><br>该方法可把某文件夹下的文件同步到另外的文件夹，可忽略已经存在的文件，可根据文件日期来判断复制最新的文件。</p>
+<p>首先建立一个文本文件，复制以下代码：</p>
+<pre><code>@echo off
+echo 正在复制”<span class="keyword">C</span>:\a”文件夹的内容至”<span class="keyword">D</span>:\b”文件夹下……
+xcopy “<span class="keyword">C</span>:\a” “<span class="keyword">D</span>:\b” /e/<span class="keyword">I</span>/d/h/r/y
+echo 正在复制”<span class="keyword">C</span>:\c”文件夹的内容至”<span class="keyword">D</span>:\d”文件夹下……
+xcopy “<span class="keyword">C</span>:\c” “<span class="keyword">D</span>:\d” /e/<span class="keyword">I</span>/d/h/r/y
+exit
+</code></pre><p>保存该文本文件，修改文件名为X.bat 其中X可以任意命名。<br>打开”控制面板”—“计划任务”添加计划任务，计划任务里的执行目标为该批处理文件，设定在什么时候执行，我们可以设置为每天的05:00执行此批处理，这样每天就会执行该备份，让我们的文件永远有备份，再也不会为文件丢失而发愁了。</p>
+<p>注释: 代码里的双引号(“”)以内的内容是文件夹路径，可以根据实际情况修改，前面是需要备份的文件夹路径，后面是备份文件夹路径。<br>如果需要备份更多的文件夹只需要多个xcopy 后面的格式和代码中相同，不要忘记两个路径之间有一个空格</p>
+<pre><code>参数说明：
+/e：拷贝所有子目录，包括空子目录；
+/<span class="keyword">I</span>： 如果目标文件或目录不存在且拷贝的文件数多于一，则假设目标为目录；
+/d：只拷贝文件日期与在目标文件后的文件（即修改过的源文件）
+/h：同时拷贝隐藏文件和系统文件
+/r：拷贝并覆盖只读文件
+/y： 复制文件审核设置（不显示已有文件覆盖确认）
+</code></pre><p>以上参数可以根据需要添加，推荐都加上最好。</p>
+<p>下面就根据上面的代码扩展更多应用。<br>比如远程备份文件夹，给文件夹以日期命名。<br>下面给大家来讲解：<br>远程备份文件夹需要远程共享了文件夹<br>如果已经共享了该文件夹我们只需要修改代码中的需要备份的文件夹路径就可以了　</p>
+<p>例如：我需要远程定期备份远程主机上的”a”文件夹,代码如下</p>
+<pre><code>@echo off
+echo 正在复制主机192.168.0.2的”a”文件夹的内容至”D:<span class="command">\b</span>”文件夹下……
+xcopy “<span class="command">\\</span>192.168.0.2<span class="command">\a</span>” “D:<span class="command">\b</span>” /e/I/d/h/r/y
+exit
+</code></pre><p>其他和上面方法一样，保存为.bat文件，添加计划任务就行了。</p>
+<p>如果我想以日期的形式保存文件夹，而且每天都有一个备份，那么我可以这样。</p>
+<pre><code>@<span class="keyword">echo</span> off
+<span class="keyword">echo</span> 正在复制主机<span class="number">192</span>.<span class="number">168</span>.<span class="number">0</span>.<span class="number">2</span>的”a”文件夹的内容至”D:\b”文件夹下……
+<span class="winutils">xcopy</span> “\\<span class="number">192</span>.<span class="number">168</span>.<span class="number">0</span>.<span class="number">2</span>\a” “D:\<span class="envvar">%te%</span>\” /e/I/d/h/r/y
+<span class="flow">exit</span>
+</code></pre><p>这样就可以为每天的备份放到每个以日期命名的文件夹里了<br>其中/e参数可以不要，因为每天备份都是以一个新的文件夹开始的，那么就没有文件日期的问题了。</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>虽然网上有一些免费的文件自动备份软件，但是没有自己编写一段批处理来完成备份任务来的放心，而且不用占用系统资源。</p>
+<p>下面介绍一下如何利用批处理完成本地文件或者文件夹的备份。<br>]]></summary>
+    
+      <category term="批处理，自动备份" scheme="http://wlcyhao.github.io/tags/%E6%89%B9%E5%A4%84%E7%90%86%EF%BC%8C%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD/"/>
+    
+      <category term="Windows" scheme="http://wlcyhao.github.io/categories/Windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[windows7 连接共享时提示出现了一个错误(null)的解决办法]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/21/win7_vmware_netshare/"/>
+    <id>http://wlcyhao.github.io/2014/08/21/win7_vmware_netshare/</id>
+    <published>2014-08-21T13:23:25.000Z</published>
+    <updated>2014-08-21T13:24:29.000Z</updated>
+    <content type="html"><![CDATA[<p>在windows7下跑vmware测东西，虚拟机器上不了网，启动连接共享的时候提示：internet连接共享访问被启用时，出现了一个错误(null)<br><a id="more"></a><br>这是因为关掉了系统防火墙的原因。</p>
+<p>解决办法很简单：</p>
+<p>点击 Windows + R 在运行窗口中输入 services.msc 。</p>
+<p>找到 windows Firewall 服务，点击启动即可。</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>在windows7下跑vmware测东西，虚拟机器上不了网，启动连接共享的时候提示：internet连接共享访问被启用时，出现了一个错误(null)<br>]]></summary>
+    
+      <category term="win7" scheme="http://wlcyhao.github.io/tags/win7/"/>
+    
+      <category term="共享" scheme="http://wlcyhao.github.io/tags/%E5%85%B1%E4%BA%AB/"/>
+    
+      <category term="Windows" scheme="http://wlcyhao.github.io/categories/Windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[删除U盘时提示无法停止‘通用卷’设备的解决方法]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/21/stop_u/"/>
+    <id>http://wlcyhao.github.io/2014/08/21/stop_u/</id>
+    <published>2014-08-21T13:15:10.000Z</published>
+    <updated>2014-08-21T13:16:47.000Z</updated>
+    <content type="html"><![CDATA[<p>安全删除U盘时，大家常常会遇到提示“无法停止‘通用卷’设备，请稍候再停止该设备。”这种情况下可以强行拔下U盘吗？当然不可以！这时候如果强行拔除的话，很容易损坏计算机U口或者你的U盘。如果你的U盘上有重要的资料，很有可能就此毁坏了。那么应该怎么办呢？<br><a id="more"></a><br>第一种方法: </p>
+<p>往往我们在把U盘的文件或者数据取出来的时候，都是用的“复制”“粘贴”方式，而如果复制的是U盘上的文件，这个文件就会一直放在系统的剪切板里，处于待用状态。而如果这种情况下我们要删除U盘的话，就会出现上面的无法停止U盘的提示。 </p>
+<p>相应的解决办法就是：清空你的剪切板，或者在你的硬盘上随便进行一下复制某文件再粘贴的操作，这时候你再去删除U盘提示符，看看是不是顺利删除了？ </p>
+<p>第二种方法： </p>
+<p>如果觉得上面那种方法还无效的话，可以使用下面这个方法： </p>
+<p>同时按下键盘的”Ctrl”＋”Alt”＋”Del”组合键，这时会出现”任务管理器”的窗口，单击”进程”标签，在”映像名称”中寻找”rundll32.exe”进程，选择”rundll32.exe”进程，然后点击”结束进程”，这时会弹出任务管理器警告，问你确定是否关闭此进程，点击”是”，即关闭了”rundll32.exe”进程。再删除U盘就可以正常删除了。 </p>
+<p>使用这种方法时请注意：如果有多个”rundll32.exe”进程，需要将多个”rundll32.exe”进程全部关闭。 </p>
+<p>第三种方法： </p>
+<p>这种方法同样是借助了任务管理器，同时按下键盘的”Ctrl”＋”Alt”＋”Del”组合键，出现”任务管理器”的窗口，单击”进程”，寻找”EXPLORER.EXE”进程并结束它。这时候你会发现你的桌面不见了，请不要惊慌，继续进行下面的操作，在任务管理器中点击“文件”——“新建任务”——输入EXPLORER.EXE——确定。再删除U盘，你会发现可以安全删除了。 </p>
+<p>第四种方法： </p>
+<p>这种方法最简单，但最耗时，那就是，重启你的电脑。 </p>
+<p>如果觉得出现问题的时候才解决有些麻烦，可以采用下面这个提前的预防措施： </p>
+<p>关闭系统的预览功能。<br>方法：双击我的电脑——工具——文件夹选项——常规——任务——使用windows传统风格的文件夹，然后点击确定就行了。这样一劳永逸了。 </p>
+<p>小窍门：目前有些U盘的技术很到位了，有的U盘直接插拔也可以的。但无论是多好的U盘，有一种时候是绝对不能直接插拔的，那就是仔细看你U盘的那个小红灯，小灯在不停闪的时候表示正在不停地读写数据，这时候千万不能拔，否则轻则损坏数据，重则U盘报废。</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>安全删除U盘时，大家常常会遇到提示“无法停止‘通用卷’设备，请稍候再停止该设备。”这种情况下可以强行拔下U盘吗？当然不可以！这时候如果强行拔除的话，很容易损坏计算机U口或者你的U盘。如果你的U盘上有重要的资料，很有可能就此毁坏了。那么应该怎么办呢？<br>]]></summary>
+    
+      <category term="U盘，弹出" scheme="http://wlcyhao.github.io/tags/U%E7%9B%98%EF%BC%8C%E5%BC%B9%E5%87%BA/"/>
+    
+      <category term="Windows" scheme="http://wlcyhao.github.io/categories/Windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[如何用拼音输入法输入不会读的字？]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/21/pingyin_input/"/>
+    <id>http://wlcyhao.github.io/2014/08/21/pingyin_input/</id>
+    <published>2014-08-21T13:08:39.000Z</published>
+    <updated>2014-08-21T13:13:43.000Z</updated>
+    <content type="html"><![CDATA[<p>遇到不会读的字，怎么用拼音打？网友提供小技巧：<br><a id="more"></a><br>可以先打个“u”然后打各个部首的读音，就能出来哦，如图所示！在搜狗拼音、谷歌拼音、QQ输入法下都成功测试过。</p>
+<p><img src="http://i.imgur.com/WY86f27.jpg" alt=""></p>
+]]></content>
+    <summary type="html"><![CDATA[<p>遇到不会读的字，怎么用拼音打？网友提供小技巧：<br>]]></summary>
+    
+      <category term="拼音，输入法" scheme="http://wlcyhao.github.io/tags/%E6%8B%BC%E9%9F%B3%EF%BC%8C%E8%BE%93%E5%85%A5%E6%B3%95/"/>
+    
+      <category term="Windows" scheme="http://wlcyhao.github.io/categories/Windows/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[在Markdown文档中插入表格(table)]]></title>
     <link href="http://wlcyhao.github.io/2014/08/21/markdown_insert_table/"/>
     <id>http://wlcyhao.github.io/2014/08/21/markdown_insert_table/</id>
     <published>2014-08-21T02:01:00.000Z</published>
-    <updated>2014-08-21T02:05:56.000Z</updated>
+    <updated>2014-08-21T07:26:13.000Z</updated>
     <content type="html"><![CDATA[<p>插入表格算是Markdown的扩展语法</p>
 <p>使用很简单，示例如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">| <span class="class">Tables</span>        | <span class="class">Are</span>           | <span class="class">Cool</span>  |</div><div class="line">| ------------- |---------------| ------|</div><div class="line">| col <span class="number">3</span> is      | right-aligned | <span class="char">$1</span>600 |</div><div class="line">| col <span class="number">2</span> is      <span class="localvars">| centered      |</span>   <span class="char">$1</span>2 |</div><div class="line"><span class="localvars">| zebra stripes | are neat      |</span>    <span class="char">$1</span> |</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">| <span class="class">Tables</span>        | <span class="class">Are</span>           | <span class="class">Cool</span>  |  </div><div class="line">| ------------- |-------------- | ------|  </div><div class="line">| col <span class="number">3</span> is      | right-aligned | <span class="char">$1</span>600 |  </div><div class="line">| col <span class="number">2</span> is      <span class="localvars">| centered      |</span>   <span class="char">$1</span>2 | </div><div class="line"><span class="localvars">| zebra stripes | are neat      |</span>    <span class="char">$1</span> |</div></pre></td></tr></table></figure>
 
 <a id="more"></a>
 
@@ -57,7 +225,7 @@
 ]]></content>
     <summary type="html"><![CDATA[<p>插入表格算是Markdown的扩展语法</p>
 <p>使用很简单，示例如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">| <span class="class">Tables</span>        | <span class="class">Are</span>           | <span class="class">Cool</span>  |</div><div class="line">| ------------- |---------------| ------|</div><div class="line">| col <span class="number">3</span> is      | right-aligned | <span class="char">$1</span>600 |</div><div class="line">| col <span class="number">2</span> is      <span class="localvars">| centered      |</span>   <span class="char">$1</span>2 |</div><div class="line"><span class="localvars">| zebra stripes | are neat      |</span>    <span class="char">$1</span> |</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">| <span class="class">Tables</span>        | <span class="class">Are</span>           | <span class="class">Cool</span>  |  </div><div class="line">| ------------- |-------------- | ------|  </div><div class="line">| col <span class="number">3</span> is      | right-aligned | <span class="char">$1</span>600 |  </div><div class="line">| col <span class="number">2</span> is      <span class="localvars">| centered      |</span>   <span class="char">$1</span>2 | </div><div class="line"><span class="localvars">| zebra stripes | are neat      |</span>    <span class="char">$1</span> |</div></pre></td></tr></table></figure>
 
 ]]></summary>
     
@@ -536,844 +704,6 @@ obj.onclick=<span class="function"><span class="keyword">function</span><span cl
       <category term="hexo" scheme="http://wlcyhao.github.io/tags/hexo/"/>
     
       <category term="返回顶部" scheme="http://wlcyhao.github.io/tags/%E8%BF%94%E5%9B%9E%E9%A1%B6%E9%83%A8/"/>
-    
-      <category term="Hexo" scheme="http://wlcyhao.github.io/categories/Hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[hexo博客的优化技巧]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/15/hexo_yohua/"/>
-    <id>http://wlcyhao.github.io/2014/08/15/hexo_yohua/</id>
-    <published>2014-08-15T12:37:43.000Z</published>
-    <updated>2014-08-15T12:44:12.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="添加“多说”评论">添加“多说”评论</h2>
-<p>1、在<a href="http://duoshuo.com/" target="_blank" rel="external">多说</a>进行注册，获得通用代码。<br>2、将通用代码粘贴到themes<em>\light\layout_partial\comment.ejs</em>里面，如下：  </p>
-<pre><code><span class="vbscript">&lt;% <span class="keyword">if</span> ( page.comments){ %&gt;</span>
-<span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"comment"</span>&gt;</span>
-通用代码
-<span class="tag">&lt;/<span class="title">section</span>&gt;</span>
-<span class="vbscript">&lt;% } %&gt;</span>
-</code></pre><p><a id="more"></a>  </p>
-<h2 id="添加『页面导航』">添加『页面导航』</h2>
-<p>在刚才添加「多说」评论的文件中，加入一段代码，如下：</p>
-<pre><code><span class="vbscript">&lt;% <span class="keyword">if</span> ( page.comments){ %&gt;</span>
-<span class="tag">&lt;<span class="title">nav</span> <span class="attribute">id</span>=<span class="value">"pagination"</span> &gt;</span>
-<span class="vbscript">&lt;% <span class="keyword">if</span> (page.prev) { %&gt;</span>
-<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"&lt;%- config.root %&gt;&lt;%- page.prev.path %&gt;"</span> <span class="attribute">class</span>=<span class="value">"alignleft prev"</span> &gt;</span><span class="vbscript">&lt;%= __(<span class="comment">'prev') %&gt;</span></span><span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-<span class="vbscript">&lt;% } %&gt;</span>
-<span class="vbscript">&lt;% <span class="keyword">if</span> (page.<span class="keyword">next</span>) { %&gt;</span>
-<span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"&lt;%- config.root %&gt;&lt;%- page.next.path %&gt;"</span> <span class="attribute">class</span>=<span class="value">"alignright next"</span> &gt;</span><span class="vbscript">&lt;%= __(<span class="comment">'next') %&gt;</span></span><span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-<span class="vbscript">&lt;% } %&gt;</span>
-<span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"clearfix"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">nav</span>&gt;</span>
-<span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"comment"</span>&gt;</span>
-</code></pre><h2 id="添加“百度分享”">添加“百度分享”</h2>
-<p>到百度分享获得代码，在themes/light/layout/_partial/article.ejs中，将&lt;%-partial(‘post/share’)%&gt;删掉，替换为百度分享的代码。</p>
-<h2 id="添加小图标">添加小图标</h2>
-<p>在themes/light/layout/_partial/head.ejs里将<link href="<%- config.root %>favicon.png" rel="icon">替换为<link href="<%- config.root %>favicon.ico" rel="icon" type="image/x-ico">。将favicon.ico图标文件放在source目录下。制作图标的网站，<a href="http://www.faviconer.com。" target="_blank" rel="external">http://www.faviconer.com。</a></p>
-<h2 id="添加分类、标签云widget">添加分类、标签云widget</h2>
-<p>很简单，在themes/light/_config.yml中，添加如下：</p>
-<pre><code> widgets:
- -<span class="ruby"> category
-</span> -<span class="ruby"> tagcloud</span>
-</code></pre><h2 id="添加友情链接widget">添加友情链接widget</h2>
-<p>在themes/light/layout/_widget中新建名为blogroll.ejs的文件，编辑内容如下：</p>
-<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"widget tag"</span>&gt;</span>
-<span class="tag">&lt;<span class="title">h3</span> <span class="attribute">class</span>=<span class="value">"title"</span>&gt;</span>友情链接<span class="tag">&lt;/<span class="title">h3</span>&gt;</span>
-<span class="tag">&lt;<span class="title">ul</span> <span class="attribute">class</span>=<span class="value">"entry"</span>&gt;</span>
-<span class="tag">&lt;<span class="title">li</span>&gt;</span><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://wlcyhao.github.io/"</span> <span class="attribute">title</span>=<span class="value">"Horace's  IT Blog！"</span>&gt;</span>Horace<span class="tag">&lt;/<span class="title">a</span>&gt;</span><span class="tag">&lt;/<span class="title">li</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">ul</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
-</code></pre><p>在themes/light/_config.yml中，添加如下：</p>
-<pre><code>widget<span class="variable">s:</span>
-- blogroll
-</code></pre><h2 id="生成post时默认生成categories配置项">生成post时默认生成categories配置项</h2>
-<p>在scaffolds/post.md中，添加一行categories:。同理可应用在page.md和photo.md。</p>
-<h2 id="导航栏添加”关于”">导航栏添加”关于”</h2>
-<p> 1、hexo new page “about”<br> 2、到source/about/index.md编辑内容。<br> 3、在themes/light/_config.yml中，添加如下：</p>
-<pre><code><span class="keyword">menu</span>:
- 关于: /<span class="keyword">about</span>
-</code></pre><h2 id="主页文章显示摘要">主页文章显示摘要</h2>
-<p>编辑md文件的时候，在要作为摘要的文字后面添加\&lt;!—more—&gt;即可。</p>
-<h2 id="添加RSS">添加RSS</h2>
-<p>hexo提供了RSS的生成插件，需要手动安装和设置。步骤如下：<br>安装RSS插件到本地：npm install hexo-generator-feed<br>开启RSS功能：编辑hexo/_config.yml，添加如下代码：</p>
-<pre><code>plugin<span class="variable">s:</span>
-- hexo-generator-feed
-</code></pre><p>在站点添加链接：<br>在 <strong>themes/light/_config.yml</strong> 中，编辑<strong>rss: /atom.xml</strong><br>在<strong>themes/light/layout/_partial/header</strong>，`<ul></ul>之间，添加一样代码  </p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="input"><span class="prompt">&lt;li&gt;</span> &lt;a href=<span class="string">"/atom.xml"</span>&gt;<span class="constant">RSS</span>&lt;<span class="regexp">/a&gt; &lt;/li</span>&gt;</span></div></pre></td></tr></table></figure>
-
-<h2 id="文章中插入图片">文章中插入图片</h2>
-<p>使用markdown写文章，插入图片的格式为:![图片名称](链接地址)，这里要说的是链接地址怎么写。对于hexo，有两种方式：<br>1、使用本地路径：在hexo/source目录下新建一个img文件夹，将图片放入该文件夹下，插入图片时链接即为/img/图片名称。<br>2、使用微博图床，地址<a href="http://weibotuchuang.sinaapp.com/，将图片拖入区域中，会生成图片的URL，这就是链接地址。" target="_blank" rel="external">http://weibotuchuang.sinaapp.com/，将图片拖入区域中，会生成图片的URL，这就是链接地址。</a></p>
-<h2 id="加入「fork_me_on_github」">加入「fork me on github」</h2>
-<p><a href="https://github.com/blog/273-github-ribbons" target="_blank" rel="external">这里</a>有 github 给出的教程，把代码插入到任意一个全局的模板文件中就行，比如layout.ejs的末尾。</p>
-]]></content>
-    <summary type="html"><![CDATA[<h2 id="添加“多说”评论">添加“多说”评论</h2>
-<p>1、在<a href="http://duoshuo.com/" target="_blank" rel="external">多说</a>进行注册，获得通用代码。<br>2、将通用代码粘贴到themes<em>\light\layout_partial\comment.ejs</em>里面，如下：  </p>
-<pre><code><span class="vbscript">&lt;% <span class="keyword">if</span> ( page.comments){ %&gt;</span>
-<span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"comment"</span>&gt;</span>
-通用代码
-<span class="tag">&lt;/<span class="title">section</span>&gt;</span>
-<span class="vbscript">&lt;% } %&gt;</span>
-</code></pre><p>]]></summary>
-    
-      <category term="hexo" scheme="http://wlcyhao.github.io/tags/hexo/"/>
-    
-      <category term="优化" scheme="http://wlcyhao.github.io/tags/%E4%BC%98%E5%8C%96/"/>
-    
-      <category term="Hexo" scheme="http://wlcyhao.github.io/categories/Hexo/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[关于上传文件到github的方法]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/09/upload-to-github/"/>
-    <id>http://wlcyhao.github.io/2014/08/09/upload-to-github/</id>
-    <published>2014-08-09T12:47:37.000Z</published>
-    <updated>2014-08-09T13:07:16.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="第一步、建立先仓库">第一步、建立先仓库</h2>
-<p>第一步的话看一般的提示就知道了，在github新建一个repository（谷歌可以解决），都是可视化的界面操作，所以难度不大。或者看这里：<a href="https://help.github.com/articles/create-a-repo" target="_blank" rel="external">官方help</a> ，虽然是英文的，但是基本都是图和代码，所以很容易读懂。</p>
-<p>在github首页的右上角，点击红框中的Create New Repo。<br><img src="/img/2012082415173733.png" alt="Create New Repo"></p>
-<p><a id="more"></a><br>进入新建仓库的界面  </p>
-<p><img src="/img/2012082416481736.png" alt="Create repository"></p>
-<p>填一下仓库名称，Initialize this repository with a README是可选的，不过本人建议最好选上，可以在后面省一个步骤。填好之后，点Create repository就行了。  </p>
-<h2 id="第二步、克隆仓库">第二步、克隆仓库</h2>
-<p>第二步开始就基本进入命令行模式了，不过要先从github上下载命令行工具。<a href="http://windows.github.com/" target="_blank" rel="external">下载地址</a></p>
-<p>然后进行简单的安装之后，会在桌面上创建两个图标，GitHub和Git Shell，GitHub是图形界面，Git Shell是命令行模式，而且默认的Git仓库是建在C盘的，建议要把路径重设下。</p>
-<p>点开Git Shell，进入命令行。首先我们先要把GitHub上的我们新建的仓库clone下来，为了演示，我在GitHub上新建了一个名称为myRepoForBlog的git。</p>
-<p>在初始化版本库之前，先要确认认证的公钥是否正确，如下：</p>
-<pre><code>
-ssh -T git@github.com
-</code></pre>
-
-<p>正确地结果如下：</p>
-<pre><code>
-Warning: Permanently added 'github.com,207.97.227.239' (RSA) to the list of known hosts.  
-Hi findingsea! You've successfully authenticated, but GitHub does not provide shell access.
-</code></pre>
-
-<p>会有一个Warning，不用理会。</p>
-<p>接下来对库进行clone，如下：</p>
-<pre><code>
-git clone https://github.com/findingsea/myRepoForBlog.git
-</code></pre>
-
-<p>上面的地址可以在如下界面找到：</p>
-<p><img src="/img/2012082417211682.png" alt="Create repository"></p>
-<p>clone成功如下：</p>
-<pre><code>
-Cloning into 'myRepoForBlog'...
-Warning: Permanently added 'github.com,207.97.227.239' (RSA) to the list of known hosts.
-remote: Counting objects: 3, done.
-remote: Total 3 (delta 0), reused 0 (delta 0)
-Receiving objects: 100% (3/3), done.
-</code></pre>
-
-<h2 id="第三步、上传README-md文件">第三步、上传README.md文件</h2>
-<p>这个时候，我们的GitHub文件夹下就多了一个myRepoForBlog文件夹，进入文件夹目录，对仓库进行初始化，如果我们之前没有勾选创建README，则要先创建README.md文件，不然上传文件会报错。如果在第一步就勾选过了<strong>Initialize this repository with a README</strong>,<br>则可以直接进入第四步。</p>
-<pre><code>
-git init  
-touch README.md  
-git add README.md  
-git commit -m 'first_commit'  
-git remote add origin https://github.com/findingsea/  myRepoForBlog.git
-git push origin master
-</code></pre>
-
-<h2 id="第四步、push文件">第四步、push文件</h2>
-<p>创建完README.md后，就可以push了，代码类似。</p>
-<pre><code>
-git add .  
-git commit -m 'first_commit'  
-git remote add origin https://github.com/findingsea/myRepoForBlog.git  
-git push origin master  
-</code></pre>
-
-<p>如果执行</p>
-<pre><code>
-git remote add origin https://github.com/findingsea/myRepoForBlog.git，
-</code></pre>
-
-<p>出现错误：</p>
-<pre><code>
-fatal: remote origin already exists
-</code></pre>
-
-<p>则执行以下语句：</p>
-<pre><code>
-git remote rm origin
-</code></pre>
-
-<p>再往后执行</p>
-<pre><code>
-git remote add origin https://github.com/findingsea/myRepoForBlog.git
-</code></pre>
-
-
-<p>再执行</p>
-<pre><code>
-git push origin master
-</code></pre>
-
-<p>如果出现报错：</p>
-<pre><code>
-error:failed to push som refs to.......
-</code></pre>
-
-<p>则执行以下语句：</p>
-<pre><code>
-git pull origin master
-</code></pre>
-
-<p>先把远程服务器github上面的文件拉先来，再push 上去。</p>
-<p>【结束】</p>
-<p>再次要强调这篇文章主要是对初学者的，也就我这种github菜鸟的。</p>
-<p>最后感谢那些无私分享自己经验和知识的博主们。</p>
-]]></content>
-    <summary type="html"><![CDATA[<h2 id="第一步、建立先仓库">第一步、建立先仓库</h2>
-<p>第一步的话看一般的提示就知道了，在github新建一个repository（谷歌可以解决），都是可视化的界面操作，所以难度不大。或者看这里：<a href="https://help.github.com/articles/create-a-repo" target="_blank" rel="external">官方help</a> ，虽然是英文的，但是基本都是图和代码，所以很容易读懂。</p>
-<p>在github首页的右上角，点击红框中的Create New Repo。<br><img src="/img/2012082415173733.png" alt="Create New Repo"></p>
-<p>]]></summary>
-    
-      <category term="github" scheme="http://wlcyhao.github.io/tags/github/"/>
-    
-      <category term="上传文件" scheme="http://wlcyhao.github.io/tags/%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/"/>
-    
-      <category term="github" scheme="http://wlcyhao.github.io/categories/github/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Cisco交换机接口模式精解]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/09/cisco-swith-interface-mode/"/>
-    <id>http://wlcyhao.github.io/2014/08/09/cisco-swith-interface-mode/</id>
-    <published>2014-08-09T06:56:54.000Z</published>
-    <updated>2014-08-09T07:14:11.000Z</updated>
-    <content type="html"><![CDATA[<p>cisco网络中，交换机在局域网中最终稳定状态的接口类型主要有四种：access/ trunk/ multi/ dot1q-tunnel。  </p>
-<p>1、access: 主要用来接入终端设备，如PC机、服务器、打印服务器等。<br>2、trunk: 主要用在连接其它交换机，以便在线路上承载多个vlan。<br>3、multi: 在一个线路中承载多个vlan，但不像trunk,它不对承载的数据打 标签。主要用于接入支持多vlan的服务器或者一些网络分析设备。现在基本不使用此类接口，在cisco的网络设备中，也基本不支持此类接口了。<br>4、dot1q-tunnel: 用在Q-in-Q隧道配置中。<br><a id="more"></a><br>Cisco网络设备支持动态协商端口的工作状态，这为网络设备的实施提供了一定的方便（但不建议使用动态方式）。cisco动态协商协议从最初的DISL（Cisco私有协议）发展到DTP（公有协议）。根据动态协议的实现方式，Cisco网络设备接口主要分为下面几种模式：</p>
-<p>1、switchport mode access:  强制接口成为access接口，并且可以与对方主动进行协商，诱使对方成为access模式。<br>2、switchport mode dynamic desirable:  主动与对协商成为Trunk接口的可能性，如果邻居接口模式为Trunk/desirable/auto之一，则接口将变成trunk接口工作。如果不能形成trunk模式，则工作在access模式。这种模式是现在交换机的默认模式。<br>3、switchport mode dynamic auto:  只有邻居交换机主动与自己协商时才会变成Trunk接口，所以它是一种被动模式，当邻居接口为Trunk／desirable之一时，才会成为Trunk。如果不能形成trunk模式，则工作在access模式。<br>4、switchport mode trunk:  强制接口成为Trunk接口，并且主动诱使对方成为Trunk模式，所以当邻居交换机接口为trunk/desirable/auto时会成为Trunk接口。<br>5、switchport nonegotiate:  严格的说，这不算是种接口模式，它的作用只是阻止交换机接口发出DTP数据包，它必须与switchport mode trunk或者switchport mode access一起使用。<br>6、switchport mode dot1q-tunnel：　配置交换机接口为隧道接口（非Trunk），以便与用户交换机的Trunk接口形成不对称链路。</p>
-]]></content>
-    <summary type="html"><![CDATA[<p>cisco网络中，交换机在局域网中最终稳定状态的接口类型主要有四种：access/ trunk/ multi/ dot1q-tunnel。  </p>
-<p>1、access: 主要用来接入终端设备，如PC机、服务器、打印服务器等。<br>2、trunk: 主要用在连接其它交换机，以便在线路上承载多个vlan。<br>3、multi: 在一个线路中承载多个vlan，但不像trunk,它不对承载的数据打 标签。主要用于接入支持多vlan的服务器或者一些网络分析设备。现在基本不使用此类接口，在cisco的网络设备中，也基本不支持此类接口了。<br>4、dot1q-tunnel: 用在Q-in-Q隧道配置中。<br>]]></summary>
-    
-      <category term="cisco" scheme="http://wlcyhao.github.io/tags/cisco/"/>
-    
-      <category term="交换机" scheme="http://wlcyhao.github.io/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/"/>
-    
-      <category term="Swtitch&amp;Router" scheme="http://wlcyhao.github.io/categories/Swtitch&Router/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[交换机&路由器命令小全（带中文注释）]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/09/switch-and-router-command/"/>
-    <id>http://wlcyhao.github.io/2014/08/09/switch-and-router-command/</id>
-    <published>2014-08-09T06:45:22.000Z</published>
-    <updated>2014-08-09T06:59:38.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="1-_交换机支持的命令：">1. 交换机支持的命令：</h2>
-<p>交换机基本状态： </p>
-<pre><code>
-switch: ；ROM状态， 路由器是rommon>
-
-hostname> ；用户模式
-
-hostname# ；特权模式
-
-hostname(config)# ；全局配置模式
-
-hostname(config-if)# ；接口状态
-</code></pre>
-<a id="more"></a>
-交换机口令设置： 
-
-<pre><code>
-switch>enable ；进入特权模式
-
-switch#config terminal ；进入全局配置模式
-
-switch(config)#hostname  ；设置交换机的主机名
-
-switch(config)#enable secret xxx ；设置特权加密口令
-
-switch(config)#enable password xxa ；设置特权非密口令
-
-switch(config)#line console 0 ；进入控制台口
-
-switch(config-line)#line vty 0 4 ；进入虚拟终端
-
-switch(config-line)#login ；允许登录
-
-switch(config-line)#password xx ；设置登录口令xx
-
-switch#exit ；返回命令
-
-</code></pre>
-
-<p>交换机VLAN设置：</p>
-<pre><code>
-switch#vlan database ；进入VLAN设置
-
-switch(vlan)#vlan 2 ；建VLAN 2
-
-switch(vlan)#no vlan 2 ；删vlan 2
-
-switch(config)#int f0/1 ；进入端口1
-
-switch(config-if)#switchport access vlan 2 ；当前端口加入vlan 2
-
-switch(config-if)#switchport mode trunk ；设置为干线
-
-switch(config-if)#switchport trunk allowed vlan 1，2 ；设置允许的vlan
-
-switch(config-if)#switchport trunk encap dot1q ；设置vlan 中继
-
-switch(config)#vtp domain  ；设置发vtp域名
-
-switch(config)#vtp password  ；设置发vtp密码
-
-switch(config)#vtp mode server ；设置发vtp模式
-
-switch(config)#vtp mode client ；设置发vtp模式
-</code></pre>
-
-<p>交换机设置IP地址：</p>
-<pre><code>
-switch(config)#interface vlan 1 ；进入vlan 1
-
-switch(config-if)#ip address   ；设置IP地址
-
-switch(config)#ip default-gateway  ；设置默认网关
-
-switch#dir flash: ；查看闪存
-</code></pre>
-
-<p>交换机显示命令：</p>
-<pre><code>
-switch#write ；保存配置信息
-
-switch#show vtp ；查看vtp配置信息
-
-switch#show run ；查看当前配置信息
-
-switch#show vlan ；查看vlan配置信息
-
-switch#show interface ；查看端口信息
-
-switch#show int f0/0 ；查看指定端口信息    
-</code></pre>
-
-<h2 id="2-_路由器支持的命令：">2. 路由器支持的命令：</h2>
-<p>路由器显示命令：</p>
-<pre><code>
-router#show run ；显示配置信息
-
-router#show interface ；显示接口信息
-
-router#show ip route ；显示路由信息
-
-router#show cdp nei ；显示邻居信息
-
-router#reload 　 　 ；重新起动
-</code></pre>
-
-<p>路由器口令设置：</p>
-<pre><code>
-router>enable ；进入特权模式
-
-router#config terminal ；进入全局配置模式
-
-router(config)#hostname  ；设置交换机的主机名
-
-router(config)#enable secret xxx ；设置特权加密口令
-
-router(config)#enable password xxb ；设置特权非密口令
-
-router(config)#line console 0 ；进入控制台口
-
-router(config-line)#line vty 0 4 ；进入虚拟终端
-
-router(config-line)#login ；要求口令验证
-
-router(config-line)#password xx ；设置登录口令xx
-
-router(config)#(Ctrl+z) ； 返回特权模式
-
-router#exit ；返回命令
-</code></pre>
-
-<p>路由器配置：</p>
-<pre><code>
-router(config)#int s0/0 ；进入Serail接口
-
-router(config-if)#no shutdown ；激活当前接口
-
-router(config-if)#clock rate 64000 ；设置同步时钟
-
-router(config-if)#ip address   ；设置IP地址
-
-router(config-if)#ip address  second ；设置第二个IP
-
-router(config-if)#int f0/0.1 ；进入子接口
-
-router(config-subif.1)#ip address  ；设置子接口IP
-
-router(config-subif.1)#encapsulation dot1q  ；绑定vlan中继协议
-
-router(config)#config-register 0x2142 ；跳过配置文件
-
-router(config)#config-register 0x2102 ；正常使用配置文件
-
-router#reload ；重新引导
-</code></pre>
-
-<p>路由器文件操作：</p>
-<pre><code>
-router#copy running-config startup-config ；保存配置
-
-router#copy running-config tftp ；保存配置到tftp
-
-router#copy startup-config tftp ；开机配置存到tftp
-
-router#copy tftp flash: ；下传文件到flash
-
-router#copy tftp startup-config；下载配置文件
-ROM状态：
-
-Ctrl+Break ；进入ROM监控状态
-
-rommon>confreg 0x2142 ；跳过配置文件
-
-rommon>confreg 0x2102 ；恢复配置文件
-
-rommon>reset　 ；重新引导
-
-rommon>copy xmodem: flash: ；从console传输文件
-rommon>IP_ADDRESS=10.65.1.2 ；设置路由器IP
-
-rommon>IP_SUBNET_MASK=255.255.0.0 ；设置路由器掩码
-
-rommon>TFTP_SERVER=10.65.1.1 ；指定TFTP服务器IP
-
-rommon>TFTP_FILE=c2600.bin ；指定下载的文件
-
-rommon>tftpdnld ；从tftp下载
-
-rommon>dir flash: ；查看闪存内容
-
-rommon>boot ；引导IOS
-</code></pre>
-
-<p>静态路由：</p>
-<pre><code>
-ip route    ；命令格式
-
-router(config)#ip route 2.0.0.0 255.0.0.0 1.1.1.2 ；静态路由举例
-
-router(config)#ip route 0.0.0.0 0.0.0.0 1.1.1.2 ；默认路由举例
-</code></pre>
-
-<p>动态路由：</p>
-<pre><code>
-router(config)#ip routing ；启动路由转发
-
-router(config)#router rip ；启动RIP路由协议。
-
-router(config-router)#network  ；设置发布路由
-
-router(config-router)#negihbor  ；点对点帧中继用。
-</code></pre>
-
-<p>帧中继命令：</p>
-<pre><code>
-router(config)#frame-relay switching ；使能帧中继交换
-
-router(config-s0)#encapsulation frame-relay ；使能帧中继
-
-router(config-s0)#fram-relay lmi-type cisco ；设置管理类型
-
-router(config-s0)#frame-relay intf-type DCE ；设置为DCE
-
-router(config-s0)#frame-relay dlci 16 ；
-
-router(config-s0)#frame-relay local-dlci 20 ；设置虚电路号
-
-router(config-s0)#frame-relay interface-dlci 16 ；
-
-router(config)#log-adjacency-changes ；记录邻接变化
-
-router(config)#int s0/0.1 point-to-point ；设置子接口点对点
-
-router#show frame pvc ；显示永久虚电路
-
-router#show frame map ；显示映射 
-</code></pre>
-
-<p>基本访问控制列表：</p>
-<pre><code>
-router(config)#access-list  permit|deny  
-
-router(config)#interface  ；default:deny any
-
-router(config-if)#ip access-group  in|out ；default:out
-例1：
-
-router(config)#access-list 4 permit 10.8.1.1
-
-router(config)#access-list 4 deny 10.8.1.0 0.0.0.255
-
-router(config)#access-list 4 permit 10.8.0.0 0.0.255.255
-
-router(config)#access-list 4 deny 10.0.0.0 0.255.255.255
-
-router(config)#access-list 4 permit any
-
-router(config)#int f0/0
-
-router(config-if)#ip access-group 4 in
-</code></pre>
-
-<p>扩展访问控制列表：</p>
-<pre><code>
-access-list  permit|deny icmp  <destinationip wild="">[type]
-
-access-list  permit|deny tcp  <destinationip wild="">[port]
-
-例2：
-
-router(config)#access-list 101 deny icmp any 10.64.0.2 0.0.0.0 echo
-
-router(config)#access-list 101 permit ip any any
-
-router(config)#int s0/0
-
-router(config-if)#ip access-group 101 in
-
-例3：
-
-router(config)#access-list 102 deny tcp any 10.65.0.2 0.0.0.0 eq 80
-
-router(config)#access-list 102 permit ip any any
-
-router(config)#interface s0/1
-
-router(config-if)#ip access-group 102 out
-</destinationip></destinationip></code></pre>
-
-<p>删除访问控制例表:</p>
-<pre><code>
-router(config)#no access-list 102
-
-router(config-if)#no ip access-group 101 in
-</code></pre>
-
-<p>路由器的nat配置</p>
-<pre><code>
-Router(config-if)#ip nat inside ；当前接口指定为内部接口
-
-Router(config-if)#ip nat outside ；当前接口指定为外部接口
-
-Router(config)#ip nat inside source static [p] <私有ip><公网ip> [port]
-
-Router(config)#ip nat inside source static 10.65.1.2 60.1.1.1
-
-Router(config)#ip nat inside source static tcp 10.65.1.3 80 60.1.1.1 80
-
-Router(config)#ip nat pool p1 60.1.1.1 60.1.1.20 255.255.255.0
-
-Router(config)#ip nat inside source list 1 pool p1
-
-Router(config)#ip nat inside destination list 2 pool p2
-
-Router(config)#ip nat inside source list 2 interface s0/0 overload
-
-Router(config)#ip nat pool p2 10.65.1.2 10.65.1.4 255.255.255.0 type rotary
-
-Router#show ip nat translation
-
-rotary 参数是轮流的意思，地址池中的IP轮流与NAT分配的地址匹配。
-
-overload参数用于PAT 将内部IP映射到一个公网IP不同的端口上。
-</公网ip></私有ip></code></pre>
-
-<p>外部网关协议配置：</p>
-<pre><code>
-routerA(config)#router bgp 100
-
-routerA(config-router)#network 19.0.0.0
-
-routerA(config-router)#neighbor 8.1.1.2 remote-as 200
-</code></pre>
-
-<p>配置PPP验证：</p>
-<pre><code>
-RouterA(config)#username  password 
-
-RouterA(config)#int s0
-
-RouterA(config-if)#ppp authentication {chap|pap}
-</code></pre>
-
-<p>3．PIX防火墙命令</p>
-<pre><code>
-Pix525(config)#nameif ethernet0 outside security0 ；命名接口和级别
-
-Pix525(config)#interface ethernet0 auto ；设置接口方式
-
-Pix525(config)#interface ethernet1 100full ；设置接口方式
-
-Pix525(config)#interface ethernet1 100full shutdown
-
-Pix525(config)#ip address inside 192.168.0.1 255.255.255.0
-
-Pix525(config)#ip address outside 133.0.0.1 255.255.255.252
-Pix525(config)#global (if_name) natid ip-ip ；定义公网IP区间
-
-Pix525(config)#global (outside) 1 7.0.0.1-7.0.0.15 ；例句
-
-Pix525(config)#global (outside) 1 133.0.0.1 ；例句
-
-Pix525(config)#no global (outside) 1 133.0.0.1 ；去掉设置
-Pix525(config)#nat (if_name) nat_id local_ip [netmark]
-
-Pix525(config)#nat (inside) 1 0 0
-
-内网所有主机(0代表0.0.0.0)可以访问global 1指定的外网。
-
-Pix525(config)#nat (inside) 1 172.16.5.0 255.255.0.0
-
-内网172.16.5.0/16网段的主机可以访问global 1指定的外网。
-Pix525(config)#route if_name 0 0 gateway_ip [metric] ；命令格式
-
-Pix525(config)#route outside 0 0 133.0.0.1 1 ；例句
-
-Pix525(config)#route inside 10.1.0.0 255.255.0.0 10.8.0.1 1 ；例句
-Pix525(config)#static (inside， outside) 133.0.0.1 192.168.0.8
-
-表示内部ip地址192.168.0.8，访问外部时被翻译成133.0.0.1全局地址。
-Pix525(config)#static (dmz， outside) 133.0.0.1 172.16.0.8
-
-中间区域ip地址172.16.0.8，访问外部时被翻译成133.0.0.1全局地址。
-</code></pre>]]></content>
-    <summary type="html"><![CDATA[<h2 id="1-_交换机支持的命令：">1. 交换机支持的命令：</h2>
-<p>交换机基本状态： </p>
-<pre><code>
-switch: ；ROM状态， 路由器是rommon>
-
-hostname> ；用户模式
-
-hostname# ；特权模式
-
-hostname(config)# ；全局配置模式
-
-hostname(config-if)# ；接口状态
-</code></pre>
-]]></summary>
-    
-      <category term="交换机" scheme="http://wlcyhao.github.io/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA/"/>
-    
-      <category term="路由器" scheme="http://wlcyhao.github.io/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/"/>
-    
-      <category term="Swtitch&amp;Router" scheme="http://wlcyhao.github.io/categories/Swtitch&Router/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Oracle RAC安装过程中碰到问题及解决方法]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/09/RAC-Promblem-solution/"/>
-    <id>http://wlcyhao.github.io/2014/08/09/RAC-Promblem-solution/</id>
-    <published>2014-08-09T03:19:25.000Z</published>
-    <updated>2014-08-09T05:58:22.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。">这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。</h2>
-<h3 id="错误一：">错误一：</h3>
-<p>配置共享磁盘的问题。如果共享磁盘本身有内容，可能会导致在安装完CLUSTERWARE后，执行root.sh时出错，错误信息为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed <span class="keyword">to</span> upgrade Oracle Cluster Registry <span class="keyword">configuration</span>。</div></pre></td></tr></table></figure>
-
-
-
-<p>这时可以利用dd命令来清除ocr和voting disk的共享磁盘。类似命令为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dd <span class="variable">if=</span>/dev/zero <span class="variable">of=</span>/dev/rdsk/c2t0d2s3 <span class="variable">bs=</span><span class="number">1073741824</span> <span class="variable">count=</span><span class="number">1</span></div></pre></td></tr></table></figure>
-
-<p>其中of指定需要清除的共享磁盘设备，而bs指定该设备的空间大小。<br>清除之后，再次运行root.sh，则问题消失。<br><a id="more"></a>  </p>
-<h3 id="错误二：">错误二：</h3>
-<p>Oracle默认不会使用s0分区，如果指定了s0分区作为ocr或voting disk,<br>那么在执行root.sh时也会收到同样的错误信息：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed <span class="keyword">to</span> upgrade Oracle Cluster Registry <span class="keyword">configuration</span>。</div></pre></td></tr></table></figure>
-
-<p>这个时候可以指定其他的分区来替换s0分区。</p>
-<h3 id="错误三：">错误三：</h3>
-<p>vip找不到public interface的问题。这个问题实际上是Oracle的bug。<br>Oracle认为192.168.<em>.</em>、10.<em>.</em>.<em>、172.16.</em>.<em>——172.31.</em>.*等ip属于private IP。因此无法自动绑定到interface上。<br>在使用cluvfy工具验证时会出现下面的错误：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR: Could <span class="operator">not</span> find <span class="operator">a</span> suitable <span class="built_in">set</span> <span class="operator">of</span> interfaces <span class="keyword">for</span> VIPs.</div></pre></td></tr></table></figure>
-
-<p>而在安装完ClusterWare后，第二个节点执行root.sh脚本之后，会出现下面的错误：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">The given <span class="keyword">interface</span>(s), <span class="string">"ce0"</span> <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">public</span>. <span class="keyword">Public</span> interfaces should be used <span class="keyword">to</span> configure virtual IPs.</div></pre></td></tr></table></figure>
-
-<p>这个的解决方法就是用root身份手工启动VIPCA，进行手工配置。</p>
-<p>Oracle对这个问题的详细描述是：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Doc ID:Note:<span class="number">316583.1</span>：Subject:VIPCA FAILS COMPLAINING THAT <span class="keyword">INTERFACE</span> <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="keyword">PUBLIC</span>。</div></pre></td></tr></table></figure>
-
-<p>相关的bug信息是：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Bug <span class="number">4437727</span> - VIPCA FAILS COMPLAINING THAT <span class="keyword">INTERFACE</span> <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="keyword">PUBLIC</span>。</div></pre></td></tr></table></figure>
-
-
-
-<h3 id="错误四：">错误四：</h3>
-<p>那就是如果没有设置默认的网关信息，那么手工配置VIPCA的时候会出错。<br>如果/etc/defaultrouter没有正确的配置，那么启动vipca后，进行正确的配置。<br>Oracle会执行6个步骤，Create VIP application resource、Create GSD application resource、Create ONS application resource、Start VIP application resource、Start GSD application resource、Start ONS application resource。</p>
-<p>当执行到第四个步骤Starting VIP application resource时后出现错误。错误信息为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">CRS-1006</span>: <span class="string">No more members to consider   </span></div><div class="line"><span class="attribute">CRS-0215</span>: <span class="string">Could not start resource 'racnode1-vip'.   </span></div><div class="line"><span class="attribute">CRS-1006</span>: <span class="string">No more members to consider   </span></div><div class="line"><span class="attribute">CRS-0215</span>: <span class="string">Could not start resource 'racnode2-vip'.</span></div></pre></td></tr></table></figure>
-
-
-<p>配置了默认路由，就可以解决这个问题了。</p>
-<h3 id="错误五：">错误五：</h3>
-<p>也是在安装ClusterWare时碰到的。对于绑定PRIVATE ID的概念理解的不是很清晰，在加上cluvfy工具验证时出现的错误：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR: Could <span class="operator">not</span> find <span class="operator">a</span> suitable <span class="built_in">set</span> <span class="operator">of</span> interfaces <span class="keyword">for</span> VIPs.</div></pre></td></tr></table></figure>
-
-<p>因此尝试手工通过下面的命令绑定VIP。</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="title">ifconfig</span> eth0:<span class="number">1</span> plumb  </div><div class="line">ifconfig eth0:<span class="number">1</span> <span class="number">172.25.198.224</span> netmask <span class="number">255.255.0.0</span>              broadcast <span class="number">172.25.255.255</span> up</div></pre></td></tr></table></figure>
-
-<p>但是Oracle需要自动绑定这个虚拟IP，这种通过手工绑定的方式会导致ClusterWare安装配置IP时出现下面的错误：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SEVERE: The virtual hostname(s), vip-node1,vip-node2, you have specified appears <span class="built_in">to</span> be already assigned <span class="built_in">to</span> another <span class="keyword">system</span> <span class="command"><span class="keyword">on</span> <span class="title">the</span> <span class="title">network</span></span></div></pre></td></tr></table></figure>
-
-<p>解决方法就是去掉手工绑定的VIP，通过Oracle的配置工具使得Oracle自动进行绑定。</p>
-<h3 id="错误六：">错误六：</h3>
-<p>在数据库安装阶段碰到了。在Oracle编译racg_install时出现编译错误。检查log文件发现类似下面的问题：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="title">makefile</span> <span class="string">'/data/oracle/product/10.2/racg/lib/ins_has.mk'</span> 的目标 <span class="string">'racg_install'</span> 时出错。</div></pre></td></tr></table></figure>
-
-<p>在make.log中出现类型下面的错误：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="title">racg_install</span>// <span class="typedef"><span class="keyword">data</span> /oracle/product/10.2/racg/lib/ins_has.mk:7: /<span class="keyword">data</span>/oracle/product/10.2/crs/lib/env_has.mk: </span></div><div class="line">没有那个文件或目录 make:\*** 没有规则可以创建目标“/<span class="typedef"><span class="keyword">data</span>/oracle/product/10.2/crs/lib/env_has.mk”。 停止。</span></div></pre></td></tr></table></figure>
-
-<p>根据错误信息发现是找不到env_has.mk文件造成的问题。而这个错误居然在METALINK和GOOGLE上都找不到产生问题的原因。</p>
-<p>到$ORACLE_HOME/crs/lib目录下，确实找不到相应的env_has.mk。但是在$ORACLE_HOME/crs/crs/lib目录下可以找到这个文件。</p>
-<p>造成这个错误出现的主要原因是CRS的主目录和ORACLE_HOME主目录出现冲突。</p>
-<p>当时设置的ORACLE_HOME是/data/oracle/product/10.2，而安装Oracle的ClusterWare时指定的主目录是/data/oracle/product/10.2/crs。由于两个目录存在着嵌套关系，导致了这个问题的产生。</p>
-<p>而后将ORACLE_HOME设置为/data/oracle/product/10.2/database，而Oracle的ClusterWare目录不变，仍为/data/oracle/product/10.2/crs，错误不在出现。</p>
-<h3 id="错误七：">错误七：</h3>
-<p>在第二次重建系统时出现的。由于存储设备没有进行格式化。因此存储设备本身保留了ASM的配置信息。</p>
-<p>这种情况下第一次已经分配的ASM磁盘对于新的ASM实例是不可用的。</p>
-<p>解决方法是通过第一个问题中介绍的清除ocr和voting disk的方式来清除裸设备的信息，比如：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dd <span class="variable">if=</span>/dev/zero <span class="variable">of=</span>/dev/rdsk/c2t0d2s3 <span class="variable">bs=</span><span class="number">1073741824</span> <span class="variable">count=</span><span class="number">1</span></div></pre></td></tr></table></figure>
-
-<p>更为重要的是，选择ASM磁盘组的时候，不能选择和上次配置同名的磁盘组，否则会出现错误信息：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ORA-15032和ORA-15063。</div></pre></td></tr></table></figure>
-
-<p>指定另外的ASM磁盘组名称后，问题得以解决。</p>
-<h3 id="错误八：">错误八：</h3>
-<p>在安装5117016补丁集后出现的节点2上的数据库无法启动的错误。</p>
-<p>错误信息为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ORA-<span class="number">01078</span>: failure <span class="keyword">in</span> processing system parameters </div><div class="line">ORA-<span class="number">01565</span>: <span class="keyword">error</span> <span class="keyword">in</span> identifying <span class="type">file</span> '+DISK/testrac/spfiletestrac.ora' </div><div class="line">ORA-<span class="number">17503</span>: ksfdopn:<span class="number">2</span> Failed <span class="keyword">to</span> open <span class="type">file</span> +DISK/testrac/spfiletestrac.ora </div><div class="line">ORA-<span class="number">03113</span>: <span class="keyword">end</span>-<span class="keyword">of</span>-<span class="type">file</span> <span class="function_start"><span class="keyword">on</span></span> communication channel</div></pre></td></tr></table></figure>
-
-<p>同时从后台的alert文件中可以看到如下的错误：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Errors <span class="keyword">in</span> <span class="keyword">file</span> /data/oracle/admin/testrac/udump/testrac2_ora_4598.trc: </div><div class="line">ORA-<span class="number">07445</span>: 出现异常错误: 核心转储 [kkxcms()+<span class="number">1160</span>] [SIGSEGV] [Address <span class="keyword">not</span> mapped <span class="keyword">to</span> <span class="keyword">object</span>] [<span class="number">0</span>x000000168] [] []</div></pre></td></tr></table></figure>
-
-<p>Oracle的Note:390591.1上有详细的描述和解决方法。</p>
-<p>整个过程碰到的比较麻烦和难于处理的问题都已经列出来了。安装过程中碰到的小问题更多。可能这些问题对于一个有了一定安装经验的人来说，不算什么。 但是对于缺少安装经验的人或者第一次尝试安装RAC环境的人，每个问题都是一次考验。考验你是否进行了充分的知识准备；考验你的问题分析、解决能力；考验 你搜索、寻找问题解决方法的能力；最重要的是考验你的信心、耐心和毅力。</p>
-]]></content>
-    <summary type="html"><![CDATA[<h2 id="这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。">这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。</h2>
-<h3 id="错误一：">错误一：</h3>
-<p>配置共享磁盘的问题。如果共享磁盘本身有内容，可能会导致在安装完CLUSTERWARE后，执行root.sh时出错，错误信息为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed <span class="keyword">to</span> upgrade Oracle Cluster Registry <span class="keyword">configuration</span>。</div></pre></td></tr></table></figure>
-
-
-
-<p>这时可以利用dd命令来清除ocr和voting disk的共享磁盘。类似命令为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dd <span class="variable">if=</span>/dev/zero <span class="variable">of=</span>/dev/rdsk/c2t0d2s3 <span class="variable">bs=</span><span class="number">1073741824</span> <span class="variable">count=</span><span class="number">1</span></div></pre></td></tr></table></figure>
-
-<p>其中of指定需要清除的共享磁盘设备，而bs指定该设备的空间大小。<br>清除之后，再次运行root.sh，则问题消失。<br>]]></summary>
-    
-      <category term="Oracle" scheme="http://wlcyhao.github.io/tags/Oracle/"/>
-    
-      <category term="RAC" scheme="http://wlcyhao.github.io/tags/RAC/"/>
-    
-      <category term="Oracle" scheme="http://wlcyhao.github.io/categories/Oracle/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[让虚拟机支持安装64位操作系统的处理方法]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/09/VirtuleMachine-Support64bit/"/>
-    <id>http://wlcyhao.github.io/2014/08/09/VirtuleMachine-Support64bit/</id>
-    <published>2014-08-09T02:59:39.000Z</published>
-    <updated>2014-08-09T06:04:03.000Z</updated>
-    <content type="html"><![CDATA[<p>尝试虚拟的操作系统是CentOS-5.4-x86_64，因此在系统选项中选择了Other Linux 64bit，尝试系统后系统报错：  </p>
-<p>This CPU is VT-capable, but VT is not enabled (check your BIOS settings).<br>You have configured this virtual machine as a 64-bit guest operating system. However, this host’s CPU is not capable of running 64-bit virtual machines or this virtual machine has 64-bit support disabled.<br>For more detailed information, see <a href="http://www.vmware.com/info?id=152" target="_blank" rel="external">http://www.vmware.com/info?id=152</a></p>
-<p><a id="more"></a><br>点击确定，屏幕显示错误信息为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Your CPU does <span class="operator">not</span> support <span class="keyword">long</span> mode. Use <span class="operator">a</span> <span class="number">32</span>bit distribution.</div></pre></td></tr></table></figure>
-
-<p>对于这种情况，需要设置本机的BIOS，将【Inter Virtualization Technology】选项设置为：<strong>ENABLE</strong>，然后重启系统，就可以了.</p>
-<p><strong>注意</strong>：这里指的是本机的BIOS，而非虚拟机的BIOS，如果BIOS设置了没有类似的设置，那么系统就无法虚拟64位的系统了。</p>
-]]></content>
-    <summary type="html"><![CDATA[<p>尝试虚拟的操作系统是CentOS-5.4-x86_64，因此在系统选项中选择了Other Linux 64bit，尝试系统后系统报错：  </p>
-<p>This CPU is VT-capable, but VT is not enabled (check your BIOS settings).<br>You have configured this virtual machine as a 64-bit guest operating system. However, this host’s CPU is not capable of running 64-bit virtual machines or this virtual machine has 64-bit support disabled.<br>For more detailed information, see <a href="http://www.vmware.com/info?id=152" target="_blank" rel="external">http://www.vmware.com/info?id=152</a></p>
-<p>]]></summary>
-    
-      <category term="虚拟机，64位" scheme="http://wlcyhao.github.io/tags/%E8%99%9A%E6%8B%9F%E6%9C%BA%EF%BC%8C64%E4%BD%8D/"/>
-    
-      <category term="虚拟机" scheme="http://wlcyhao.github.io/categories/%E8%99%9A%E6%8B%9F%E6%9C%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[利用Hexo搭建Blog]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/08/Hexo-buildblog/"/>
-    <id>http://wlcyhao.github.io/2014/08/08/Hexo-buildblog/</id>
-    <published>2014-08-08T08:01:14.000Z</published>
-    <updated>2014-08-14T01:23:27.000Z</updated>
-    <content type="html"><![CDATA[<h3 id="注意：本文只针对Windows用户。">注意：本文只针对Windows用户。</h3>
-<h2 id="安装Git">安装Git</h2>
-<p>下载<a href="http://msysgit.github.io/" target="_blank" rel="external">msysgit</a> 并执行即可完成安装。</p>
-<h2 id="安装Node-js">安装Node.js</h2>
-<p>在 Windows 环境下安装 Node.js 非常简单，仅须<a href="http://nodejs.org/" target="_blank" rel="external">下载</a>安装文件并执行即可完成安装。</p>
-<p><a id="more"></a></p>
-<h2 id="安装hexo">安装hexo</h2>
-<p>利用 npm 命令即可安装。（在任意位置点击鼠标右键，选择Git bash）</p>
-<pre><code>npm <span class="operator"><span class="keyword">install</span> -g hexo</span>
-</code></pre><h2 id="创建hexo文件夹">创建hexo文件夹</h2>
-<p>安装完成后，在你喜爱的文件夹下（如D:\hexo），执行以下指令(在D:\hexo内点击鼠标右键，选择Git bash)，Hexo 即会自动在目标文件夹建立网站所需要的所有文件。</p>
-<pre><code>hexo <span class="keyword">init</span>
-</code></pre><h2 id="安装依赖包">安装依赖包</h2>
-<pre><code>npm <span class="operator"><span class="keyword">install</span></span>
-</code></pre><h2 id="本地查看">本地查看</h2>
-<p>现在我们已经搭建起本地的hexo博客了，执行以下命令(在D:\hexo)，然后到浏览器输入:<a href="localhost:4000" target="_blank" rel="external">地址</a>看看。</p>
-<pre><code>hexo generate                                
-hexo <span class="keyword">server</span>
-</code></pre><h2 id="安装light主题">安装light主题</h2>
-<h3 id="Install">Install</h3>
-<pre><code>git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/hexojs/hexo-theme-light.git themes/light
-</code></pre><h3 id="Update">Update</h3>
-<pre><code><span class="built_in">cd</span> themes/light
-
-git pull
-</code></pre><p>好了，至此，本地博客已经搭建起来了，只是本地哦，别人看不到的。下面，我们要部署到Github。</p>
-<h2 id="注册Github账号">注册Github账号</h2>
-<p>已有账号可以跳过，没有的，请<a href="https://github.com/" target="_blank" rel="external">在此</a>进行注册，很简单，这里就不介绍了。</p>
-<h2 id="创建repository">创建repository</h2>
-<p>在自己<a href="https://github.com/" target="_blank" rel="external">Github</a>主页右下角，创建一个新的repository。比如我的<a href="https://github.com/" target="_blank" rel="external">Github</a>账号是abc，那么我应该创建的repository名字应该是abc.github.io。</p>
-<h2 id="部署">部署</h2>
-<p>编辑_config.yml(在D:\hexo下)。你在部署时，要把下面的abc都换成你的账号名。</p>
-<pre><code><span class="attribute">deploy</span>: <span class="string">          </span>
-<span class="attribute">type</span>: <span class="string">github</span>
-<span class="attribute">repository</span>: <span class="string">https://github.com/abc/abc.github.io.git</span>
-<span class="attribute">branch</span>: <span class="string">master</span>
-</code></pre><p>执行下列指令即可完成部署。</p>
-<pre><code>hexo <span class="keyword">generate</span>
-hexo deploy
-</code></pre><p><strong>注意</strong>：有些新用户需要设置 ssh，否则上述命令会失败。ssh 的介绍和设置方法请看<a href="https://help.github.com/articles/generating-ssh-keys" target="_blank" rel="external">官方教程</a>，不用担心，很简单。</p>
-<p><strong>记住</strong>：每次修改本地文件后，需要hexo generate才能保存。每次使用命令时，都要在D:\hexo目录下。<br>Okay,我们的博客已经完全搭建起来了，在浏览器访问abc.github.io就能看到你的成就了！</p>
-<h2 id="tips">tips</h2>
-<p>hexo现在支持更加简单的命令格式了，比如：</p>
-<p>hexo g == hexo generate</p>
-<p>hexo d == hexo deploy</p>
-<p>hexo s == hexo server</p>
-<p>hexo n == hexo new</p>
-]]></content>
-    <summary type="html"><![CDATA[<h3 id="注意：本文只针对Windows用户。">注意：本文只针对Windows用户。</h3>
-<h2 id="安装Git">安装Git</h2>
-<p>下载<a href="http://msysgit.github.io/" target="_blank" rel="external">msysgit</a> 并执行即可完成安装。</p>
-<h2 id="安装Node-js">安装Node.js</h2>
-<p>在 Windows 环境下安装 Node.js 非常简单，仅须<a href="http://nodejs.org/" target="_blank" rel="external">下载</a>安装文件并执行即可完成安装。</p>
-<p>]]></summary>
-    
-      <category term="Hexo" scheme="http://wlcyhao.github.io/tags/Hexo/"/>
-    
-      <category term="Blog" scheme="http://wlcyhao.github.io/tags/Blog/"/>
     
       <category term="Hexo" scheme="http://wlcyhao.github.io/categories/Hexo/"/>
     

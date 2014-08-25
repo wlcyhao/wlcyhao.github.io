@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>利用Hexo搭建Blog | Horace&#39;s IT Blog！</title>
+  <title>交换机，端口 | Horace&#39;s IT Blog！</title>
   <meta name="author" content="Horace">
   
   <meta name="description" content="有志者,事竟成,破釜沉舟,百二秦关终属楚；苦心人,天不负,卧薪尝胆,三千越甲可吞吴！">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  <meta property="og:title" content="利用Hexo搭建Blog"/>
+  
   <meta property="og:site_name" content="Horace&#39;s IT Blog！"/>
 
   
@@ -49,117 +49,25 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-08T08:01:14.000Z"><a href="/2014/08/08/Hexo-buildblog/">8月 8 2014</a></time>
-      
-      
-  
-    <h1 class="title">利用Hexo搭建Blog</h1>
-  
+    <div id="main-col" class="alignleft"><div id="wrapper">
+<h2 class="archive-title tag">交换机，端口</h2>
 
-    </header>
-    <div class="entry">
-      
-        <h3 id="注意：本文只针对Windows用户。">注意：本文只针对Windows用户。</h3>
-<h2 id="安装Git">安装Git</h2>
-<p>下载<a href="http://msysgit.github.io/" target="_blank" rel="external">msysgit</a> 并执行即可完成安装。</p>
-<h2 id="安装Node-js">安装Node.js</h2>
-<p>在 Windows 环境下安装 Node.js 非常简单，仅须<a href="http://nodejs.org/" target="_blank" rel="external">下载</a>安装文件并执行即可完成安装。</p>
-<p><a id="more"></a></p>
-<h2 id="安装hexo">安装hexo</h2>
-<p>利用 npm 命令即可安装。（在任意位置点击鼠标右键，选择Git bash）</p>
-<pre><code>npm <span class="operator"><span class="keyword">install</span> -g hexo</span>
-</code></pre><h2 id="创建hexo文件夹">创建hexo文件夹</h2>
-<p>安装完成后，在你喜爱的文件夹下（如D:\hexo），执行以下指令(在D:\hexo内点击鼠标右键，选择Git bash)，Hexo 即会自动在目标文件夹建立网站所需要的所有文件。</p>
-<pre><code>hexo <span class="keyword">init</span>
-</code></pre><h2 id="安装依赖包">安装依赖包</h2>
-<pre><code>npm <span class="operator"><span class="keyword">install</span></span>
-</code></pre><h2 id="本地查看">本地查看</h2>
-<p>现在我们已经搭建起本地的hexo博客了，执行以下命令(在D:\hexo)，然后到浏览器输入:<a href="localhost:4000" target="_blank" rel="external">地址</a>看看。</p>
-<pre><code>hexo generate                                
-hexo <span class="keyword">server</span>
-</code></pre><h2 id="安装light主题">安装light主题</h2>
-<h3 id="Install">Install</h3>
-<pre><code>git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/hexojs/hexo-theme-light.git themes/light
-</code></pre><h3 id="Update">Update</h3>
-<pre><code><span class="built_in">cd</span> themes/light
 
-git pull
-</code></pre><p>好了，至此，本地博客已经搭建起来了，只是本地哦，别人看不到的。下面，我们要部署到Github。</p>
-<h2 id="注册Github账号">注册Github账号</h2>
-<p>已有账号可以跳过，没有的，请<a href="https://github.com/" target="_blank" rel="external">在此</a>进行注册，很简单，这里就不介绍了。</p>
-<h2 id="创建repository">创建repository</h2>
-<p>在自己<a href="https://github.com/" target="_blank" rel="external">Github</a>主页右下角，创建一个新的repository。比如我的<a href="https://github.com/" target="_blank" rel="external">Github</a>账号是abc，那么我应该创建的repository名字应该是abc.github.io。</p>
-<h2 id="部署">部署</h2>
-<p>编辑_config.yml(在D:\hexo下)。你在部署时，要把下面的abc都换成你的账号名。</p>
-<pre><code><span class="attribute">deploy</span>: <span class="string">          </span>
-<span class="attribute">type</span>: <span class="string">github</span>
-<span class="attribute">repository</span>: <span class="string">https://github.com/abc/abc.github.io.git</span>
-<span class="attribute">branch</span>: <span class="string">master</span>
-</code></pre><p>执行下列指令即可完成部署。</p>
-<pre><code>hexo <span class="keyword">generate</span>
-hexo deploy
-</code></pre><p><strong>注意</strong>：有些新用户需要设置 ssh，否则上述命令会失败。ssh 的介绍和设置方法请看<a href="https://help.github.com/articles/generating-ssh-keys" target="_blank" rel="external">官方教程</a>，不用担心，很简单。</p>
-<p><strong>记住</strong>：每次修改本地文件后，需要hexo generate才能保存。每次使用命令时，都要在D:\hexo目录下。<br>Okay,我们的博客已经完全搭建起来了，在浏览器访问abc.github.io就能看到你的成就了！</p>
-<h2 id="tips">tips</h2>
-<p>hexo现在支持更加简单的命令格式了，比如：</p>
-<p>hexo g == hexo generate</p>
-<p>hexo d == hexo deploy</p>
-<p>hexo s == hexo server</p>
-<p>hexo n == hexo new</p>
-
-      
-    </div>
-    <footer>
-      
-        
-  
-  <div class="categories">
-    <a href="/categories/Hexo/">Hexo</a>
+  <div class="archive">
+    
+      <article class="post">
+        <div class="post-content">
+          <header>
+            <div class="icon"></div>
+            <time datetime="2014-08-25T08:53:26.000Z"><a href="/2014/08/25/IP_switchport/">8月 25 2014</a></time>
+            
+              <h1 class="title"><a href="/2014/08/25/IP_switchport/">根据IP地址查交换机端口</a></h1>
+            
+          </header>
+        </div>
+      </article>
+    
   </div>
-
-        
-  
-  <div class="tags">
-    <a href="/tags/Hexo/">Hexo</a>, <a href="/tags/Blog/">Blog</a>
-  </div>
-
-		<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
-<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-<section id="comment">
-
-<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="请将此处替换成文章在你的站点中的ID" data-title="请替换成文章的标题" data-url="请替换成文章的网址"></div>
-<!-- 多说评论框 end -->
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"horace"};
-	(function() {
-		var ds = document.createElement('script');
-		ds.type = 'text/javascript';ds.async = true;
-		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-		ds.charset = 'UTF-8';
-		(document.getElementsByTagName('head')[0] 
-		 || document.getElementsByTagName('body')[0]).appendChild(ds);
-	})();
-	</script>
-<!-- 多说公共JS代码 end -->
-
-
-</section>
-
 </div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">

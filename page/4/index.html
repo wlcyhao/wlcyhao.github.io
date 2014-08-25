@@ -56,6 +56,93 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2014-08-20T07:00:45.000Z"><a href="/2014/08/20/securecrt_vps_bug/">8月 20 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/08/20/securecrt_vps_bug/">修复secureCRT 登录 vps 中文乱码问题</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>让vps正常显示中文，只需要三步</p>
+<ol>
+<li><p><code>vim ~/.profile</code> 加入下面一行 export LANG=”zh_CN.UTF-8”</p>
+</li>
+<li><p>修改SecureCRT 编码<br>选项-&gt;会话选项-&gt;外观-&gt;字符编码-&gt;uft-8，退出重新登录就行了</p>
+</li>
+<li><p>让vim支持中文显示，修改文件（如果没有就新建一个）:~/.vimrc，添加下面三行<br>```</p>
+<ol>
+<li>set encoding=utf-8</li>
+<li>set fileencodings=utf-8,gb2312,gb18030,gbk</li>
+<li>set termencoding=utf-8</li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-20T06:52:13.000Z"><a href="/2014/08/20/shell_monitor_vps/">8月 20 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/08/20/shell_monitor_vps/">用shell脚本监控vps实时流量</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>一般来说，实时流量监控有两种方法</p>
+<ul>
+<li>安装iftop，它会通过ascii图形化显示实时流量数据，比较直观</li>
+<li>用shell脚本采集<code>/proc/net/dev</code>中的实时数据，很简单，不依赖任何安装包，对于内网linux服务器特别有帮助</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/08/20/shell_monitor_vps/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2014-08-20T06:45:32.000Z"><a href="/2014/08/20/master_crontab/">8月 20 2014</a></time>
       
       
@@ -172,95 +259,6 @@
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-19T09:29:11.000Z"><a href="/2014/08/19/markdown_rumen/">8月 19 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/19/markdown_rumen/">Markdown语法入门</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="基本符号">基本符号</h2>
-<ul>
-<li>*,-,+ 3个符号效果都一样，这3个符号被称为<strong>Markdown</strong>符号</li>
-<li>空白行表示另起一个段落</li>
-<li>`是表示inline代码，tab是用来标记 代码段，分别对应html的code，pre标签</li>
-</ul>
-<h2 id="换行">换行</h2>
-<ul>
-<li>单一段落( \<p\>) 用一个空白行</p\></li>
-<li>连续两个空格 会变成一个 \<br\></br\></li>
-<li>连续3个符号，然后是空行，表示 hr横线</li>
-</ul>
-
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/19/markdown_rumen/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-15T15:21:26.000Z"><a href="/2014/08/15/hexo_add_backtotop/">8月 15 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/15/hexo_add_backtotop/">Hexo博客优化：添加返回顶部功能</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>1.添加HTML代码。新建文件 /themes/light/layout/_partial/totop.ejs ，在文件中加入HTML代码：</p>
-<pre><code> <span class="tag">&lt;<span class="title">DIV</span> <span class="attribute">style</span>=<span class="value">"DISPLAY: none"</span> <span class="attribute">id</span>=<span class="value">goTopBtn</span> <span class="attribute">title</span>=<span class="value">"Scroll Back to Top"</span>&gt;</span><span class="tag">&lt;<span class="title">IMG</span> <span class="attribute">border</span>=<span class="value">0</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;images/top.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">DIV</span>&gt;</span>
- <span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span>&gt;</span><span class="javascript">goTopEx();</span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
-</code></pre><p>2、在文件hemes/light/layout/_partial/head.ejs 添加</p>
-<pre><code><span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;js/scrolltop.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
-</code></pre>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/15/hexo_add_backtotop/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
 
 <nav id="pagination">
   
@@ -294,9 +292,9 @@
   
     <li><a href="/categories/github/">github</a><small>1</small></li>
   
-    <li><a href="/categories/交换路由/">交换路由</a><small>5</small></li>
+    <li><a href="/categories/交换路由/">交换路由</a><small>6</small></li>
   
-    <li><a href="/categories/服务器运维/">服务器运维</a><small>10</small></li>
+    <li><a href="/categories/服务器运维/">服务器运维</a><small>11</small></li>
   
     <li><a href="/categories/虚拟机/">虚拟机</a><small>1</small></li>
   
@@ -308,7 +306,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a><a href="/tags/IP/" style="font-size: 10.00px;">IP</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/Oracle/" style="font-size: 16.67px;">Oracle</a><a href="/tags/RAC/" style="font-size: 13.33px;">RAC</a><a href="/tags/U盘，弹出/" style="font-size: 10.00px;">U盘，弹出</a><a href="/tags/cisco/" style="font-size: 10.00px;">cisco</a><a href="/tags/crontab/" style="font-size: 10.00px;">crontab</a><a href="/tags/github/" style="font-size: 10.00px;">github</a><a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a><a href="/tags/iftop/" style="font-size: 10.00px;">iftop</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/login/" style="font-size: 10.00px;">login</a><a href="/tags/markdown/" style="font-size: 10.00px;">markdown</a><a href="/tags/ping/" style="font-size: 10.00px;">ping</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a><a href="/tags/ssh/" style="font-size: 16.67px;">ssh</a><a href="/tags/table/" style="font-size: 10.00px;">table</a><a href="/tags/ubuntu/" style="font-size: 10.00px;">ubuntu</a><a href="/tags/vagrant/" style="font-size: 10.00px;">vagrant</a><a href="/tags/vim/" style="font-size: 10.00px;">vim</a><a href="/tags/vps/" style="font-size: 13.33px;">vps</a><a href="/tags/win7/" style="font-size: 10.00px;">win7</a><a href="/tags/上传文件/" style="font-size: 10.00px;">上传文件</a><a href="/tags/交换机/" style="font-size: 13.33px;">交换机</a><a href="/tags/交换机，背板带宽/" style="font-size: 10.00px;">交换机，背板带宽</a><a href="/tags/优化/" style="font-size: 10.00px;">优化</a><a href="/tags/光线，多模，单模，跳线/" style="font-size: 10.00px;">光线，多模，单模，跳线</a><a href="/tags/共享/" style="font-size: 10.00px;">共享</a><a href="/tags/安全/" style="font-size: 10.00px;">安全</a><a href="/tags/批处理，自动备份/" style="font-size: 10.00px;">批处理，自动备份</a><a href="/tags/拼音，输入法/" style="font-size: 10.00px;">拼音，输入法</a><a href="/tags/流量监控/" style="font-size: 10.00px;">流量监控</a><a href="/tags/海明码/" style="font-size: 10.00px;">海明码</a><a href="/tags/网络/" style="font-size: 10.00px;">网络</a><a href="/tags/虚拟机，64位/" style="font-size: 10.00px;">虚拟机，64位</a><a href="/tags/语法/" style="font-size: 10.00px;">语法</a><a href="/tags/路由器/" style="font-size: 10.00px;">路由器</a><a href="/tags/返回顶部/" style="font-size: 10.00px;">返回顶部</a>
+    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a><a href="/tags/IP/" style="font-size: 10.00px;">IP</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/Oracle/" style="font-size: 16.67px;">Oracle</a><a href="/tags/RAC/" style="font-size: 13.33px;">RAC</a><a href="/tags/U盘，弹出/" style="font-size: 10.00px;">U盘，弹出</a><a href="/tags/cisco/" style="font-size: 10.00px;">cisco</a><a href="/tags/crontab/" style="font-size: 10.00px;">crontab</a><a href="/tags/github/" style="font-size: 10.00px;">github</a><a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a><a href="/tags/iftop/" style="font-size: 10.00px;">iftop</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/login/" style="font-size: 10.00px;">login</a><a href="/tags/markdown/" style="font-size: 10.00px;">markdown</a><a href="/tags/ping/" style="font-size: 10.00px;">ping</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a><a href="/tags/ssh/" style="font-size: 20.00px;">ssh</a><a href="/tags/table/" style="font-size: 10.00px;">table</a><a href="/tags/ubuntu/" style="font-size: 10.00px;">ubuntu</a><a href="/tags/vagrant/" style="font-size: 10.00px;">vagrant</a><a href="/tags/vim/" style="font-size: 10.00px;">vim</a><a href="/tags/vps/" style="font-size: 13.33px;">vps</a><a href="/tags/win7/" style="font-size: 10.00px;">win7</a><a href="/tags/上传文件/" style="font-size: 10.00px;">上传文件</a><a href="/tags/交换机/" style="font-size: 13.33px;">交换机</a><a href="/tags/交换机，端口/" style="font-size: 10.00px;">交换机，端口</a><a href="/tags/交换机，背板带宽/" style="font-size: 10.00px;">交换机，背板带宽</a><a href="/tags/优化/" style="font-size: 10.00px;">优化</a><a href="/tags/光线，多模，单模，跳线/" style="font-size: 10.00px;">光线，多模，单模，跳线</a><a href="/tags/共享/" style="font-size: 10.00px;">共享</a><a href="/tags/安全/" style="font-size: 10.00px;">安全</a><a href="/tags/批处理，自动备份/" style="font-size: 10.00px;">批处理，自动备份</a><a href="/tags/拼音，输入法/" style="font-size: 10.00px;">拼音，输入法</a><a href="/tags/流量监控/" style="font-size: 10.00px;">流量监控</a><a href="/tags/海明码/" style="font-size: 10.00px;">海明码</a><a href="/tags/网络/" style="font-size: 10.00px;">网络</a><a href="/tags/虚拟机，64位/" style="font-size: 10.00px;">虚拟机，64位</a><a href="/tags/语法/" style="font-size: 10.00px;">语法</a><a href="/tags/路由器/" style="font-size: 10.00px;">路由器</a>
   </div>
 </div>
 
@@ -317,6 +315,14 @@
 <div class="widget tag">
   <h3 class="title">最新文章</h3>
   <ul class="entry">
+    
+      <li>
+        <a href="/2014/08/25/IP_switchport/">根据IP地址查交换机端口</a>
+      </li>
+    
+      <li>
+        <a href="/2014/08/25/ssh_shutdown_fuwuqi/">远程ssh登陆后关掉机房机器的脚本</a>
+      </li>
     
       <li>
         <a href="/2014/08/21/switch_beibandaikaun/">何为交换机背板带宽?</a>
@@ -328,14 +334,6 @@
     
       <li>
         <a href="/2014/08/21/qufen_guanxian/">光纤跳线如何区分单模和多模</a>
-      </li>
-    
-      <li>
-        <a href="/2014/08/21/beifen_wenjianjia/">windows下定期自动备份本地文件(文件夹)</a>
-      </li>
-    
-      <li>
-        <a href="/2014/08/21/win7_vmware_netshare/">windows7 连接共享时提示出现了一个错误(null)的解决办法</a>
       </li>
     
   </ul>

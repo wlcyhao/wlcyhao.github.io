@@ -4,7 +4,7 @@
   <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wlcyhao.github.io/"/>
-  <updated>2014-08-21T15:36:56.871Z</updated>
+  <updated>2014-08-25T08:57:43.844Z</updated>
   <id>http://wlcyhao.github.io/</id>
   
   <author>
@@ -13,6 +13,60 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[根据IP地址查交换机端口]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/25/IP_switchport/"/>
+    <id>http://wlcyhao.github.io/2014/08/25/IP_switchport/</id>
+    <published>2014-08-25T08:53:26.000Z</published>
+    <updated>2014-08-25T08:54:46.000Z</updated>
+    <content type="html"><![CDATA[<p>   在一个Cisco 交换网络中间，已知某台机器的IP地址，如何找出它连接到了哪台交换机的哪个端口上呢?最方便快捷的方法使使用CiscoWorks 2000 LMS网管软件的User tracking 功能，图形化界面，一目了然。<br><a id="more"></a><br>　　如果没有这个软件，也可以使用以下手工分析方法来找出答案:</p>
+<p>　　示例网络:核心交换机为6509(交换引擎SE用CatOS, MSFC运行IOS软件)<br>　　1. 找出该IP所对应的MAC地址:<br>　　通过查看系统的ARP缓存表可以找出某IP所对应的MAC地址。由于ARP不能跨VLAN进行，所以连接各个VLAN的路由模块MSFC就是最佳的选择–一般它在每一个VLAN都有一个端口(interface vlan n)，能正确地进行ARP解释。<br>　　6509MSFC#ping 10.10.1.65<br>　　Type escape sequence to abort.<br>　　Sending 5, 100-byte ICMP Echos to 10.10.1.65, timeout is 2 seconds:<br>　　!!!!!<br>　　Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/4 ms<br>　　6509MSFC#show arp | in 10.10.1.65<br>　　Internet 10.10.1.65 2 0006.2973.121d ARPA Vlan2<br>　　通过以上命令，我们知道10.10.1.65的MAC地址是0006.2973.121d, 这是IOS设备的MAC地址表达方式，在CatOS中，应写为00-06-29-73-12-1d.</p>
+<p>　　2.在交换机上找出MAC地址所对应的端口<br>　　6509SE&gt; (enable) show cam 00-06-29-73-12-1d<br>　　* = Static Entry. + = Permanent Entry. # = System Entry. R = Router Entry.<br>　　X = Port Security Entry $ = Dot1x Security Entry<br>　　VLAN Dest MAC/Route Des [CoS] Destination Ports or VCs / [Protocol Type]<br>2 00-06-29-73-12-1d 9/41 [ALL]<br>　　Total Matching CAM Entries Displayed =1</p>
+<p>　　这是不是说IP为 10.10.1.65的机器就接在端口9/41上呢?<br>　　不一定。如果以下命令中显示该端口上只有一个活动的MAC地址，那么答案就是肯定的:<br>　　6509SE&gt; (enable) show cam dynamic 9/41<br>　　* = Static Entry. + = Permanent Entry. # = System Entry. R = Router Entry.<br>　　X = Port Security Entry $ = Dot1x Security Entry<br>　　VLAN Dest MAC/Route Des [CoS] Destination Ports or VCs / [Protocol Type]<br>　　———————————————————————————-</p>
+<p>　　2 00-06-29-73-12-1d 9/41 [ALL]<br>　　Total Matching CAM Entries Displayed =1<br>　　如果该命令显示该端口上有多个活动的MAC地址，那么这个端口应该连接到别的交换机或HUB设备上，见下面的例子(查找IP为10.10.1.250所对应的交换机端口):</p>
+<p>　　6509MSFC#ping 10.10.1.250<br>　　Type escape sequence to abort.<br>　　Sending 5, 100-byte ICMP Echos to 10.10.1.250, timeout is 2 seconds:<br>　　!!!!!<br>　　Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/1 ms<br>　　6509MSFC#show arp | in 10.10.1.250<br>　　Internet 10.10.1.250 4 0009.6b8c.64ec ARPA Vlan2<br>　　6509SE&gt; (enable) show cam 00-09-6b-8c-64-ec<br>　　* = Static Entry. + = Permanent Entry. # = System Entry. R = Router Entry.<br>　　X = Port Security Entry $ = Dot1x Security Entry<br>　　VLAN Dest MAC/Route Des [CoS] Destination Ports or VCs / [Protocol Type]<br>　　———————————————————————————-</p>
+<p>　　2 00-09-6b-8c-64-ec 3/11 [ALL]<br>　　Total Matching CAM Entries Displayed =1<br>　　6509SE&gt; (enable) show cam dy 3/11<br>　　* = Static Entry. + = Permanent Entry. # = System Entry. R = Router Entry.<br>　　X = Port Security Entry $ = Dot1x Security Entry<br>　　VLAN Dest MAC/Route Des [CoS] Destination Ports or VCs / [Protocol Type]<br>1 00-03-e3-4b-06-80 3/11 [ALL]<br>　　1 00-08-02-e6-b0-cd 3/11 [ALL]<br>　　1 00-02-a5-ee-f2-4f 3/11 [ALL]<br>　　1 00-09-6b-8c-66-d6 3/11 [ALL]<br>　　1 00-09-6b-63-17-d9 3/11 [ALL]<br>　　1 00-0b-cd-03-ec-f5 3/11 [ALL]<br>　　1 00-09-6b-63-17-d8 3/11 [ALL]<br>　　1 00-08-02-e6-b0-c1 3/11 [ALL]<br>　　1 00-08-02-e6-b0-85 3/11 [ALL]<br>　　1 00-08-02-e6-b0-81 3/11 [ALL]<br>　　1 00-02-a5-ef-16-af 3/11 [ALL]<br>　　1 00-02-a5-ee-f2-93 3/11 [ALL]<br>　　1 00-02-55-c6-05-61 3/11 [ALL]<br>　　2 00-09-6b-8c-64-ec 3/11 [ALL]<br>　　1 00-08-02-e6-b0-ed 3/11 [ALL]<br>　　1 00-08-02-e6-b0-a9 3/11 [ALL]<br>　　1 00-02-55-54-7a-e0 3/11 [ALL]<br>　　1 00-02-a5-ef-15-a6 3/11 [ALL]<br>　　1 00-08-02-e6-af-8f 3/11 [ALL]<br>　　1 00-08-02-e6-b0-bd 3/11 [ALL]<br>　　1 00-0b-cd-03-db-8b 3/11 [ALL]<br>　　1 00-09-6b-8c-25-50 3/11 [ALL]<br>　　Do you wish to continue y/n [n]? n</p>
+<p>　　由于该端口连接到另一台交换机或HUB,必须继续追查，方法如下:<br>　　6509SE&gt; (enable) show cdp nei 3/11<br>　　* – indicates vlan mismatch.<br>　　# – indicates duplex mismatch.<br>　　Port Device-ID Port-ID Platform<br>　　———————————————————————————</p>
+<p>　　3/11 Cisco2924 GigabitEthernet1/1 cisco WS-C2924M-XL<br>　　该命令显示对端设备是一台Cisco2924，如果没有显示，那么说明连接的是别的厂家的设备，可能要到该交换机上用类似的办法继续追查。本例子中是Cisco 设备，所有我们可以继续:</p>
+<p>　　6509SE&gt; (enable) show cdp nei 3/11 de<br>　　Port (Our Port): 3/11<br>　　Device-ID: Cisco2924<br>　　Device Addresses:<br>　　IP Address: 10.10.0.60<br>　　Holdtime: 153 sec<br>　　Capabilities: TRANSPARENT_BRIDGE SWITCH<br>　　Version:<br>　　Cisco Internetwork Operating System Software<br>　　IOS ™ C2900XL Software (C2900XL-C3H2S-M), Version 12.0(5.2)XU, MAINTENANCE INTERIM SOFTWARE<br>　　Copyright (c) 1986-2000 by cisco Systems, Inc.<br>Compiled Mon 17-Jul-00 17:35 by ayounes<br>　　Platform: cisco WS-C2924M-XL<br>　　Port-ID (Port on Neighbors’s Device): GigabitEthernet1/1<br>　　VTP Management Domain: lan<br>　　Native VLAN: 1<br>　　Duplex: full<br>　　System Name: unknown<br>　　System Object ID: unknown<br>　　Management Addresses: unknown<br>　　Physical Location: unknown<br>　　Cisco2924#show mac-address-table dynamic address 0009.6b8c.64ec<br>　　Non-static Address Table:<br>　　Destination Address Address Type VLAN Destination Port<br>　　———————————————————————————-<br>　　0009.6b8c.64ec Dynamic 2 FastEthernet0/2<br>　　Cisco2924#show mac-address-table dynamic interface f0/2<br>　　Non-static Address Table:<br>　　Destination Address Address Type VLAN Destination Port<br>　　———————————————————————————-<br>　　0009.6b8c.64ec Dynamic 2 FastEthernet0/2<br>　　通过以上命令可知，MAC地址0009.6b8c.64ec 与Cisco 2924交换机相连，且是该端口上唯一活动的MAC地址，所以IP为10.10.1.250的机器应该就连接在这个端口上。</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>   在一个Cisco 交换网络中间，已知某台机器的IP地址，如何找出它连接到了哪台交换机的哪个端口上呢?最方便快捷的方法使使用CiscoWorks 2000 LMS网管软件的User tracking 功能，图形化界面，一目了然。<br>]]></summary>
+    
+      <category term="交换机，端口" scheme="http://wlcyhao.github.io/tags/%E4%BA%A4%E6%8D%A2%E6%9C%BA%EF%BC%8C%E7%AB%AF%E5%8F%A3/"/>
+    
+      <category term="交换路由" scheme="http://wlcyhao.github.io/categories/%E4%BA%A4%E6%8D%A2%E8%B7%AF%E7%94%B1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[远程ssh登陆后关掉机房机器的脚本]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/25/ssh_shutdown_fuwuqi/"/>
+    <id>http://wlcyhao.github.io/2014/08/25/ssh_shutdown_fuwuqi/</id>
+    <published>2014-08-25T08:43:33.000Z</published>
+    <updated>2014-08-25T08:44:52.000Z</updated>
+    <content type="html"><![CDATA[<p>需求：<br>机房到放学时候学生都不走，希望在管理机上ssh登陆关机，对整个机房的所有学生机执行关机命令。<br>解决办法一：<br>passwd.txt 存放ip和密码，格式为：ip空格密码，比如<br>192.168.1.1 123456<br>192.168.1.2 654321<br><a id="more"></a><br>expect.sh</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/local/bin/expect</span></div><div class="line">spawn ssh root<span class="variable">@[</span>lindex <span class="variable">$argv</span> <span class="number">0</span>]</div><div class="line"><span class="keyword">sleep</span> .<span class="number">2</span></div><div class="line">expect “(yes/<span class="keyword">no</span>)?” {</div><div class="line"><span class="keyword">send</span> “yes\r”</div><div class="line">expect “*assword:”</div><div class="line"><span class="keyword">send</span> “[lindex <span class="variable">$argv</span> <span class="number">1</span>]\r”</div><div class="line">} “*assword:”</div><div class="line"><span class="keyword">send</span> “[lindex <span class="variable">$argv</span> <span class="number">1</span>]\r”</div><div class="line">expect -re {[<span class="variable">$#</span>] }</div><div class="line"><span class="keyword">send</span> “halt -p\r”</div><div class="line">expect EOF</div></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="shebang">#!/bin/sh</span></div><div class="line"><span class="keyword">while</span> <span class="built_in">read</span> ip passwd</div><div class="line"><span class="keyword">do</span></div><div class="line"><span class="built_in">echo</span> “<span class="variable">$host</span>…..”</div><div class="line">/tmp/expect.sh <span class="variable">$ip</span> <span class="variable">$passwd</span></div><div class="line"><span class="keyword">done</span> &lt; passwd.txt</div></pre></td></tr></table></figure>
+
+<p>为了省事，halt.sh里面调用expect就用了绝对路径，需要根据实际需要修改，呵呵。</p>
+<p>解决方法二：<br>passwd.txt同上面存放ip和密码，格式为：ip空格密码，比如<br>192.168.1.1 123456<br>192.168.1.2 654321</p>
+<p>halt.sh</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/local/bin/expect</span></div><div class="line"><span class="built_in">set</span> f [<span class="built_in">open</span> passwd.txt r]</div><div class="line"><span class="built_in">set</span> timeout <span class="number">150</span></div><div class="line"><span class="keyword">while</span> {[gets $f <span class="built_in">line</span>] &gt;= <span class="number">0</span>} {</div><div class="line">spawn ssh root@[lindex $<span class="built_in">line</span> <span class="number">0</span>]</div><div class="line">expect “(yes/no)?” {</div><div class="line"><span class="built_in">send</span> “yes\r”</div><div class="line">expect “*assword:”</div><div class="line"><span class="built_in">send</span> “[lindex $<span class="built_in">line</span> <span class="number">1</span>]\r”</div><div class="line">} “*assword:”</div><div class="line"><span class="built_in">send</span> “[lindex $<span class="built_in">line</span> <span class="number">1</span>]\r”</div><div class="line">expect -re {[$<span class="comment">#] }</span></div><div class="line"><span class="built_in">send</span> “halt -p\r”</div><div class="line">expect <span class="constant">eof</span></div><div class="line">}</div><div class="line"><span class="built_in">close</span> $f</div></pre></td></tr></table></figure>
+
+]]></content>
+    <summary type="html"><![CDATA[<p>需求：<br>机房到放学时候学生都不走，希望在管理机上ssh登陆关机，对整个机房的所有学生机执行关机命令。<br>解决办法一：<br>passwd.txt 存放ip和密码，格式为：ip空格密码，比如<br>192.168.1.1 123456<br>192.168.1.2 654321<br>]]></summary>
+    
+      <category term="ssh" scheme="http://wlcyhao.github.io/tags/ssh/"/>
+    
+      <category term="远程" scheme="http://wlcyhao.github.io/tags/%E8%BF%9C%E7%A8%8B/"/>
+    
+      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[何为交换机背板带宽?]]></title>
@@ -560,152 +614,6 @@ exit
       <category term="ssh" scheme="http://wlcyhao.github.io/tags/ssh/"/>
     
       <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Markdown语法入门]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/19/markdown_rumen/"/>
-    <id>http://wlcyhao.github.io/2014/08/19/markdown_rumen/</id>
-    <published>2014-08-19T09:29:11.000Z</published>
-    <updated>2014-08-19T09:37:21.000Z</updated>
-    <content type="html"><![CDATA[<h2 id="基本符号">基本符号</h2>
-<ul>
-<li>*,-,+ 3个符号效果都一样，这3个符号被称为<strong>Markdown</strong>符号</li>
-<li>空白行表示另起一个段落</li>
-<li>`是表示inline代码，tab是用来标记 代码段，分别对应html的code，pre标签</li>
-</ul>
-<h2 id="换行">换行</h2>
-<ul>
-<li>单一段落( \<p\>) 用一个空白行</p\></li>
-<li>连续两个空格 会变成一个 \<br\></br\></li>
-<li>连续3个符号，然后是空行，表示 hr横线</li>
-</ul>
-<a id="more"></a>
-
-<h2 id="标题">标题</h2>
-<ul>
-<li>生成h1—h6,在文字前面加上 1—6个# 来实现</li>
-<li>文字加粗是通过 文字左右各两个符号</li>
-</ul>
-<h2 id="引用">引用</h2>
-<ul>
-<li>在第一行加上 “&gt;”和一个空格，表示代码引用，还可以嵌套</li>
-</ul>
-<h2 id="列表">列表</h2>
-<p>这个是markdown文件的主要表示方式，主题要点化</p>
-<ul>
-<li>使用*,+,-加上一个空格来表示</li>
-<li>可以支持嵌套</li>
-<li>有序列表用 数字+英文点+空格来表示</li>
-<li>列表内容很长，不需要手工输入换行符，css控制段落的宽度，会自动的缩放的</li>
-</ul>
-<h2 id="链接">链接</h2>
-<ul>
-<li>直接写 [锚文本](url “可选的title”)</li>
-<li>引用 先定义 [ref_name]:url，然后在需要写入url的地方， 这样使用[锚文本][ref_name]，通常的ref_name一般用数字表示，这样显得专业</li>
-<li>简写url：用尖括号包裹url<br>这样生成的url锚文本就是url本身</li>
-</ul>
-<h2 id="插入图片">插入图片</h2>
-<ul>
-<li>一行表示: ![alt_text](url “可选的title”)</li>
-<li>引用表示法: ![alt_text][id],预先定义 [id]:url “可选title”</li>
-<li>直接使用<img>标签，这样可以指定图片的大小尺寸</li>
-</ul>
-<h2 id="特殊符号">特殊符号</h2>
-<ul>
-<li>用\来转义，表示文本中的markdown符号</li>
-<li>可以在文本种直接使用html标签，但是要注意在使用的时候，前后加上空行</li>
-<li>文本前后各加一个符号，表示斜体</li>
-</ul>
-]]></content>
-    <summary type="html"><![CDATA[<h2 id="基本符号">基本符号</h2>
-<ul>
-<li>*,-,+ 3个符号效果都一样，这3个符号被称为<strong>Markdown</strong>符号</li>
-<li>空白行表示另起一个段落</li>
-<li>`是表示inline代码，tab是用来标记 代码段，分别对应html的code，pre标签</li>
-</ul>
-<h2 id="换行">换行</h2>
-<ul>
-<li>单一段落( \<p\>) 用一个空白行</p\></li>
-<li>连续两个空格 会变成一个 \<br\></br\></li>
-<li>连续3个符号，然后是空行，表示 hr横线</li>
-</ul>
-]]></summary>
-    
-      <category term="Markdown" scheme="http://wlcyhao.github.io/tags/Markdown/"/>
-    
-      <category term="语法" scheme="http://wlcyhao.github.io/tags/%E8%AF%AD%E6%B3%95/"/>
-    
-      <category term="Markdown" scheme="http://wlcyhao.github.io/categories/Markdown/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Hexo博客优化：添加返回顶部功能]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/15/hexo_add_backtotop/"/>
-    <id>http://wlcyhao.github.io/2014/08/15/hexo_add_backtotop/</id>
-    <published>2014-08-15T15:21:26.000Z</published>
-    <updated>2014-08-15T15:22:59.000Z</updated>
-    <content type="html"><![CDATA[<p>1.添加HTML代码。新建文件 /themes/light/layout/_partial/totop.ejs ，在文件中加入HTML代码：</p>
-<pre><code> <span class="tag">&lt;<span class="title">DIV</span> <span class="attribute">style</span>=<span class="value">"DISPLAY: none"</span> <span class="attribute">id</span>=<span class="value">goTopBtn</span> <span class="attribute">title</span>=<span class="value">"Scroll Back to Top"</span>&gt;</span><span class="tag">&lt;<span class="title">IMG</span> <span class="attribute">border</span>=<span class="value">0</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;images/top.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">DIV</span>&gt;</span>
- <span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span>&gt;</span><span class="javascript">goTopEx();</span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
-</code></pre><p>2、在文件hemes/light/layout/_partial/head.ejs 添加</p>
-<pre><code><span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;js/scrolltop.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
-</code></pre><a id="more"></a> 
-
-<p>3.添加JS代码。新建文件 /themes/light/source/js/scrolltop.js，在文件中添加javascript代码：</p>
-<pre><code> <span class="comment">// JavaScript Document</span>
-<span class="function"><span class="keyword">function</span> <span class="title">goTopEx</span><span class="params">()</span></span>{
-<span class="keyword">var</span> obj=<span class="built_in">document</span>.getElementById(<span class="string">"goTopBtn"</span>);
-<span class="function"><span class="keyword">function</span> <span class="title">getScrollTop</span><span class="params">()</span></span>{
-    <span class="keyword">return</span> <span class="built_in">document</span>.documentElement.scrollTop+<span class="built_in">document</span>.body.scrollTop;
-}
-<span class="function"><span class="keyword">function</span> <span class="title">setScrollTop</span><span class="params">(value)</span></span>{
-    <span class="keyword">if</span>(<span class="built_in">document</span>.documentElement.scrollTop){
-        <span class="built_in">document</span>.documentElement.scrollTop=value;
-    }<span class="keyword">else</span>{
-        <span class="built_in">document</span>.body.scrollTop=value;
-    }
-} 
-<span class="built_in">window</span>.onscroll=<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{getScrollTop()&gt;<span class="number">0</span>?obj.style.display=<span class="string">""</span>:obj.style.display=<span class="string">"none"</span>;}
-obj.onclick=<span class="function"><span class="keyword">function</span><span class="params">()</span></span>{
-    <span class="keyword">var</span> goTop=setInterval(scrollMove,<span class="number">10</span>);
-    <span class="function"><span class="keyword">function</span> <span class="title">scrollMove</span><span class="params">()</span></span>{
-        setScrollTop(getScrollTop()/<span class="number">1.1</span>);
-        <span class="keyword">if</span>(getScrollTop()&lt;<span class="number">1</span>)clearInterval(goTop);
-    }
-}
-}
-</code></pre><p>4、在目录themes/light/source/css/_partial新建文件scrolltop.styl，内容如下：</p>
-<pre><code> <span class="id">#goTopBtn</span>
-  <span class="attribute">POSITION</span> <span class="value">fixed</span>
-  <span class="attribute">TEXT-ALIGN</span> <span class="value">center</span>
-  -<span class="attribute">HEIGHT</span> 30px
-   <span class="attribute">WIDTH</span> 45px
-   <span class="attribute">BOTTOM</span> 35px
-   <span class="attribute">HEIGHT</span> 47px
-   <span class="attribute">FONT-SIZE</span> 12px
-   <span class="attribute">CURSOR</span> <span class="value">pointer</span>
-   <span class="attribute">RIGHT</span> 10px
-   _position <span class="value">absolute</span>
-   _right <span class="attribute">auto</span>
-</code></pre><p>5、在文件themes/light/source/css/style.styl添加：</p>
-<pre><code>@<span class="keyword">import</span> <span class="string">'_partial/scrolltop'</span>
-</code></pre><p>6、添加按钮图片，将图片复制到themes/light/source/images，文件名为top.jpg</p>
-]]></content>
-    <summary type="html"><![CDATA[<p>1.添加HTML代码。新建文件 /themes/light/layout/_partial/totop.ejs ，在文件中加入HTML代码：</p>
-<pre><code> <span class="tag">&lt;<span class="title">DIV</span> <span class="attribute">style</span>=<span class="value">"DISPLAY: none"</span> <span class="attribute">id</span>=<span class="value">goTopBtn</span> <span class="attribute">title</span>=<span class="value">"Scroll Back to Top"</span>&gt;</span><span class="tag">&lt;<span class="title">IMG</span> <span class="attribute">border</span>=<span class="value">0</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;images/top.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">DIV</span>&gt;</span>
- <span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span>&gt;</span><span class="javascript">goTopEx();</span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
-</code></pre><p>2、在文件hemes/light/layout/_partial/head.ejs 添加</p>
-<pre><code><span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;js/scrolltop.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
-</code></pre>]]></summary>
-    
-      <category term="hexo" scheme="http://wlcyhao.github.io/tags/hexo/"/>
-    
-      <category term="返回顶部" scheme="http://wlcyhao.github.io/tags/%E8%BF%94%E5%9B%9E%E9%A1%B6%E9%83%A8/"/>
-    
-      <category term="Hexo" scheme="http://wlcyhao.github.io/categories/Hexo/"/>
     
   </entry>
   

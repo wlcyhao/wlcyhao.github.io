@@ -56,6 +56,95 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2014-08-19T09:29:11.000Z"><a href="/2014/08/19/markdown_rumen/">8月 19 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/08/19/markdown_rumen/">Markdown语法入门</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h2 id="基本符号">基本符号</h2>
+<ul>
+<li>*,-,+ 3个符号效果都一样，这3个符号被称为<strong>Markdown</strong>符号</li>
+<li>空白行表示另起一个段落</li>
+<li>`是表示inline代码，tab是用来标记 代码段，分别对应html的code，pre标签</li>
+</ul>
+<h2 id="换行">换行</h2>
+<ul>
+<li>单一段落( \<p\>) 用一个空白行</p\></li>
+<li>连续两个空格 会变成一个 \<br\></br\></li>
+<li>连续3个符号，然后是空行，表示 hr横线</li>
+</ul>
+
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/08/19/markdown_rumen/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-15T15:21:26.000Z"><a href="/2014/08/15/hexo_add_backtotop/">8月 15 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/08/15/hexo_add_backtotop/">Hexo博客优化：添加返回顶部功能</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>1.添加HTML代码。新建文件 /themes/light/layout/_partial/totop.ejs ，在文件中加入HTML代码：</p>
+<pre><code> <span class="tag">&lt;<span class="title">DIV</span> <span class="attribute">style</span>=<span class="value">"DISPLAY: none"</span> <span class="attribute">id</span>=<span class="value">goTopBtn</span> <span class="attribute">title</span>=<span class="value">"Scroll Back to Top"</span>&gt;</span><span class="tag">&lt;<span class="title">IMG</span> <span class="attribute">border</span>=<span class="value">0</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;images/top.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">DIV</span>&gt;</span>
+ <span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span>&gt;</span><span class="javascript">goTopEx();</span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
+</code></pre><p>2、在文件hemes/light/layout/_partial/head.ejs 添加</p>
+<pre><code><span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;js/scrolltop.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
+</code></pre>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/08/15/hexo_add_backtotop/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2014-08-15T12:37:43.000Z"><a href="/2014/08/15/hexo_yohua/">8月 15 2014</a></time>
       
       
@@ -169,101 +258,6 @@
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-09T06:45:22.000Z"><a href="/2014/08/09/switch-and-router-command/">8月 9 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/09/switch-and-router-command/">交换机&amp;路由器命令小全（带中文注释）</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="1-_交换机支持的命令：">1. 交换机支持的命令：</h2>
-<p>交换机基本状态： </p>
-<pre><code>
-switch: ；ROM状态， 路由器是rommon>
-
-hostname> ；用户模式
-
-hostname# ；特权模式
-
-hostname(config)# ；全局配置模式
-
-hostname(config-if)# ；接口状态
-</code></pre>
-
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/09/switch-and-router-command/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-09T03:19:25.000Z"><a href="/2014/08/09/RAC-Promblem-solution/">8月 9 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/09/RAC-Promblem-solution/">Oracle RAC安装过程中碰到问题及解决方法</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。">这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。</h2>
-<h3 id="错误一：">错误一：</h3>
-<p>配置共享磁盘的问题。如果共享磁盘本身有内容，可能会导致在安装完CLUSTERWARE后，执行root.sh时出错，错误信息为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed <span class="keyword">to</span> upgrade Oracle Cluster Registry <span class="keyword">configuration</span>。</div></pre></td></tr></table></figure>
-
-
-
-<p>这时可以利用dd命令来清除ocr和voting disk的共享磁盘。类似命令为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dd <span class="variable">if=</span>/dev/zero <span class="variable">of=</span>/dev/rdsk/c2t0d2s3 <span class="variable">bs=</span><span class="number">1073741824</span> <span class="variable">count=</span><span class="number">1</span></div></pre></td></tr></table></figure>
-
-<p>其中of指定需要清除的共享磁盘设备，而bs指定该设备的空间大小。<br>清除之后，再次运行root.sh，则问题消失。<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/09/RAC-Promblem-solution/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
 
 <nav id="pagination">
   
@@ -297,9 +291,9 @@ hostname(config-if)# ；接口状态
   
     <li><a href="/categories/github/">github</a><small>1</small></li>
   
-    <li><a href="/categories/交换路由/">交换路由</a><small>5</small></li>
+    <li><a href="/categories/交换路由/">交换路由</a><small>6</small></li>
   
-    <li><a href="/categories/服务器运维/">服务器运维</a><small>10</small></li>
+    <li><a href="/categories/服务器运维/">服务器运维</a><small>11</small></li>
   
     <li><a href="/categories/虚拟机/">虚拟机</a><small>1</small></li>
   
@@ -311,7 +305,7 @@ hostname(config-if)# ；接口状态
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a><a href="/tags/IP/" style="font-size: 10.00px;">IP</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/Oracle/" style="font-size: 16.67px;">Oracle</a><a href="/tags/RAC/" style="font-size: 13.33px;">RAC</a><a href="/tags/U盘，弹出/" style="font-size: 10.00px;">U盘，弹出</a><a href="/tags/cisco/" style="font-size: 10.00px;">cisco</a><a href="/tags/crontab/" style="font-size: 10.00px;">crontab</a><a href="/tags/github/" style="font-size: 10.00px;">github</a><a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a><a href="/tags/iftop/" style="font-size: 10.00px;">iftop</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/login/" style="font-size: 10.00px;">login</a><a href="/tags/markdown/" style="font-size: 10.00px;">markdown</a><a href="/tags/ping/" style="font-size: 10.00px;">ping</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a><a href="/tags/ssh/" style="font-size: 16.67px;">ssh</a><a href="/tags/table/" style="font-size: 10.00px;">table</a><a href="/tags/ubuntu/" style="font-size: 10.00px;">ubuntu</a><a href="/tags/vagrant/" style="font-size: 10.00px;">vagrant</a><a href="/tags/vim/" style="font-size: 10.00px;">vim</a><a href="/tags/vps/" style="font-size: 13.33px;">vps</a><a href="/tags/win7/" style="font-size: 10.00px;">win7</a><a href="/tags/上传文件/" style="font-size: 10.00px;">上传文件</a><a href="/tags/交换机/" style="font-size: 13.33px;">交换机</a><a href="/tags/交换机，背板带宽/" style="font-size: 10.00px;">交换机，背板带宽</a><a href="/tags/优化/" style="font-size: 10.00px;">优化</a><a href="/tags/光线，多模，单模，跳线/" style="font-size: 10.00px;">光线，多模，单模，跳线</a><a href="/tags/共享/" style="font-size: 10.00px;">共享</a><a href="/tags/安全/" style="font-size: 10.00px;">安全</a><a href="/tags/批处理，自动备份/" style="font-size: 10.00px;">批处理，自动备份</a><a href="/tags/拼音，输入法/" style="font-size: 10.00px;">拼音，输入法</a><a href="/tags/流量监控/" style="font-size: 10.00px;">流量监控</a><a href="/tags/海明码/" style="font-size: 10.00px;">海明码</a><a href="/tags/网络/" style="font-size: 10.00px;">网络</a><a href="/tags/虚拟机，64位/" style="font-size: 10.00px;">虚拟机，64位</a><a href="/tags/语法/" style="font-size: 10.00px;">语法</a><a href="/tags/路由器/" style="font-size: 10.00px;">路由器</a><a href="/tags/返回顶部/" style="font-size: 10.00px;">返回顶部</a>
+    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a><a href="/tags/IP/" style="font-size: 10.00px;">IP</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/Oracle/" style="font-size: 16.67px;">Oracle</a><a href="/tags/RAC/" style="font-size: 13.33px;">RAC</a><a href="/tags/U盘，弹出/" style="font-size: 10.00px;">U盘，弹出</a><a href="/tags/cisco/" style="font-size: 10.00px;">cisco</a><a href="/tags/crontab/" style="font-size: 10.00px;">crontab</a><a href="/tags/github/" style="font-size: 10.00px;">github</a><a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a><a href="/tags/iftop/" style="font-size: 10.00px;">iftop</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/login/" style="font-size: 10.00px;">login</a><a href="/tags/markdown/" style="font-size: 10.00px;">markdown</a><a href="/tags/ping/" style="font-size: 10.00px;">ping</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a><a href="/tags/ssh/" style="font-size: 20.00px;">ssh</a><a href="/tags/table/" style="font-size: 10.00px;">table</a><a href="/tags/ubuntu/" style="font-size: 10.00px;">ubuntu</a><a href="/tags/vagrant/" style="font-size: 10.00px;">vagrant</a><a href="/tags/vim/" style="font-size: 10.00px;">vim</a><a href="/tags/vps/" style="font-size: 13.33px;">vps</a><a href="/tags/win7/" style="font-size: 10.00px;">win7</a><a href="/tags/上传文件/" style="font-size: 10.00px;">上传文件</a><a href="/tags/交换机/" style="font-size: 13.33px;">交换机</a><a href="/tags/交换机，端口/" style="font-size: 10.00px;">交换机，端口</a><a href="/tags/交换机，背板带宽/" style="font-size: 10.00px;">交换机，背板带宽</a><a href="/tags/优化/" style="font-size: 10.00px;">优化</a><a href="/tags/光线，多模，单模，跳线/" style="font-size: 10.00px;">光线，多模，单模，跳线</a><a href="/tags/共享/" style="font-size: 10.00px;">共享</a><a href="/tags/安全/" style="font-size: 10.00px;">安全</a><a href="/tags/批处理，自动备份/" style="font-size: 10.00px;">批处理，自动备份</a><a href="/tags/拼音，输入法/" style="font-size: 10.00px;">拼音，输入法</a><a href="/tags/流量监控/" style="font-size: 10.00px;">流量监控</a><a href="/tags/海明码/" style="font-size: 10.00px;">海明码</a><a href="/tags/网络/" style="font-size: 10.00px;">网络</a><a href="/tags/虚拟机，64位/" style="font-size: 10.00px;">虚拟机，64位</a><a href="/tags/语法/" style="font-size: 10.00px;">语法</a><a href="/tags/路由器/" style="font-size: 10.00px;">路由器</a>
   </div>
 </div>
 
@@ -320,6 +314,14 @@ hostname(config-if)# ；接口状态
 <div class="widget tag">
   <h3 class="title">最新文章</h3>
   <ul class="entry">
+    
+      <li>
+        <a href="/2014/08/25/IP_switchport/">根据IP地址查交换机端口</a>
+      </li>
+    
+      <li>
+        <a href="/2014/08/25/ssh_shutdown_fuwuqi/">远程ssh登陆后关掉机房机器的脚本</a>
+      </li>
     
       <li>
         <a href="/2014/08/21/switch_beibandaikaun/">何为交换机背板带宽?</a>
@@ -331,14 +333,6 @@ hostname(config-if)# ；接口状态
     
       <li>
         <a href="/2014/08/21/qufen_guanxian/">光纤跳线如何区分单模和多模</a>
-      </li>
-    
-      <li>
-        <a href="/2014/08/21/beifen_wenjianjia/">windows下定期自动备份本地文件(文件夹)</a>
-      </li>
-    
-      <li>
-        <a href="/2014/08/21/win7_vmware_netshare/">windows7 连接共享时提示出现了一个错误(null)的解决办法</a>
       </li>
     
   </ul>

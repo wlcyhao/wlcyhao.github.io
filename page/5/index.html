@@ -56,32 +56,149 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-20T06:07:00.000Z"><a href="/2014/08/20/1921681124/">8月 20 2014</a></time>
+        <time datetime="2014-08-20T07:09:04.000Z"><a href="/2014/08/20/ssh_login/">8月 20 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2014/08/20/1921681124/">192.168.1.1/24是什么含义</a></h1>
+    <h1 class="title"><a href="/2014/08/20/ssh_login/">提高ssh登录服务器的响应速度</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <h1 id="IP的定义">IP的定义</h1>
-<p>ip 是32位无符号整数，最小，最大分别是</p>
+        <p>server A—&gt; server B</p>
+<p>从A登录B，修改服务器B上的ssh配置文件: <code>/etc/ssh/sshd_config</code> 在文件尾部添加一行</p>
+<p><code>UseDNS no</code></p>
+<p>重启sshd，明显可以感觉到ssh登录速度的提升</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-20T07:05:47.000Z"><a href="/2014/08/20/vi_backspace_colour/">8月 20 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/08/20/vi_backspace_colour/">消除 vi 突然显示空格的颜色</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>不知道为什么，用vi打开代码文件，空格的地方全部是黄色亮块，清楚办法</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cd</span> ~</div><div class="line"></div><div class="line"><span class="keyword">open</span> .vimrc</div><div class="line"></div><div class="line">加入一行 <span class="keyword">set</span> nohls</div></pre></td></tr></table></figure>
+
+<p>set nohls在vim里面可以直接用，只限于当前session，写入到vimrc中，可以持久化保存，vimrc里面还可以放入更多的配置指令</p>
+<p>另外</p>
+<p><code>cd -</code> 是个好命令，可以回到上一次路径</p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-20T07:00:45.000Z"><a href="/2014/08/20/securecrt_vps_bug/">8月 20 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/08/20/securecrt_vps_bug/">修复secureCRT 登录 vps 中文乱码问题</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>让vps正常显示中文，只需要三步</p>
+<ol>
+<li><p><code>vim ~/.profile</code> 加入下面一行 export LANG=”zh_CN.UTF-8”</p>
+</li>
+<li><p>修改SecureCRT 编码<br>选项-&gt;会话选项-&gt;外观-&gt;字符编码-&gt;uft-8，退出重新登录就行了</p>
+</li>
+<li><p>让vim支持中文显示，修改文件（如果没有就新建一个）:~/.vimrc，添加下面三行<br>```</p>
+<ol>
+<li>set encoding=utf-8</li>
+<li>set fileencodings=utf-8,gb2312,gb18030,gbk</li>
+<li>set termencoding=utf-8</li>
+</ol>
+</li>
+</ol>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-20T06:52:13.000Z"><a href="/2014/08/20/shell_monitor_vps/">8月 20 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/08/20/shell_monitor_vps/">用shell脚本监控vps实时流量</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>一般来说，实时流量监控有两种方法</p>
 <ul>
-<li>0.0.0.0 - 255.255.255.255 具体来说，由一个ip由 Net-ID+Host-ID 两部分组成，Net-ID 相同，那么就说明在一个网段内，可以用mac数据帧直接通信。</li>
+<li>安装iftop，它会通过ascii图形化显示实时流量数据，比较直观</li>
+<li>用shell脚本采集<code>/proc/net/dev</code>中的实时数据，很简单，不依赖任何安装包，对于内网linux服务器特别有帮助</li>
 </ul>
-<p>给定一个Net-ID</p>
-<ul>
-<li>host-ID全为0的ip，(192.168.2.0)代表整子小网络，</li>
-<li><p>host-ID全为1的ip，是这个子网络的广播地址<br>ip总共就32个字节，当 HostID 所占用的位越大，亦即 HostID 数量越多时，表示同一个网络内可用以设定主机的 IP 数量越多<br>
+
       
     </div>
     <footer>
       
         
           <div class="alignleft">
-            <a href="/2014/08/20/1921681124/#more" class="more-link">Read More</a>
+            <a href="/2014/08/20/shell_monitor_vps/#more" class="more-link">Read More</a>
           </div>
         
         
@@ -100,159 +217,27 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-20T03:40:50.000Z"><a href="/2014/08/20/ssh_key/">8月 20 2014</a></time>
+        <time datetime="2014-08-20T06:45:32.000Z"><a href="/2014/08/20/master_crontab/">8月 20 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2014/08/20/ssh_key/">ssh指定私钥的配置管理</a></h1>
+    <h1 class="title"><a href="/2014/08/20/master_crontab/">一分钟学会crontab使用</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <h1 id="ssh指定私钥的配置管理">ssh指定私钥的配置管理</h1>
-<p>用ssh 公钥认证方式登录非常常见，快速方便，通常就是用<code>ssh-keygen -t rsa</code> 在 ~/.ssh 目录下生成默认名称的id_rsa和id_rsa.pub 文件</p>
-<p>特别是git流行之后，用ssh的方式访问git服务器，部署起来最容易</p>
-<p>实际上，ssh 私钥的名称和生成地点都可以单独指定的, <strong>和硬件操作系统无关</strong><br>
+        <p>crontab 是在linux服务器上部署定时任务的方法</p>
+<p><code>0 5 * * * /usr/bin/python /data/www/tools/mysql_backup.py</code></p>
+<p>cmd之前有5个项目要填，分别对应</p>
+<p><code>分钟 小时 天 月 一周当中第几天( 0-6 ,0表示星期天)</code><br>
       
     </div>
     <footer>
       
         
           <div class="alignleft">
-            <a href="/2014/08/20/ssh_key/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-19T09:29:11.000Z"><a href="/2014/08/19/markdown_rumen/">8月 19 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/19/markdown_rumen/">Markdown语法入门</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="基本符号">基本符号</h2>
-<ul>
-<li>*,-,+ 3个符号效果都一样，这3个符号被称为<strong>Markdown</strong>符号</li>
-<li>空白行表示另起一个段落</li>
-<li>`是表示inline代码，tab是用来标记 代码段，分别对应html的code，pre标签</li>
-</ul>
-<h2 id="换行">换行</h2>
-<ul>
-<li>单一段落( \<p\>) 用一个空白行</p\></li>
-<li>连续两个空格 会变成一个 \<br\></br\></li>
-<li>连续3个符号，然后是空行，表示 hr横线</li>
-</ul>
-
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/19/markdown_rumen/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-15T15:21:26.000Z"><a href="/2014/08/15/hexo_add_backtotop/">8月 15 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/15/hexo_add_backtotop/">Hexo博客优化：添加返回顶部功能</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>1.添加HTML代码。新建文件 /themes/light/layout/_partial/totop.ejs ，在文件中加入HTML代码：</p>
-<pre><code> <span class="tag">&lt;<span class="title">DIV</span> <span class="attribute">style</span>=<span class="value">"DISPLAY: none"</span> <span class="attribute">id</span>=<span class="value">goTopBtn</span> <span class="attribute">title</span>=<span class="value">"Scroll Back to Top"</span>&gt;</span><span class="tag">&lt;<span class="title">IMG</span> <span class="attribute">border</span>=<span class="value">0</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;images/top.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">DIV</span>&gt;</span>
- <span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span>&gt;</span><span class="javascript">goTopEx();</span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
-</code></pre><p>2、在文件hemes/light/layout/_partial/head.ejs 添加</p>
-<pre><code><span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;js/scrolltop.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
-</code></pre>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/15/hexo_add_backtotop/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-15T12:37:43.000Z"><a href="/2014/08/15/hexo_yohua/">8月 15 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/15/hexo_yohua/">hexo博客的优化技巧</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="添加“多说”评论">添加“多说”评论</h2>
-<p>1、在<a href="http://duoshuo.com/" target="_blank" rel="external">多说</a>进行注册，获得通用代码。<br>2、将通用代码粘贴到themes<em>\light\layout_partial\comment.ejs</em>里面，如下：  </p>
-<pre><code><span class="vbscript">&lt;% <span class="keyword">if</span> ( page.comments){ %&gt;</span>
-<span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"comment"</span>&gt;</span>
-通用代码
-<span class="tag">&lt;/<span class="title">section</span>&gt;</span>
-<span class="vbscript">&lt;% } %&gt;</span>
-</code></pre><p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/15/hexo_yohua/#more" class="more-link">Read More</a>
+            <a href="/2014/08/20/master_crontab/#more" class="more-link">Read More</a>
           </div>
         
         
@@ -300,7 +285,7 @@
   
     <li><a href="/categories/github/">github</a><small>1</small></li>
   
-    <li><a href="/categories/交换路由/">交换路由</a><small>6</small></li>
+    <li><a href="/categories/交换路由/">交换路由</a><small>11</small></li>
   
     <li><a href="/categories/服务器运维/">服务器运维</a><small>11</small></li>
   
@@ -314,7 +299,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a><a href="/tags/IP/" style="font-size: 10.00px;">IP</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/Oracle/" style="font-size: 16.67px;">Oracle</a><a href="/tags/RAC/" style="font-size: 13.33px;">RAC</a><a href="/tags/U盘，弹出/" style="font-size: 10.00px;">U盘，弹出</a><a href="/tags/cisco/" style="font-size: 10.00px;">cisco</a><a href="/tags/crontab/" style="font-size: 10.00px;">crontab</a><a href="/tags/github/" style="font-size: 10.00px;">github</a><a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a><a href="/tags/iftop/" style="font-size: 10.00px;">iftop</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/login/" style="font-size: 10.00px;">login</a><a href="/tags/mac/" style="font-size: 10.00px;">mac</a><a href="/tags/markdown/" style="font-size: 10.00px;">markdown</a><a href="/tags/ping/" style="font-size: 10.00px;">ping</a><a href="/tags/root/" style="font-size: 10.00px;">root</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a><a href="/tags/ssh/" style="font-size: 20.00px;">ssh</a><a href="/tags/table/" style="font-size: 10.00px;">table</a><a href="/tags/ubuntu/" style="font-size: 13.33px;">ubuntu</a><a href="/tags/vagrant/" style="font-size: 10.00px;">vagrant</a><a href="/tags/vim/" style="font-size: 10.00px;">vim</a><a href="/tags/vps/" style="font-size: 13.33px;">vps</a><a href="/tags/win7/" style="font-size: 10.00px;">win7</a><a href="/tags/上传文件/" style="font-size: 10.00px;">上传文件</a><a href="/tags/交换机/" style="font-size: 13.33px;">交换机</a><a href="/tags/交换机，端口/" style="font-size: 10.00px;">交换机，端口</a><a href="/tags/交换机，背板带宽/" style="font-size: 10.00px;">交换机，背板带宽</a><a href="/tags/优化/" style="font-size: 10.00px;">优化</a><a href="/tags/光线，多模，单模，跳线/" style="font-size: 10.00px;">光线，多模，单模，跳线</a><a href="/tags/共享/" style="font-size: 10.00px;">共享</a><a href="/tags/安全/" style="font-size: 10.00px;">安全</a><a href="/tags/快捷键/" style="font-size: 10.00px;">快捷键</a><a href="/tags/批处理，自动备份/" style="font-size: 10.00px;">批处理，自动备份</a><a href="/tags/拼音，输入法/" style="font-size: 10.00px;">拼音，输入法</a><a href="/tags/流量监控/" style="font-size: 10.00px;">流量监控</a><a href="/tags/海明码/" style="font-size: 10.00px;">海明码</a><a href="/tags/网络/" style="font-size: 10.00px;">网络</a>
+    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/CRC/" style="font-size: 10.00px;">CRC</a><a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a><a href="/tags/IP/" style="font-size: 10.00px;">IP</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/Oracle/" style="font-size: 16.67px;">Oracle</a><a href="/tags/RAC/" style="font-size: 13.33px;">RAC</a><a href="/tags/U盘，弹出/" style="font-size: 10.00px;">U盘，弹出</a><a href="/tags/arp/" style="font-size: 10.00px;">arp</a><a href="/tags/cisco/" style="font-size: 10.00px;">cisco</a><a href="/tags/crontab/" style="font-size: 10.00px;">crontab</a><a href="/tags/github/" style="font-size: 10.00px;">github</a><a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a><a href="/tags/iftop/" style="font-size: 10.00px;">iftop</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/login/" style="font-size: 10.00px;">login</a><a href="/tags/mac/" style="font-size: 13.33px;">mac</a><a href="/tags/markdown/" style="font-size: 10.00px;">markdown</a><a href="/tags/ping/" style="font-size: 10.00px;">ping</a><a href="/tags/ping，TTL/" style="font-size: 10.00px;">ping，TTL</a><a href="/tags/root/" style="font-size: 10.00px;">root</a><a href="/tags/route/" style="font-size: 10.00px;">route</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a><a href="/tags/ssh/" style="font-size: 20.00px;">ssh</a><a href="/tags/table/" style="font-size: 10.00px;">table</a><a href="/tags/ubuntu/" style="font-size: 13.33px;">ubuntu</a><a href="/tags/vagrant/" style="font-size: 10.00px;">vagrant</a><a href="/tags/vim/" style="font-size: 10.00px;">vim</a><a href="/tags/vps/" style="font-size: 13.33px;">vps</a><a href="/tags/win7/" style="font-size: 10.00px;">win7</a><a href="/tags/上传文件/" style="font-size: 10.00px;">上传文件</a><a href="/tags/交换机/" style="font-size: 13.33px;">交换机</a><a href="/tags/交换机，端口/" style="font-size: 10.00px;">交换机，端口</a><a href="/tags/交换机，背板带宽/" style="font-size: 10.00px;">交换机，背板带宽</a><a href="/tags/优化/" style="font-size: 10.00px;">优化</a><a href="/tags/光线，单模，多模，区分/" style="font-size: 10.00px;">光线，单模，多模，区分</a><a href="/tags/光线，多模，单模，跳线/" style="font-size: 10.00px;">光线，多模，单模，跳线</a><a href="/tags/共享/" style="font-size: 10.00px;">共享</a><a href="/tags/安全/" style="font-size: 10.00px;">安全</a><a href="/tags/快捷键/" style="font-size: 10.00px;">快捷键</a>
   </div>
 </div>
 
@@ -325,23 +310,23 @@
   <ul class="entry">
     
       <li>
-        <a href="/2014/08/27/ubunt1204_root_login/">Ubuntu12.04 root用户登录桌面设置</a>
+        <a href="/2014/08/27/TTL-expired-in-transit/">ping 时显示TTL expired in transit</a>
       </li>
     
       <li>
-        <a href="/2014/08/25/mac_keboard-shortcut/">mac常用快捷键</a>
+        <a href="/2014/08/27/crc/">CRC循环冗余校验码</a>
       </li>
     
       <li>
-        <a href="/2014/08/25/IP_switchport/">根据IP地址查交换机端口</a>
+        <a href="/2014/08/27/ip-default-gateway,ip-default-netwaork/">浅谈ip default-network与ip route的异同</a>
       </li>
     
       <li>
-        <a href="/2014/08/25/ssh_shutdown_fuwuqi/">远程ssh登陆后关掉机房机器的脚本</a>
+        <a href="/2014/08/27/switch_confine_mac/">华为交换机限制某个mac使用网络的方法</a>
       </li>
     
       <li>
-        <a href="/2014/08/21/switch_beibandaikaun/">何为交换机背板带宽?</a>
+        <a href="/2014/08/27/guangmokuai_qufen/">光模块如何区分单模和多模?使用时的注意事项</a>
       </li>
     
   </ul>

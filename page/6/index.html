@@ -56,27 +56,32 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-09T12:47:37.000Z"><a href="/2014/08/09/upload-to-github/">8月 9 2014</a></time>
+        <time datetime="2014-08-20T06:07:00.000Z"><a href="/2014/08/20/1921681124/">8月 20 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2014/08/09/upload-to-github/">关于上传文件到github的方法</a></h1>
+    <h1 class="title"><a href="/2014/08/20/1921681124/">192.168.1.1/24是什么含义</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <h2 id="第一步、建立先仓库">第一步、建立先仓库</h2>
-<p>第一步的话看一般的提示就知道了，在github新建一个repository（谷歌可以解决），都是可视化的界面操作，所以难度不大。或者看这里：<a href="https://help.github.com/articles/create-a-repo" target="_blank" rel="external">官方help</a> ，虽然是英文的，但是基本都是图和代码，所以很容易读懂。</p>
-<p>在github首页的右上角，点击红框中的Create New Repo。<br><img src="/img/2012082415173733.png" alt="Create New Repo"></p>
-<p>
+        <h1 id="IP的定义">IP的定义</h1>
+<p>ip 是32位无符号整数，最小，最大分别是</p>
+<ul>
+<li>0.0.0.0 - 255.255.255.255 具体来说，由一个ip由 Net-ID+Host-ID 两部分组成，Net-ID 相同，那么就说明在一个网段内，可以用mac数据帧直接通信。</li>
+</ul>
+<p>给定一个Net-ID</p>
+<ul>
+<li>host-ID全为0的ip，(192.168.2.0)代表整子小网络，</li>
+<li><p>host-ID全为1的ip，是这个子网络的广播地址<br>ip总共就32个字节，当 HostID 所占用的位越大，亦即 HostID 数量越多时，表示同一个网络内可用以设定主机的 IP 数量越多<br>
       
     </div>
     <footer>
       
         
           <div class="alignleft">
-            <a href="/2014/08/09/upload-to-github/#more" class="more-link">Read More</a>
+            <a href="/2014/08/20/1921681124/#more" class="more-link">Read More</a>
           </div>
         
         
@@ -95,25 +100,27 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-09T06:56:54.000Z"><a href="/2014/08/09/cisco-swith-interface-mode/">8月 9 2014</a></time>
+        <time datetime="2014-08-20T03:40:50.000Z"><a href="/2014/08/20/ssh_key/">8月 20 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2014/08/09/cisco-swith-interface-mode/">Cisco交换机接口模式精解</a></h1>
+    <h1 class="title"><a href="/2014/08/20/ssh_key/">ssh指定私钥的配置管理</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>cisco网络中，交换机在局域网中最终稳定状态的接口类型主要有四种：access/ trunk/ multi/ dot1q-tunnel。  </p>
-<p>1、access: 主要用来接入终端设备，如PC机、服务器、打印服务器等。<br>2、trunk: 主要用在连接其它交换机，以便在线路上承载多个vlan。<br>3、multi: 在一个线路中承载多个vlan，但不像trunk,它不对承载的数据打 标签。主要用于接入支持多vlan的服务器或者一些网络分析设备。现在基本不使用此类接口，在cisco的网络设备中，也基本不支持此类接口了。<br>4、dot1q-tunnel: 用在Q-in-Q隧道配置中。<br>
+        <h1 id="ssh指定私钥的配置管理">ssh指定私钥的配置管理</h1>
+<p>用ssh 公钥认证方式登录非常常见，快速方便，通常就是用<code>ssh-keygen -t rsa</code> 在 ~/.ssh 目录下生成默认名称的id_rsa和id_rsa.pub 文件</p>
+<p>特别是git流行之后，用ssh的方式访问git服务器，部署起来最容易</p>
+<p>实际上，ssh 私钥的名称和生成地点都可以单独指定的, <strong>和硬件操作系统无关</strong><br>
       
     </div>
     <footer>
       
         
           <div class="alignleft">
-            <a href="/2014/08/09/cisco-swith-interface-mode/#more" class="more-link">Read More</a>
+            <a href="/2014/08/20/ssh_key/#more" class="more-link">Read More</a>
           </div>
         
         
@@ -132,37 +139,77 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-09T06:45:22.000Z"><a href="/2014/08/09/switch-and-router-command/">8月 9 2014</a></time>
+        <time datetime="2014-08-19T09:29:11.000Z"><a href="/2014/08/19/markdown_rumen/">8月 19 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2014/08/09/switch-and-router-command/">交换机&amp;路由器命令小全（带中文注释）</a></h1>
+    <h1 class="title"><a href="/2014/08/19/markdown_rumen/">Markdown语法入门</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <h2 id="1-_交换机支持的命令：">1. 交换机支持的命令：</h2>
-<p>交换机基本状态： </p>
-<pre><code>
-switch: ；ROM状态， 路由器是rommon>
+        <h2 id="基本符号">基本符号</h2>
+<ul>
+<li>*,-,+ 3个符号效果都一样，这3个符号被称为<strong>Markdown</strong>符号</li>
+<li>空白行表示另起一个段落</li>
+<li>`是表示inline代码，tab是用来标记 代码段，分别对应html的code，pre标签</li>
+</ul>
+<h2 id="换行">换行</h2>
+<ul>
+<li>单一段落( \<p\>) 用一个空白行</p\></li>
+<li>连续两个空格 会变成一个 \<br\></br\></li>
+<li>连续3个符号，然后是空行，表示 hr横线</li>
+</ul>
 
-hostname> ；用户模式
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/08/19/markdown_rumen/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
 
-hostname# ；特权模式
 
-hostname(config)# ；全局配置模式
 
-hostname(config-if)# ；接口状态
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-15T15:21:26.000Z"><a href="/2014/08/15/hexo_add_backtotop/">8月 15 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/08/15/hexo_add_backtotop/">Hexo博客优化：添加返回顶部功能</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>1.添加HTML代码。新建文件 /themes/light/layout/_partial/totop.ejs ，在文件中加入HTML代码：</p>
+<pre><code> <span class="tag">&lt;<span class="title">DIV</span> <span class="attribute">style</span>=<span class="value">"DISPLAY: none"</span> <span class="attribute">id</span>=<span class="value">goTopBtn</span> <span class="attribute">title</span>=<span class="value">"Scroll Back to Top"</span>&gt;</span><span class="tag">&lt;<span class="title">IMG</span> <span class="attribute">border</span>=<span class="value">0</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;images/top.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">DIV</span>&gt;</span>
+ <span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span>&gt;</span><span class="javascript">goTopEx();</span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
+</code></pre><p>2、在文件hemes/light/layout/_partial/head.ejs 添加</p>
+<pre><code><span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;js/scrolltop.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
 </code></pre>
-
       
     </div>
     <footer>
       
         
           <div class="alignleft">
-            <a href="/2014/08/09/switch-and-router-command/#more" class="more-link">Read More</a>
+            <a href="/2014/08/15/hexo_add_backtotop/#more" class="more-link">Read More</a>
           </div>
         
         
@@ -181,72 +228,31 @@ hostname(config-if)# ；接口状态
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-09T03:19:25.000Z"><a href="/2014/08/09/RAC-Promblem-solution/">8月 9 2014</a></time>
+        <time datetime="2014-08-15T12:37:43.000Z"><a href="/2014/08/15/hexo_yohua/">8月 15 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2014/08/09/RAC-Promblem-solution/">Oracle RAC安装过程中碰到问题及解决方法</a></h1>
+    <h1 class="title"><a href="/2014/08/15/hexo_yohua/">hexo博客的优化技巧</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <h2 id="这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。">这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。</h2>
-<h3 id="错误一：">错误一：</h3>
-<p>配置共享磁盘的问题。如果共享磁盘本身有内容，可能会导致在安装完CLUSTERWARE后，执行root.sh时出错，错误信息为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed <span class="keyword">to</span> upgrade Oracle Cluster Registry <span class="keyword">configuration</span>。</div></pre></td></tr></table></figure>
-
-
-
-<p>这时可以利用dd命令来清除ocr和voting disk的共享磁盘。类似命令为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dd <span class="variable">if=</span>/dev/zero <span class="variable">of=</span>/dev/rdsk/c2t0d2s3 <span class="variable">bs=</span><span class="number">1073741824</span> <span class="variable">count=</span><span class="number">1</span></div></pre></td></tr></table></figure>
-
-<p>其中of指定需要清除的共享磁盘设备，而bs指定该设备的空间大小。<br>清除之后，再次运行root.sh，则问题消失。<br>
+        <h2 id="添加“多说”评论">添加“多说”评论</h2>
+<p>1、在<a href="http://duoshuo.com/" target="_blank" rel="external">多说</a>进行注册，获得通用代码。<br>2、将通用代码粘贴到themes<em>\light\layout_partial\comment.ejs</em>里面，如下：  </p>
+<pre><code><span class="vbscript">&lt;% <span class="keyword">if</span> ( page.comments){ %&gt;</span>
+<span class="tag">&lt;<span class="title">section</span> <span class="attribute">id</span>=<span class="value">"comment"</span>&gt;</span>
+通用代码
+<span class="tag">&lt;/<span class="title">section</span>&gt;</span>
+<span class="vbscript">&lt;% } %&gt;</span>
+</code></pre><p>
       
     </div>
     <footer>
       
         
           <div class="alignleft">
-            <a href="/2014/08/09/RAC-Promblem-solution/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-09T02:59:39.000Z"><a href="/2014/08/09/VirtuleMachine-Support64bit/">8月 9 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/09/VirtuleMachine-Support64bit/">让虚拟机支持安装64位操作系统的处理方法</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>尝试虚拟的操作系统是CentOS-5.4-x86_64，因此在系统选项中选择了Other Linux 64bit，尝试系统后系统报错：  </p>
-<p>This CPU is VT-capable, but VT is not enabled (check your BIOS settings).<br>You have configured this virtual machine as a 64-bit guest operating system. However, this host’s CPU is not capable of running 64-bit virtual machines or this virtual machine has 64-bit support disabled.<br>For more detailed information, see <a href="http://www.vmware.com/info?id=152" target="_blank" rel="external">http://www.vmware.com/info?id=152</a></p>
-<p>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/09/VirtuleMachine-Support64bit/#more" class="more-link">Read More</a>
+            <a href="/2014/08/15/hexo_yohua/#more" class="more-link">Read More</a>
           </div>
         
         
@@ -294,7 +300,7 @@ hostname(config-if)# ；接口状态
   
     <li><a href="/categories/github/">github</a><small>1</small></li>
   
-    <li><a href="/categories/交换路由/">交换路由</a><small>6</small></li>
+    <li><a href="/categories/交换路由/">交换路由</a><small>11</small></li>
   
     <li><a href="/categories/服务器运维/">服务器运维</a><small>11</small></li>
   
@@ -308,7 +314,7 @@ hostname(config-if)# ；接口状态
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a><a href="/tags/IP/" style="font-size: 10.00px;">IP</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/Oracle/" style="font-size: 16.67px;">Oracle</a><a href="/tags/RAC/" style="font-size: 13.33px;">RAC</a><a href="/tags/U盘，弹出/" style="font-size: 10.00px;">U盘，弹出</a><a href="/tags/cisco/" style="font-size: 10.00px;">cisco</a><a href="/tags/crontab/" style="font-size: 10.00px;">crontab</a><a href="/tags/github/" style="font-size: 10.00px;">github</a><a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a><a href="/tags/iftop/" style="font-size: 10.00px;">iftop</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/login/" style="font-size: 10.00px;">login</a><a href="/tags/mac/" style="font-size: 10.00px;">mac</a><a href="/tags/markdown/" style="font-size: 10.00px;">markdown</a><a href="/tags/ping/" style="font-size: 10.00px;">ping</a><a href="/tags/root/" style="font-size: 10.00px;">root</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a><a href="/tags/ssh/" style="font-size: 20.00px;">ssh</a><a href="/tags/table/" style="font-size: 10.00px;">table</a><a href="/tags/ubuntu/" style="font-size: 13.33px;">ubuntu</a><a href="/tags/vagrant/" style="font-size: 10.00px;">vagrant</a><a href="/tags/vim/" style="font-size: 10.00px;">vim</a><a href="/tags/vps/" style="font-size: 13.33px;">vps</a><a href="/tags/win7/" style="font-size: 10.00px;">win7</a><a href="/tags/上传文件/" style="font-size: 10.00px;">上传文件</a><a href="/tags/交换机/" style="font-size: 13.33px;">交换机</a><a href="/tags/交换机，端口/" style="font-size: 10.00px;">交换机，端口</a><a href="/tags/交换机，背板带宽/" style="font-size: 10.00px;">交换机，背板带宽</a><a href="/tags/优化/" style="font-size: 10.00px;">优化</a><a href="/tags/光线，多模，单模，跳线/" style="font-size: 10.00px;">光线，多模，单模，跳线</a><a href="/tags/共享/" style="font-size: 10.00px;">共享</a><a href="/tags/安全/" style="font-size: 10.00px;">安全</a><a href="/tags/快捷键/" style="font-size: 10.00px;">快捷键</a><a href="/tags/批处理，自动备份/" style="font-size: 10.00px;">批处理，自动备份</a><a href="/tags/拼音，输入法/" style="font-size: 10.00px;">拼音，输入法</a><a href="/tags/流量监控/" style="font-size: 10.00px;">流量监控</a><a href="/tags/海明码/" style="font-size: 10.00px;">海明码</a><a href="/tags/网络/" style="font-size: 10.00px;">网络</a>
+    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/CRC/" style="font-size: 10.00px;">CRC</a><a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a><a href="/tags/IP/" style="font-size: 10.00px;">IP</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/Oracle/" style="font-size: 16.67px;">Oracle</a><a href="/tags/RAC/" style="font-size: 13.33px;">RAC</a><a href="/tags/U盘，弹出/" style="font-size: 10.00px;">U盘，弹出</a><a href="/tags/arp/" style="font-size: 10.00px;">arp</a><a href="/tags/cisco/" style="font-size: 10.00px;">cisco</a><a href="/tags/crontab/" style="font-size: 10.00px;">crontab</a><a href="/tags/github/" style="font-size: 10.00px;">github</a><a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a><a href="/tags/iftop/" style="font-size: 10.00px;">iftop</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/login/" style="font-size: 10.00px;">login</a><a href="/tags/mac/" style="font-size: 13.33px;">mac</a><a href="/tags/markdown/" style="font-size: 10.00px;">markdown</a><a href="/tags/ping/" style="font-size: 10.00px;">ping</a><a href="/tags/ping，TTL/" style="font-size: 10.00px;">ping，TTL</a><a href="/tags/root/" style="font-size: 10.00px;">root</a><a href="/tags/route/" style="font-size: 10.00px;">route</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a><a href="/tags/ssh/" style="font-size: 20.00px;">ssh</a><a href="/tags/table/" style="font-size: 10.00px;">table</a><a href="/tags/ubuntu/" style="font-size: 13.33px;">ubuntu</a><a href="/tags/vagrant/" style="font-size: 10.00px;">vagrant</a><a href="/tags/vim/" style="font-size: 10.00px;">vim</a><a href="/tags/vps/" style="font-size: 13.33px;">vps</a><a href="/tags/win7/" style="font-size: 10.00px;">win7</a><a href="/tags/上传文件/" style="font-size: 10.00px;">上传文件</a><a href="/tags/交换机/" style="font-size: 13.33px;">交换机</a><a href="/tags/交换机，端口/" style="font-size: 10.00px;">交换机，端口</a><a href="/tags/交换机，背板带宽/" style="font-size: 10.00px;">交换机，背板带宽</a><a href="/tags/优化/" style="font-size: 10.00px;">优化</a><a href="/tags/光线，单模，多模，区分/" style="font-size: 10.00px;">光线，单模，多模，区分</a><a href="/tags/光线，多模，单模，跳线/" style="font-size: 10.00px;">光线，多模，单模，跳线</a><a href="/tags/共享/" style="font-size: 10.00px;">共享</a><a href="/tags/安全/" style="font-size: 10.00px;">安全</a><a href="/tags/快捷键/" style="font-size: 10.00px;">快捷键</a>
   </div>
 </div>
 
@@ -319,23 +325,23 @@ hostname(config-if)# ；接口状态
   <ul class="entry">
     
       <li>
-        <a href="/2014/08/27/ubunt1204_root_login/">Ubuntu12.04 root用户登录桌面设置</a>
+        <a href="/2014/08/27/TTL-expired-in-transit/">ping 时显示TTL expired in transit</a>
       </li>
     
       <li>
-        <a href="/2014/08/25/mac_keboard-shortcut/">mac常用快捷键</a>
+        <a href="/2014/08/27/crc/">CRC循环冗余校验码</a>
       </li>
     
       <li>
-        <a href="/2014/08/25/IP_switchport/">根据IP地址查交换机端口</a>
+        <a href="/2014/08/27/ip-default-gateway,ip-default-netwaork/">浅谈ip default-network与ip route的异同</a>
       </li>
     
       <li>
-        <a href="/2014/08/25/ssh_shutdown_fuwuqi/">远程ssh登陆后关掉机房机器的脚本</a>
+        <a href="/2014/08/27/switch_confine_mac/">华为交换机限制某个mac使用网络的方法</a>
       </li>
     
       <li>
-        <a href="/2014/08/21/switch_beibandaikaun/">何为交换机背板带宽?</a>
+        <a href="/2014/08/27/guangmokuai_qufen/">光模块如何区分单模和多模?使用时的注意事项</a>
       </li>
     
   </ul>

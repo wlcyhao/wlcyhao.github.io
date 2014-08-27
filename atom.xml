@@ -4,7 +4,7 @@
   <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wlcyhao.github.io/"/>
-  <updated>2014-08-27T01:25:52.902Z</updated>
+  <updated>2014-08-27T11:18:46.216Z</updated>
   <id>http://wlcyhao.github.io/</id>
   
   <author>
@@ -13,6 +13,135 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[ping 时显示TTL expired in transit]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/27/TTL-expired-in-transit/"/>
+    <id>http://wlcyhao.github.io/2014/08/27/TTL-expired-in-transit/</id>
+    <published>2014-08-27T11:15:20.000Z</published>
+    <updated>2014-08-27T11:16:57.000Z</updated>
+    <content type="html"><![CDATA[<p>当你在PING一台机器IP的时候出现如果显示,你可的注意了<br><a id="more"></a></p>
+<pre><code>C:\Documents and Settings\Administrator&gt;ping <span class="keyword">*</span>.<span class="keyword">*</span>.4.11
+
+Pinging <span class="keyword">*</span>.<span class="keyword">*</span>.4.11 with 32 bytes of data:
+
+Reply from <span class="keyword">*</span>.<span class="keyword">*</span>.4.1: TTL expired in transit.
+Reply from <span class="keyword">*</span>.<span class="keyword">*</span>.4.1: TTL expired in transit.
+Reply from <span class="keyword">*</span>.<span class="keyword">*</span>.4.1: TTL expired in transit.
+Reply from <span class="keyword">*</span>.<span class="keyword">*</span>.4.1: TTL expired in transit.
+</code></pre><p>在TCP/IP网络中，网络层并不对数据包进行可靠性传输保证，只通过ICMP报文提供反馈机制(例如：差错控制)。PING命令就是ICMP的请求/响应报文，也是网络最常用的测试手段。通常使用PING命令测试互通性时有以下几种消息反馈：</p>
+<p>1、Request Time Out<br>2、Destination Unreachable<br>3、TTL Expired in transit</p>
+<p>情况1：当信源机PING某信宿机时，信源机在一段时间内（信源机发送ICMP请求报文后，会启动定时器0）无法收到ICMP响应报文，就会产生该种情况。出现上述问题的原因在于，信源到信宿的路由正常，而信宿到信源无可用通路。</p>
+<p>情况2：当信源机到信宿机无可用通路时，就会产生该种原因。</p>
+<p>情况3：当信源机发送IP数据包时（ICMP是被直接封装在IP包中），会加上包的TTL（Time to Live）时间，数据包在每经过一个路由器时，路由器会将包的TTL时间减1，如果在ICMP请求报文未到信宿机之前，该数据包的TTL为0，则相应的网关丢弃该报文，同时向信源机发送ICMP的超时报文，在信源机上应将显示TTL Expired in transit消息。该问题主要是在网络内部出现了路由循环造成数据包无法到达信宿机，可使用Tracert跟踪，判断故障出处（使用该命令时最好在主机上完成）。</p>
+<p>注：某些路由器对包的TTL时间并不是减1，但一般情况是这样。<br>方法：如果正常PING通某主机的情况下，可简单从回应信息中分析数据包所经过的路由跳数<br>i.e. replay xxx.xxx.xxx.xxx: byte=xxx time=xxxms ttl=xxx<br>用256减去该条信息中TTL的值，即可得所经的路由跳数，如TTL时间过小，则可能网络中出现短暂的路由环路。</p>
+<p>在配置静态路由时易出现该种情况，动态路由协议中RIPV1易出现，而RIPV2和OSPF不易出现。</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>当你在PING一台机器IP的时候出现如果显示,你可的注意了<br>]]></summary>
+    
+      <category term="ping，TTL" scheme="http://wlcyhao.github.io/tags/ping%EF%BC%8CTTL/"/>
+    
+      <category term="交换路由" scheme="http://wlcyhao.github.io/categories/%E4%BA%A4%E6%8D%A2%E8%B7%AF%E7%94%B1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[CRC循环冗余校验码]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/27/crc/"/>
+    <id>http://wlcyhao.github.io/2014/08/27/crc/</id>
+    <published>2014-08-27T11:12:28.000Z</published>
+    <updated>2014-08-27T11:13:37.000Z</updated>
+    <content type="html"><![CDATA[<p>CRC（Cyclic Redundancy Check)循环冗余校验码<br><a id="more"></a><br>CRC是常用的校验码，在早期的通信中运用广泛，因为早期的通信技术不够可靠（不可靠性的来源是通信技术决定的，比如电磁波通信时受雷电等因素的影响），不可靠的通信就会带来‘确认信息’的困惑，书上提到红军和蓝军通信联合进攻山下的敌军的例子，第一天红军发了条信息要蓝军第二天一起进攻，蓝军收到之后，发一条确认信息，但是蓝军担心的是‘确认信息’如果也不可靠而没有成功到达红军那里，那自己不是很危险？于是红军再发一条‘对确认的确认信息’，但同样的问题还是不能解决，红军仍然不敢冒然行动。</p>
+<p>对通信的可靠性检查就需要‘校验’，校验是从数据本身进行检查，它依靠某种数学上约定的形式进行检查，校验的结果是可靠或不可靠，如果可靠就对数据进行处理，如果不可靠，就丢弃重发或者进行修复。</p>
+<p>CRC码是由两部分组成，前部分是信息码，就是需要校验的信息，后部分是校验码，如果CRC码共长n个bit，信息码长k个bit，就称为(n,k)码。 它的编码规则是：   1、首先将原信息码(kbit)左移r位(k+r=n)   2、运用一个生成多项式g(x)（也可看成二进制数）用模2除上面的式子，得到的余数就是校验码。</p>
+<p>非常简单，要说明的：模2除就是在除的过程中用模2加，模2加实际上就是我们熟悉的异或运算，就是加法不考虑进位，公式是： 0+0=1+1=0,1+0=0+1=1 即‘异’则真，‘非异’则假。     由此得到定理：a+b+b=a 也就是‘模2减’和‘模2加’直值表完全相同。</p>
+<p>有了加减法就可以用来定义模2除法，于是就可以用生成多项式g(x)生成CRC校验码。<br>例如： g(x)=x4+x3+x2+1,(7,3)码,信息码110产生的CRC码就是： 11101 | 110,0000                111 01                1 0100                1 1101                   1001 余数是1001，所以CRC码是110,1001<br>标准的CRC码是，CRC-CCITT和CRC-16，它们的生成多项式是：   CRC-CCITT=x16+x12+x5+1   CRC-16=x16+x15+x2+1<br>CRC-32=x32+x26+x23+x22+x16+x12+x11+x10+x8+x7+x5+x4+x2+x+1</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>CRC（Cyclic Redundancy Check)循环冗余校验码<br>]]></summary>
+    
+      <category term="CRC" scheme="http://wlcyhao.github.io/tags/CRC/"/>
+    
+      <category term="检验吗" scheme="http://wlcyhao.github.io/tags/%E6%A3%80%E9%AA%8C%E5%90%97/"/>
+    
+      <category term="交换路由" scheme="http://wlcyhao.github.io/categories/%E4%BA%A4%E6%8D%A2%E8%B7%AF%E7%94%B1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[浅谈ip default-network与ip route的异同]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/27/ip-default-gateway,ip-default-netwaork/"/>
+    <id>http://wlcyhao.github.io/2014/08/27/ip-default-gateway,ip-default-netwaork/</id>
+    <published>2014-08-27T11:09:19.000Z</published>
+    <updated>2014-08-27T11:10:23.000Z</updated>
+    <content type="html"><![CDATA[<p>1、<code>ip default-gateway</code><br>当路由器上的ip routing无效时，使用它指定默认路由，用于RXBoot模式（no ip routing）下安装IOS等。<br><a id="more"></a><br>2、<code>ip default-network</code>和<code>ip route 0.0.0.0 0.0.0.0</code><br>两者都用于ip routing有效的路由器上，区别主要在于路由协议是否传播这条路由信息。比如：IGRP无法识别0.0.0.0，因此传播默认路由时必须用<code>ip default-network</code>。</p>
+<p>当用<code>ip default-network</code>指令设定多条默认路由时，administrative distance最短的成为最终的默认路由；如果有复数条路由distance值相等，那么在路由表（show ip route）中靠上的成为默认路由。</p>
+<p>同时使用<code>ip default-network</code>和<code>ip route 0.0.0.0 0.0.0.0</code>双方设定默认路由时，如果<code>ip default-network</code>设定的网络是直连（静态、且已知）的，那么它就成为默认路由；如果<code>ip default-network</code>指定的网络是由交换路由信息得来的，则<code>ip route 0.0.0.0 0.0.0.0</code>指定的表项成为默认路由。</p>
+<p>最后，如果使用多条<code>ip route 0.0.0.0 0.0.0.0</code>指令，则流量会自动在多条链路上负载均衡。</p>
+<h2 id="补充一下">补充一下</h2>
+<p>1,在用<code>ip default-gateway</code>(因为关掉路由,no ip routing)时,在大我数路由协议中    </p>
+<p>要把通过上命令得到的路由通告出去的话,必须用启用</p>
+<pre><code>#<span class="keyword">default</span>-information originate 和redistribute <span class="keyword">static</span>
+</code></pre><p>或者可以用命</p>
+<pre><code><span class="preprocessor">#network 0.0.0.0</span>
+</code></pre><p>这样可以完成此静态路由的再发布.对 ip route 同样如此</p>
+<p>2,ip routing中,如果是指向下一跳,那么administrative distance 是1,如果是指向<br>exit-interface外出,那么管理距离为0.</p>
+<p>3,在负载均衡中,一般协议默认是可以4个,最大可设为6条,根据variance命令完成<br>但BGP是默认一条,最大可设6条,用命令<code>maximum-path</code> 完成.注意和variance实现的方式不一样.</p>
+<p>4,为获取一跳,应用ip default-network时(因为IGRP不支持四0路由),<br>后面的网络号并不一定要是真实的网络,目的只是要让其他路由器知道本路由器是其他路由器发住未知网络的下一跳即可.<br>比如</p>
+<pre><code><span class="title">ip</span> route <span class="number">100.0.0.0</span> <span class="number">255.255.255.0</span> s0
+ip default-network <span class="number">100.0.0.0</span>
+igrp <span class="number">2</span>
+redistribute static
+</code></pre><p>中,这个100….的网络可以不存在,但S0口外出是连外部网络就行,这样100….其就是0.0.0.0的替代.</p>
+<p>同时,如果你在RIP之类的网络中启用ip default-networ命令时,RIP会把它作为一打0.0.0.0的标记通告出去,而不是具体命令所指的网络</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>1、<code>ip default-gateway</code><br>当路由器上的ip routing无效时，使用它指定默认路由，用于RXBoot模式（no ip routing）下安装IOS等。<br>]]></summary>
+    
+      <category term="route" scheme="http://wlcyhao.github.io/tags/route/"/>
+    
+      <category term="交换路由" scheme="http://wlcyhao.github.io/categories/%E4%BA%A4%E6%8D%A2%E8%B7%AF%E7%94%B1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[华为交换机限制某个mac使用网络的方法]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/27/switch_confine_mac/"/>
+    <id>http://wlcyhao.github.io/2014/08/27/switch_confine_mac/</id>
+    <published>2014-08-27T11:00:29.000Z</published>
+    <updated>2014-08-27T11:02:20.000Z</updated>
+    <content type="html"><![CDATA[<p>网络里面有人接了个无线路由器，开了dhcp server，与单位的dhcp服务器冲突了，通过抓包发现了那个路由器的mac地址，想把它屏蔽了，找了一下，<br><a id="more"></a><br>可以通过这个命令：</p>
+<p>mac-address blackhole 001d-0f99-b53e</p>
+<p>这下子，网络里面那个家伙的广播包不见了，呵呵，不错不错，不用一直接电话了。</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>网络里面有人接了个无线路由器，开了dhcp server，与单位的dhcp服务器冲突了，通过抓包发现了那个路由器的mac地址，想把它屏蔽了，找了一下，<br>]]></summary>
+    
+      <category term="arp" scheme="http://wlcyhao.github.io/tags/arp/"/>
+    
+      <category term="mac" scheme="http://wlcyhao.github.io/tags/mac/"/>
+    
+      <category term="路由器" scheme="http://wlcyhao.github.io/tags/%E8%B7%AF%E7%94%B1%E5%99%A8/"/>
+    
+      <category term="交换路由" scheme="http://wlcyhao.github.io/categories/%E4%BA%A4%E6%8D%A2%E8%B7%AF%E7%94%B1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[光模块如何区分单模和多模?使用时的注意事项]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/27/guangmokuai_qufen/"/>
+    <id>http://wlcyhao.github.io/2014/08/27/guangmokuai_qufen/</id>
+    <published>2014-08-27T10:56:35.000Z</published>
+    <updated>2014-08-27T10:57:51.000Z</updated>
+    <content type="html"><![CDATA[<p>   光纤模块如何区分单模和多模？<br><a id="more"></a><br>   多模光纤模块：常见的多模模块的波长均为850nm，传输距离多为100M和500M，拉环或者体外颜色为黑色或者米色，所接光纤跳线为一般为橙色。</p>
+<p>   单模光纤模块：单模模块波长则主要以1310nm和1550nm为主，传输距离有2km、10KM、40KM、60KM、80KM、120KM，拉环或者体外颜色为蓝色、黄色或者紫色，所接光纤跳线颜色为黄色。</p>
+<p>   光纤模块使用时注意事项？</p>
+<p>   1、光纤跳线两端的光模块的收发波长必须一致，也就是说光纤的两端必须是相同波长的光模块，简单的区分方法是光模块的颜色要一致。<br>   2、一般的情况下，短波光模块使用多模光纤（橙色的光纤），长波光模块使用单模光纤（黄色光纤），以保证数据传输的准确性。<br>   3、光纤在使用中不要过度弯曲和绕环，这样会增加光在传输过程的衰减。<br>   4、光纤跳线使用后一定要用保护套将光纤接头保护起来，灰尘和油污会损害光纤的耦合。</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>   光纤模块如何区分单模和多模？<br>]]></summary>
+    
+      <category term="光线，单模，多模，区分" scheme="http://wlcyhao.github.io/tags/%E5%85%89%E7%BA%BF%EF%BC%8C%E5%8D%95%E6%A8%A1%EF%BC%8C%E5%A4%9A%E6%A8%A1%EF%BC%8C%E5%8C%BA%E5%88%86/"/>
+    
+      <category term="交换路由" scheme="http://wlcyhao.github.io/categories/%E4%BA%A4%E6%8D%A2%E8%B7%AF%E7%94%B1/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Ubuntu12.04 root用户登录桌面设置]]></title>
@@ -416,164 +545,6 @@ exit
       <category term="安全" scheme="http://wlcyhao.github.io/tags/%E5%AE%89%E5%85%A8/"/>
     
       <category term="ssh" scheme="http://wlcyhao.github.io/tags/ssh/"/>
-    
-      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[提高ssh登录服务器的响应速度]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/20/ssh_login/"/>
-    <id>http://wlcyhao.github.io/2014/08/20/ssh_login/</id>
-    <published>2014-08-20T07:09:04.000Z</published>
-    <updated>2014-08-20T07:11:11.000Z</updated>
-    <content type="html"><![CDATA[<p>server A—&gt; server B</p>
-<p>从A登录B，修改服务器B上的ssh配置文件: <code>/etc/ssh/sshd_config</code> 在文件尾部添加一行</p>
-<p><code>UseDNS no</code></p>
-<p>重启sshd，明显可以感觉到ssh登录速度的提升</p>
-]]></content>
-    
-    
-      <category term="ssh" scheme="http://wlcyhao.github.io/tags/ssh/"/>
-    
-      <category term="login" scheme="http://wlcyhao.github.io/tags/login/"/>
-    
-      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[消除 vi 突然显示空格的颜色]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/20/vi_backspace_colour/"/>
-    <id>http://wlcyhao.github.io/2014/08/20/vi_backspace_colour/</id>
-    <published>2014-08-20T07:05:47.000Z</published>
-    <updated>2014-08-20T07:06:57.000Z</updated>
-    <content type="html"><![CDATA[<p>不知道为什么，用vi打开代码文件，空格的地方全部是黄色亮块，清楚办法</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">cd</span> ~</div><div class="line"></div><div class="line"><span class="keyword">open</span> .vimrc</div><div class="line"></div><div class="line">加入一行 <span class="keyword">set</span> nohls</div></pre></td></tr></table></figure>
-
-<p>set nohls在vim里面可以直接用，只限于当前session，写入到vimrc中，可以持久化保存，vimrc里面还可以放入更多的配置指令</p>
-<p>另外</p>
-<p><code>cd -</code> 是个好命令，可以回到上一次路径</p>
-]]></content>
-    
-    
-      <category term="vim" scheme="http://wlcyhao.github.io/tags/vim/"/>
-    
-      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[修复secureCRT 登录 vps 中文乱码问题]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/20/securecrt_vps_bug/"/>
-    <id>http://wlcyhao.github.io/2014/08/20/securecrt_vps_bug/</id>
-    <published>2014-08-20T07:00:45.000Z</published>
-    <updated>2014-08-20T07:02:19.000Z</updated>
-    <content type="html"><![CDATA[<p>让vps正常显示中文，只需要三步</p>
-<ol>
-<li><p><code>vim ~/.profile</code> 加入下面一行 export LANG=”zh_CN.UTF-8”</p>
-</li>
-<li><p>修改SecureCRT 编码<br>选项-&gt;会话选项-&gt;外观-&gt;字符编码-&gt;uft-8，退出重新登录就行了</p>
-</li>
-<li><p>让vim支持中文显示，修改文件（如果没有就新建一个）:~/.vimrc，添加下面三行<br>```</p>
-<ol>
-<li>set encoding=utf-8</li>
-<li>set fileencodings=utf-8,gb2312,gb18030,gbk</li>
-<li>set termencoding=utf-8</li>
-</ol>
-</li>
-</ol>
-]]></content>
-    
-    
-      <category term="linux" scheme="http://wlcyhao.github.io/tags/linux/"/>
-    
-      <category term="vps" scheme="http://wlcyhao.github.io/tags/vps/"/>
-    
-      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[用shell脚本监控vps实时流量]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/20/shell_monitor_vps/"/>
-    <id>http://wlcyhao.github.io/2014/08/20/shell_monitor_vps/</id>
-    <published>2014-08-20T06:52:13.000Z</published>
-    <updated>2014-08-20T06:54:39.000Z</updated>
-    <content type="html"><![CDATA[<p>一般来说，实时流量监控有两种方法</p>
-<ul>
-<li>安装iftop，它会通过ascii图形化显示实时流量数据，比较直观</li>
-<li>用shell脚本采集<code>/proc/net/dev</code>中的实时数据，很简单，不依赖任何安装包，对于内网linux服务器特别有帮助</li>
-</ul>
-<a id="more"></a>
-
-<p>脚本如下:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="shebang">#!/bin/bash</span></div><div class="line"></div><div class="line"><span class="comment"># test network width</span></div><div class="line"></div><div class="line">function usage</div><div class="line"></div><div class="line">{</div><div class="line"></div><div class="line">        <span class="built_in">echo</span> <span class="string">"Usage: <span class="variable">$0</span>  "</span></div><div class="line"></div><div class="line">        <span class="built_in">echo</span> <span class="string">"    e.g. <span class="variable">$0</span> eth0 2"</span></div><div class="line"></div><div class="line">        <span class="keyword">exit</span> <span class="number">65</span></div><div class="line"></div><div class="line">}</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> <span class="operator">-lt</span> <span class="number">2</span> ];<span class="keyword">then</span></div><div class="line">usage</div><div class="line"><span class="keyword">fi</span></div><div class="line"><span class="built_in">typeset</span> <span class="keyword">in</span> <span class="keyword">in</span>_old dif_<span class="keyword">in</span></div><div class="line"><span class="built_in">typeset</span> out out_old dif_out</div><div class="line"><span class="built_in">typeset</span> timer</div><div class="line"><span class="built_in">typeset</span> eth</div><div class="line"></div><div class="line">eth=<span class="variable">$1</span></div><div class="line">timer=<span class="variable">$2</span></div><div class="line"></div><div class="line"><span class="keyword">in</span>_old=$(cat /proc/net/dev | grep <span class="variable">$eth</span> | sed <span class="operator">-e</span> <span class="string">"s/\(.*\)\:\(.*\)/\2/g"</span> | awk <span class="string">' { print $1 }'</span> )</div><div class="line">out_old=$(cat /proc/net/dev | grep <span class="variable">$eth</span> | sed <span class="operator">-e</span> <span class="string">"s/\(.*\)\:\(.*\)/\2/g"</span> | awk <span class="string">' { print $9 }'</span> )</div><div class="line"></div><div class="line"><span class="keyword">while</span> <span class="literal">true</span></div><div class="line"><span class="keyword">do</span></div><div class="line">sleep <span class="variable">${timer}</span></div><div class="line"><span class="keyword">in</span>=$(cat /proc/net/dev | grep <span class="variable">$eth</span> | sed <span class="operator">-e</span> <span class="string">"s/\(.*\)\:\(.*\)/\2/g"</span> | awk <span class="string">' { print $1 }'</span> )</div><div class="line">out=$(cat /proc/net/dev | grep <span class="variable">$eth</span> | sed <span class="operator">-e</span> <span class="string">"s/\(.*\)\:\(.*\)/\2/g"</span> | awk <span class="string">' { print $9 }'</span> )</div><div class="line">dif_<span class="keyword">in</span>=$(((<span class="keyword">in</span>-in_old)/timer))</div><div class="line">dif_out=$(((out-out_old)/timer))</div><div class="line"><span class="built_in">echo</span> <span class="string">"IN: <span class="variable">${dif_in}</span> Byte/s OUT: <span class="variable">${dif_out}</span> Byte/s "</span></div><div class="line"><span class="keyword">in</span>_old=<span class="variable">${in}</span></div><div class="line">out_old=<span class="variable">${out}</span></div><div class="line"><span class="keyword">done</span></div><div class="line"><span class="keyword">exit</span> <span class="number">0</span></div></pre></td></tr></table></figure>
-
-<p>使用很简单，只有两个参数</p>
-<ul>
-<li>参数1， 网卡设备号，一般就是 eth0</li>
-<li>参数2，统计间隔的秒数，2 表示2秒计算一次</li>
-<li>流量统计单位是 Byte/s</li>
-</ul>
-]]></content>
-    <summary type="html"><![CDATA[<p>一般来说，实时流量监控有两种方法</p>
-<ul>
-<li>安装iftop，它会通过ascii图形化显示实时流量数据，比较直观</li>
-<li>用shell脚本采集<code>/proc/net/dev</code>中的实时数据，很简单，不依赖任何安装包，对于内网linux服务器特别有帮助</li>
-</ul>
-]]></summary>
-    
-      <category term="linux" scheme="http://wlcyhao.github.io/tags/linux/"/>
-    
-      <category term="iftop" scheme="http://wlcyhao.github.io/tags/iftop/"/>
-    
-      <category term="流量监控" scheme="http://wlcyhao.github.io/tags/%E6%B5%81%E9%87%8F%E7%9B%91%E6%8E%A7/"/>
-    
-      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[一分钟学会crontab使用]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/20/master_crontab/"/>
-    <id>http://wlcyhao.github.io/2014/08/20/master_crontab/</id>
-    <published>2014-08-20T06:45:32.000Z</published>
-    <updated>2014-08-20T06:47:14.000Z</updated>
-    <content type="html"><![CDATA[<p>crontab 是在linux服务器上部署定时任务的方法</p>
-<p><code>0 5 * * * /usr/bin/python /data/www/tools/mysql_backup.py</code></p>
-<p>cmd之前有5个项目要填，分别对应</p>
-<p><code>分钟 小时 天 月 一周当中第几天( 0-6 ,0表示星期天)</code><br><a id="more"></a><br>填写方法</p>
-<ul>
-<li><ul>
-<li>表示都满足，例如 <em> </em> <em> </em> <em> 表示每分钟执行一次，如果每小时执行一次，那应该这样写<br>1 </em> <em> </em> * (每小时第一分钟执行，1可以随便改成60以内的数字)</li>
-</ul>
-</li>
-<li>/n 表示隔n个单位执行一次  <ul>
-<li>/3 <em> </em> <em> </em> 3分钟执行一次  </li>
-<li>1 <em>/3 </em> <em> </em> 表示每隔3个小时的第一分钟执行一次  </li>
-<li>1 1 <em>/3 </em> * 表示每隔3天，当天的1点1分执行一次  </li>
-<li>1 12 <em> </em> 2,3,4,5,6 表示每周二到周6,每天中午12点1分执行  </li>
-</ul>
-</li>
-</ul>
-<p><strong>只需要掌握这2种时间用法，crontab就ok了</strong></p>
-<p>提示：</p>
-<ul>
-<li>crontab 最小粒度是一分钟执行一次，要更快，得用其它办法，比如说写一个daemon程序,用while true: 来做</li>
-<li><code>crontab -l</code> 查看所有crontab 列表</li>
-<li><code>cronta -e</code>编辑crontab</li>
-<li>crontab条目是以文件方式存储的，可以用<code>ls /etc/cron*</code>查看</li>
-</ul>
-]]></content>
-    <summary type="html"><![CDATA[<p>crontab 是在linux服务器上部署定时任务的方法</p>
-<p><code>0 5 * * * /usr/bin/python /data/www/tools/mysql_backup.py</code></p>
-<p>cmd之前有5个项目要填，分别对应</p>
-<p><code>分钟 小时 天 月 一周当中第几天( 0-6 ,0表示星期天)</code><br>]]></summary>
-    
-      <category term="linux" scheme="http://wlcyhao.github.io/tags/linux/"/>
-    
-      <category term="crontab" scheme="http://wlcyhao.github.io/tags/crontab/"/>
     
       <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
     

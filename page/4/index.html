@@ -56,24 +56,27 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-21T13:08:39.000Z"><a href="/2014/08/21/pingyin_input/">8月 21 2014</a></time>
+        <time datetime="2014-08-09T12:47:37.000Z"><a href="/2014/08/09/upload-to-github/">8月 9 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2014/08/21/pingyin_input/">如何用拼音输入法输入不会读的字？</a></h1>
+    <h1 class="title"><a href="/2014/08/09/upload-to-github/">关于上传文件到github的方法</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>遇到不会读的字，怎么用拼音打？网友提供小技巧：<br>
+        <h2 id="第一步、建立先仓库">第一步、建立先仓库</h2>
+<p>第一步的话看一般的提示就知道了，在github新建一个repository（谷歌可以解决），都是可视化的界面操作，所以难度不大。或者看这里：<a href="https://help.github.com/articles/create-a-repo" target="_blank" rel="external">官方help</a> ，虽然是英文的，但是基本都是图和代码，所以很容易读懂。</p>
+<p>在github首页的右上角，点击红框中的Create New Repo。<br><img src="/img/2012082415173733.png" alt="Create New Repo"></p>
+<p>
       
     </div>
     <footer>
       
         
           <div class="alignleft">
-            <a href="/2014/08/21/pingyin_input/#more" class="more-link">Read More</a>
+            <a href="/2014/08/09/upload-to-github/#more" class="more-link">Read More</a>
           </div>
         
         
@@ -92,28 +95,25 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-21T02:01:00.000Z"><a href="/2014/08/21/markdown_insert_table/">8月 21 2014</a></time>
+        <time datetime="2014-08-09T06:56:54.000Z"><a href="/2014/08/09/cisco-swith-interface-mode/">8月 9 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2014/08/21/markdown_insert_table/">在Markdown文档中插入表格(table)</a></h1>
+    <h1 class="title"><a href="/2014/08/09/cisco-swith-interface-mode/">Cisco交换机接口模式精解</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>插入表格算是Markdown的扩展语法</p>
-<p>使用很简单，示例如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">| <span class="class">Tables</span>        | <span class="class">Are</span>           | <span class="class">Cool</span>  |  </div><div class="line">| ------------- |-------------- | ------|  </div><div class="line">| col <span class="number">3</span> is      | right-aligned | <span class="char">$1</span>600 |  </div><div class="line">| col <span class="number">2</span> is      <span class="localvars">| centered      |</span>   <span class="char">$1</span>2 | </div><div class="line"><span class="localvars">| zebra stripes | are neat      |</span>    <span class="char">$1</span> |</div></pre></td></tr></table></figure>
-
-
+        <p>cisco网络中，交换机在局域网中最终稳定状态的接口类型主要有四种：access/ trunk/ multi/ dot1q-tunnel。  </p>
+<p>1、access: 主要用来接入终端设备，如PC机、服务器、打印服务器等。<br>2、trunk: 主要用在连接其它交换机，以便在线路上承载多个vlan。<br>3、multi: 在一个线路中承载多个vlan，但不像trunk,它不对承载的数据打 标签。主要用于接入支持多vlan的服务器或者一些网络分析设备。现在基本不使用此类接口，在cisco的网络设备中，也基本不支持此类接口了。<br>4、dot1q-tunnel: 用在Q-in-Q隧道配置中。<br>
       
     </div>
     <footer>
       
         
           <div class="alignleft">
-            <a href="/2014/08/21/markdown_insert_table/#more" class="more-link">Read More</a>
+            <a href="/2014/08/09/cisco-swith-interface-mode/#more" class="more-link">Read More</a>
           </div>
         
         
@@ -132,26 +132,38 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-20T07:35:44.000Z"><a href="/2014/08/20/ping_network_speed/">8月 20 2014</a></time>
+        <time datetime="2014-08-09T06:45:22.000Z"><a href="/2014/08/09/switch-and-router-command/">8月 9 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2014/08/20/ping_network_speed/">ping服务器网速的工具</a></h1>
+    <h1 class="title"><a href="/2014/08/09/switch-and-router-command/">交换机&amp;路由器命令小全（带中文注释）</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>购买vps之前评测中国用户访问速度，或者网站运营异常的时候测试网速，判断dns是否配置正确，都可以简单 ping一下，初步了解情况</p>
-<ol>
-<li>面向国内用户的中文网站，用 <a href="http://ping.chinaz.com/" target="_blank" rel="external">http://ping.chinaz.com/</a></li>
-<li>面向全球用户的英文网站，用 <a href="http://www.just-ping.com/" target="_blank" rel="external">http://www.just-ping.com/</a></li>
-</ol>
+        <h2 id="1-_交换机支持的命令：">1. 交换机支持的命令：</h2>
+<p>交换机基本状态： </p>
+<pre><code>
+switch: ；ROM状态， 路由器是rommon>
+
+hostname> ；用户模式
+
+hostname# ；特权模式
+
+hostname(config)# ；全局配置模式
+
+hostname(config-if)# ；接口状态
+</code></pre>
 
       
     </div>
     <footer>
       
+        
+          <div class="alignleft">
+            <a href="/2014/08/09/switch-and-router-command/#more" class="more-link">Read More</a>
+          </div>
         
         
       
@@ -169,27 +181,35 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-20T07:23:35.000Z"><a href="/2014/08/20/cacel_ubuntu_sudo/">8月 20 2014</a></time>
+        <time datetime="2014-08-09T03:19:25.000Z"><a href="/2014/08/09/RAC-Promblem-solution/">8月 9 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2014/08/20/cacel_ubuntu_sudo/">取消ubuntu让人崩溃的sudo</a></h1>
+    <h1 class="title"><a href="/2014/08/09/RAC-Promblem-solution/">Oracle RAC安装过程中碰到问题及解决方法</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>使用Vagrant，因为大部分box都是基于ubuntu的，初始化之后，它会自动生成一个账号 <em>vagrant</em>，这货不是root，于是执行各种命令前都要加一个<code>sudo</code></p>
-<p>本地虚拟机，就自己一个人用，还要sudo，这种脑残设定太恶心了</p>
-<p>在ubuntu中取消默认的sudo，方法如下：</p>
-<pre><code><span class="built_in">cd</span> ~
-<span class="built_in">echo</span> <span class="string">"sudo bash"</span>&gt;&gt;.bash_login
-</code></pre><p>重新登录之后，你就发现 root 在等你</p>
+        <h2 id="这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。">这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。</h2>
+<h3 id="错误一：">错误一：</h3>
+<p>配置共享磁盘的问题。如果共享磁盘本身有内容，可能会导致在安装完CLUSTERWARE后，执行root.sh时出错，错误信息为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed <span class="keyword">to</span> upgrade Oracle Cluster Registry <span class="keyword">configuration</span>。</div></pre></td></tr></table></figure>
 
+
+
+<p>这时可以利用dd命令来清除ocr和voting disk的共享磁盘。类似命令为：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dd <span class="variable">if=</span>/dev/zero <span class="variable">of=</span>/dev/rdsk/c2t0d2s3 <span class="variable">bs=</span><span class="number">1073741824</span> <span class="variable">count=</span><span class="number">1</span></div></pre></td></tr></table></figure>
+
+<p>其中of指定需要清除的共享磁盘设备，而bs指定该设备的空间大小。<br>清除之后，再次运行root.sh，则问题消失。<br>
       
     </div>
     <footer>
       
+        
+          <div class="alignleft">
+            <a href="/2014/08/09/RAC-Promblem-solution/#more" class="more-link">Read More</a>
+          </div>
         
         
       
@@ -207,30 +227,188 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-20T07:19:21.000Z"><a href="/2014/08/20/vps_safety/">8月 20 2014</a></time>
+        <time datetime="2014-08-09T02:59:39.000Z"><a href="/2014/08/09/VirtuleMachine-Support64bit/">8月 9 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2014/08/20/vps_safety/">3步做好vps安全防范</a></h1>
+    <h1 class="title"><a href="/2014/08/09/VirtuleMachine-Support64bit/">让虚拟机支持安装64位操作系统的处理方法</a></h1>
   
 
     </header>
     <div class="entry">
       
-        <p>如果有垃圾扫描vps的sshd端口，烦不胜烦，赶紧加强一下防范，图个清静</p>
-<ol>
-<li><code>passwd</code> 把登陆密码改成30位以上，越多越好，字母数字符号大小写都要包括，然后日常管理用ssh密钥对的方式登陆</li>
-<li><p>改掉sshd标准的22端口，修改<code>/etc/ssh/sshd_config</code>这个文件即可，记得要重启sshd<br>&gt;<br> /etc/init.d/ssh restart</p>
-</li>
-<li><p>把 <code>iptables -I INPUT -p tcp -s 要封的IP --dport 骚扰的端口 -j DROP</code> 这条命令放在手边，随时可以执行</p>
-</li>
-</ol>
-<p>攻击日志在/var/log/secure里面，经常查看，如果这个文件不存在,那么可以在 <code>/etc/syslog.conf</code> 里面配置</p>
+        <p>尝试虚拟的操作系统是CentOS-5.4-x86_64，因此在系统选项中选择了Other Linux 64bit，尝试系统后系统报错：  </p>
+<p>This CPU is VT-capable, but VT is not enabled (check your BIOS settings).<br>You have configured this virtual machine as a 64-bit guest operating system. However, this host’s CPU is not capable of running 64-bit virtual machines or this virtual machine has 64-bit support disabled.<br>For more detailed information, see <a href="http://www.vmware.com/info?id=152" target="_blank" rel="external">http://www.vmware.com/info?id=152</a></p>
+<p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/08/09/VirtuleMachine-Support64bit/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-08T08:01:14.000Z"><a href="/2014/08/08/Hexo-buildblog/">8月 8 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/08/08/Hexo-buildblog/">利用Hexo搭建Blog</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <h3 id="注意：本文只针对Windows用户。">注意：本文只针对Windows用户。</h3>
+<h2 id="安装Git">安装Git</h2>
+<p>下载<a href="http://msysgit.github.io/" target="_blank" rel="external">msysgit</a> 并执行即可完成安装。</p>
+<h2 id="安装Node-js">安装Node.js</h2>
+<p>在 Windows 环境下安装 Node.js 非常简单，仅须<a href="http://nodejs.org/" target="_blank" rel="external">下载</a>安装文件并执行即可完成安装。</p>
+<p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/08/08/Hexo-buildblog/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-07T08:05:12.000Z"><a href="/2014/08/07/rlwrap-sqlplus/">8月 7 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/08/07/rlwrap-sqlplus/">使用rlwrap调用sqlplus中历史命令</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>当在Linux Shell中运行SQL*Plus的时候，并不提供浏览历史命令行的功能。为了在Linux中达到“使用向上，向下键来跳回之前已经执行过的SQL语句”的目的，可以安装 rlwrap。</p>
+<p>rlwrap最新的版本rlwrap-0.37.tar.gz，<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/08/07/rlwrap-sqlplus/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-07T06:59:56.000Z"><a href="/2014/08/07/RAC-start-stop/">8月 7 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/08/07/RAC-start-stop/">RAC启动与停止的先后顺序小结</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>RAC启动与停止的先后顺序小结</p>
+<h3 id="停止RAC：">停止RAC：</h3>
+<pre><code>            emctl <span class="keyword">stop</span> dbconsole
+            srvctl <span class="keyword">stop</span> instance -<span class="keyword">d</span> rac -<span class="keyword">i</span> rac1  
+            srvctl <span class="keyword">stop</span> instance -<span class="keyword">d</span> rac -<span class="keyword">i</span> rac2
+            srvctl <span class="keyword">stop</span> asm -<span class="keyword">n</span> rac1
+            srvctl <span class="keyword">stop</span> asm -<span class="keyword">n</span> rac2
+            srvctl <span class="keyword">stop</span> nodeapps -<span class="keyword">n</span> rac1
+            srvctl <span class="keyword">stop</span> nodeapps -<span class="keyword">n</span> rac2
+</code></pre><p>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/08/07/RAC-start-stop/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-07T02:59:25.000Z"><a href="/2014/08/07/hello-world/">8月 7 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/08/07/hello-world/">Hello World，Hello Hexo!</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick_Start">Quick Start</h2>
 
       
     </div>
     <footer>
       
+        
+          <div class="alignleft">
+            <a href="/2014/08/07/hello-world/#more" class="more-link">Read More</a>
+          </div>
         
         
       
@@ -247,8 +425,6 @@
   
     <a href="/page/3/" class="alignleft prev">上一页</a>
   
-  
-    <a href="/page/5/" class="alignright next">下一页</a>
   
   <div class="clearfix"></div>
 </nav></div></div>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wlcyhao.github.io/"/>
-  <updated>2014-08-27T11:20:08.513Z</updated>
+  <updated>2014-08-27T11:29:29.278Z</updated>
   <id>http://wlcyhao.github.io/</id>
   
   <author>
@@ -19,8 +19,8 @@
     <link href="http://wlcyhao.github.io/2014/08/27/TTL-expired-in-transit/"/>
     <id>http://wlcyhao.github.io/2014/08/27/TTL-expired-in-transit/</id>
     <published>2014-08-27T11:15:20.000Z</published>
-    <updated>2014-08-27T11:16:57.000Z</updated>
-    <content type="html"><![CDATA[<p>当你在PING一台机器IP的时候出现如果显示,你可的注意了<br><a id="more"></a></p>
+    <updated>2014-08-27T11:28:58.000Z</updated>
+    <content type="html"><![CDATA[<p>当你在PING一台机器IP的时候出现如下显示,你可得注意了<br><a id="more"></a></p>
 <pre><code>C:\Documents and Settings\Administrator&gt;ping <span class="keyword">*</span>.<span class="keyword">*</span>.4.11
 
 Pinging <span class="keyword">*</span>.<span class="keyword">*</span>.4.11 with 32 bytes of data:
@@ -37,7 +37,7 @@ Reply from <span class="keyword">*</span>.<span class="keyword">*</span>.4.1: TT
 <p>注：某些路由器对包的TTL时间并不是减1，但一般情况是这样。<br>方法：如果正常PING通某主机的情况下，可简单从回应信息中分析数据包所经过的路由跳数<br>i.e. replay xxx.xxx.xxx.xxx: byte=xxx time=xxxms ttl=xxx<br>用256减去该条信息中TTL的值，即可得所经的路由跳数，如TTL时间过小，则可能网络中出现短暂的路由环路。</p>
 <p>在配置静态路由时易出现该种情况，动态路由协议中RIPV1易出现，而RIPV2和OSPF不易出现。</p>
 ]]></content>
-    <summary type="html"><![CDATA[<p>当你在PING一台机器IP的时候出现如果显示,你可的注意了<br>]]></summary>
+    <summary type="html"><![CDATA[<p>当你在PING一台机器IP的时候出现如下显示,你可得注意了<br>]]></summary>
     
       <category term="ping，TTL" scheme="http://wlcyhao.github.io/tags/ping%EF%BC%8CTTL/"/>
     

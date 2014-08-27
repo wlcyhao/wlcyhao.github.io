@@ -4,7 +4,7 @@
   <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wlcyhao.github.io/"/>
-  <updated>2014-08-25T09:04:31.369Z</updated>
+  <updated>2014-08-27T01:25:52.902Z</updated>
   <id>http://wlcyhao.github.io/</id>
   
   <author>
@@ -13,6 +13,36 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Ubuntu12.04 root用户登录桌面设置]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/27/ubunt1204_root_login/"/>
+    <id>http://wlcyhao.github.io/2014/08/27/ubunt1204_root_login/</id>
+    <published>2014-08-27T01:16:59.000Z</published>
+    <updated>2014-08-27T01:17:57.000Z</updated>
+    <content type="html"><![CDATA[<p>ubuntu12.04默认是不允许root登录的，在登录窗口只能看到普通用户和访客登录。以普通身份登陆Ubuntu后我们需要做一些修改。<br><a id="more"></a><br>普通用户登录后，修改系统配置文件需要切换到超级用户模式,在终端窗口里面输入:<code>sudo -s</code>.</p>
+<p>然后输入普通用户登陆的密码，回车即可进入 root用户权限模式.</p>
+<p>然后执行: <code>vi /etc/lightdm/lightdm.conf.</code></p>
+<p>增加 greeter-show-manual-login=true allow-guest=false . 修改完的整个配置文件是</p>
+<pre><code>[SeatDefaults]
+<span class="variable">greeter-session=</span>unity-greeter
+<span class="variable">user-session=</span>ubuntu
+<span class="variable">greeter-show-manual-login=</span><span class="constant">true</span> <span class="comment">#手工输入登陆系统的用户名和密码</span>
+<span class="variable">allow-guest=</span><span class="constant">false</span> <span class="comment">#不允许guest登录</span>
+</code></pre><p>然后我们启动root帐号：</p>
+<pre><code><span class="built_in">sudo</span> passwd root
+</code></pre><p>根据提示输入roott帐号密码。</p>
+<p>重启ubuntu，登录窗口会有“登录”选项，点击“登录”选项，就会提示让输入用户名了。这时候我们就可以通过root登录了。</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>ubuntu12.04默认是不允许root登录的，在登录窗口只能看到普通用户和访客登录。以普通身份登陆Ubuntu后我们需要做一些修改。<br>]]></summary>
+    
+      <category term="root" scheme="http://wlcyhao.github.io/tags/root/"/>
+    
+      <category term="ubuntu" scheme="http://wlcyhao.github.io/tags/ubuntu/"/>
+    
+      <category term="Linux" scheme="http://wlcyhao.github.io/categories/Linux/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[mac常用快捷键]]></title>
@@ -544,67 +574,6 @@ exit
       <category term="linux" scheme="http://wlcyhao.github.io/tags/linux/"/>
     
       <category term="crontab" scheme="http://wlcyhao.github.io/tags/crontab/"/>
-    
-      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[192.168.1.1/24是什么含义]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/20/1921681124/"/>
-    <id>http://wlcyhao.github.io/2014/08/20/1921681124/</id>
-    <published>2014-08-20T06:07:00.000Z</published>
-    <updated>2014-08-20T06:10:31.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="IP的定义">IP的定义</h1>
-<p>ip 是32位无符号整数，最小，最大分别是</p>
-<ul>
-<li>0.0.0.0 - 255.255.255.255 具体来说，由一个ip由 Net-ID+Host-ID 两部分组成，Net-ID 相同，那么就说明在一个网段内，可以用mac数据帧直接通信。</li>
-</ul>
-<p>给定一个Net-ID</p>
-<ul>
-<li>host-ID全为0的ip，(192.168.2.0)代表整子小网络，</li>
-<li><p>host-ID全为1的ip，是这个子网络的广播地址<br>ip总共就32个字节，当 HostID 所占用的位越大，亦即 HostID 数量越多时，表示同一个网络内可用以设定主机的 IP 数量越多<br><a id="more"></a><br>国际NIC组织把ip分成5类</p>
-</li>
-<li><p>Class A : 0xxxxxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx ==&gt; NetI_D 的开头是 0<br>|—net—|————-host——————|</p>
-</li>
-<li>Class B : 10xxxxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx ==&gt; NetI_D 的开头是 10<br>|———net———-|———host———|</li>
-<li>Class C : 110xxxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx ==&gt; NetI_D 的开头是 110<br>|—————-net—————-|-host—|</li>
-<li>Class D : 1110xxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx ==&gt; NetI_D 的开头是 1110</li>
-<li>Class E : 1111xxxx.xxxxxxxx.xxxxxxxx.xxxxxxxx ==&gt; NetI_D 的开头是 1111</li>
-</ul>
-<p>class D用作特殊用途，class E保留，因此，能够用来设定在一般系统上面的，就只有 Class A、B、C 三种等级的IP。</p>
-<h1 id="Netmask">Netmask</h1>
-<p>这个数值就是用一种很直观的方式表明Net-ID/Host-ID各有多少位</p>
-<p>netmark的定义非常简单，netmask 也是 32 位，在数值上，位于 Net-ID 的为 1 而 Host-ID 为 0</p>
-<p>例如一个常见的C类IP地址</p>
-<p>&gt;<br>    net-id=24位，host-id=8位，拥有2**8-2=254个ip</p>
-<p>一个传统的c类网络，比如 192.168.10.0，它的netmark是必然是255.255.255.0 如果在把这个网络分成2个子网络，很简单，设定net-id使用25位，host-id就只有7位了 那么这个时候的 netmark= 255.255.255.1 0000000 = 255.255.255.128，这次划分得到的两个子网分别是</p>
-<ul>
-<li>129.168.10.0/25</li>
-<li>192.168.10.128/25</li>
-</ul>
-<p>&gt;<br>    python 自带的bin函数，可以非常方便的把int转换为二进制字符串表示</p>
-<p>很显然，<code>/25</code>    <strong>就是标示 这个ip中net-id 占用的位数</strong>（这2个ip的host-id全部为0，所以这两个ip代表的是其所在的子网络）</p>
-<p>这种表示方法很好计算子网络的规模，例如</p>
-<ul>
-<li>192.168.0.0/27 表示2的5(32-27=5)次方-2(每个网段的第一个和最后一个地址都被特殊用途占用)=62个ip</li>
-<li>192.168.0.0/28,表示2的4(32-28=4)次方-2=30个ip</li>
-</ul>
-<p>所以 192.168.1.1/24 标示的是一个子网络192.168.1.0（拥有254个ip地址： 从192.168.1.1到192.168.1.254）</p>
-]]></content>
-    <summary type="html"><![CDATA[<h1 id="IP的定义">IP的定义</h1>
-<p>ip 是32位无符号整数，最小，最大分别是</p>
-<ul>
-<li>0.0.0.0 - 255.255.255.255 具体来说，由一个ip由 Net-ID+Host-ID 两部分组成，Net-ID 相同，那么就说明在一个网段内，可以用mac数据帧直接通信。</li>
-</ul>
-<p>给定一个Net-ID</p>
-<ul>
-<li>host-ID全为0的ip，(192.168.2.0)代表整子小网络，</li>
-<li><p>host-ID全为1的ip，是这个子网络的广播地址<br>ip总共就32个字节，当 HostID 所占用的位越大，亦即 HostID 数量越多时，表示同一个网络内可用以设定主机的 IP 数量越多<br>]]></summary>
-    
-      <category term="IP" scheme="http://wlcyhao.github.io/tags/IP/"/>
-    
-      <category term="网络" scheme="http://wlcyhao.github.io/tags/%E7%BD%91%E7%BB%9C/"/>
     
       <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
     

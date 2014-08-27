@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>交换机，背板带宽 | Horace&#39;s IT Blog！</title>
+  <title>Ubuntu12.04 root用户登录桌面设置 | Horace&#39;s IT Blog！</title>
   <meta name="author" content="Horace">
   
   <meta name="description" content="有志者,事竟成,破釜沉舟,百二秦关终属楚；苦心人,天不负,卧薪尝胆,三千越甲可吞吴！">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Ubuntu12.04 root用户登录桌面设置"/>
   <meta property="og:site_name" content="Horace&#39;s IT Blog！"/>
 
   
@@ -49,25 +49,83 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-<h2 class="archive-title tag">交换机，背板带宽</h2>
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-08-27T01:16:59.000Z"><a href="/2014/08/27/ubunt1204_root_login/">8月 27 2014</a></time>
+      
+      
+  
+    <h1 class="title">Ubuntu12.04 root用户登录桌面设置</h1>
+  
 
+    </header>
+    <div class="entry">
+      
+        <p>ubuntu12.04默认是不允许root登录的，在登录窗口只能看到普通用户和访客登录。以普通身份登陆Ubuntu后我们需要做一些修改。<br><a id="more"></a><br>普通用户登录后，修改系统配置文件需要切换到超级用户模式,在终端窗口里面输入:<code>sudo -s</code>.</p>
+<p>然后输入普通用户登陆的密码，回车即可进入 root用户权限模式.</p>
+<p>然后执行: <code>vi /etc/lightdm/lightdm.conf.</code></p>
+<p>增加 greeter-show-manual-login=true allow-guest=false . 修改完的整个配置文件是</p>
+<pre><code>[SeatDefaults]
+<span class="variable">greeter-session=</span>unity-greeter
+<span class="variable">user-session=</span>ubuntu
+<span class="variable">greeter-show-manual-login=</span><span class="constant">true</span> <span class="comment">#手工输入登陆系统的用户名和密码</span>
+<span class="variable">allow-guest=</span><span class="constant">false</span> <span class="comment">#不允许guest登录</span>
+</code></pre><p>然后我们启动root帐号：</p>
+<pre><code><span class="built_in">sudo</span> passwd root
+</code></pre><p>根据提示输入roott帐号密码。</p>
+<p>重启ubuntu，登录窗口会有“登录”选项，点击“登录”选项，就会提示让输入用户名了。这时候我们就可以通过root登录了。</p>
 
-  <div class="archive">
-    
-      <article class="post">
-        <div class="post-content">
-          <header>
-            <div class="icon"></div>
-            <time datetime="2014-08-21T13:52:50.000Z"><a href="/2014/08/21/switch_beibandaikaun/">8月 21 2014</a></time>
-            
-              <h1 class="title"><a href="/2014/08/21/switch_beibandaikaun/">何为交换机背板带宽?</a></h1>
-            
-          </header>
-        </div>
-      </article>
-    
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Linux/">Linux</a>
   </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/root/">root</a>, <a href="/tags/ubuntu/">ubuntu</a>
+  </div>
+
+		<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="请将此处替换成文章在你的站点中的ID" data-title="请替换成文章的标题" data-url="请替换成文章的网址"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"horace"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+
+</section>
+
 </div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">

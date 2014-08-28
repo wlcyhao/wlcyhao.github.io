@@ -4,7 +4,7 @@
   <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wlcyhao.github.io/"/>
-  <updated>2014-08-28T02:17:49.140Z</updated>
+  <updated>2014-08-28T02:20:09.549Z</updated>
   <id>http://wlcyhao.github.io/</id>
   
   <author>
@@ -19,11 +19,13 @@
     <link href="http://wlcyhao.github.io/2014/08/28/internet_limit/"/>
     <id>http://wlcyhao.github.io/2014/08/28/internet_limit/</id>
     <published>2014-08-28T02:13:55.000Z</published>
-    <updated>2014-08-28T02:17:28.000Z</updated>
-    <content type="html"><![CDATA[<p>方法一：<br><a id="more"></a><br>    运行，输入：netsh winsock reset cata.log回车<br>    然后再输入：netsh int ip reset reset.log回车</p>
-<p>最后重启系统即可</p>
-<p>方法二：</p>
-<pre><code>运行，输入netsh <span class="keyword">int</span> <span class="keyword">reset</span> ipconfig/flushdns回车
+    <updated>2014-08-28T02:19:49.000Z</updated>
+    <content type="html"><![CDATA[<p>方法一：<br><a id="more"></a></p>
+<pre><code>运行，输入：netsh winsock <span class="operator"><span class="keyword">reset</span> cata.<span class="keyword">log</span>回车
+然后再输入：netsh <span class="built_in">int</span> ip <span class="keyword">reset</span> <span class="keyword">reset</span>.<span class="keyword">log</span>回车
+最后重启系统即可</span>
+</code></pre><p>方法二：</p>
+<pre><code>运行，输入:netsh <span class="keyword">int</span> <span class="keyword">reset</span> ipconfig/flushdns回车
 重启系统并分配静态网关
 </code></pre>]]></content>
     <summary type="html"><![CDATA[<p>方法一：<br>]]></summary>

@@ -56,6 +56,42 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2014-08-21T13:52:50.000Z"><a href="/2014/08/21/switch_beibandaikaun/">8月 21 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/08/21/switch_beibandaikaun/">何为交换机背板带宽?</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>背板带宽，是交换机接口处理器或接口卡和数据总线间所能吞吐的最大数据量。一台交换机的背板带宽越高，所能处理数据的能力就越强，但同时设计成本也会上去。<br>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/08/21/switch_beibandaikaun/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2014-08-21T13:50:38.000Z"><a href="/2014/08/21/haiming_code/">8月 21 2014</a></time>
       
       
@@ -382,47 +418,6 @@
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-20T07:19:21.000Z"><a href="/2014/08/20/vps_safety/">8月 20 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/20/vps_safety/">3步做好vps安全防范</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>如果有垃圾扫描vps的sshd端口，烦不胜烦，赶紧加强一下防范，图个清静</p>
-<ol>
-<li><code>passwd</code> 把登陆密码改成30位以上，越多越好，字母数字符号大小写都要包括，然后日常管理用ssh密钥对的方式登陆</li>
-<li><p>改掉sshd标准的22端口，修改<code>/etc/ssh/sshd_config</code>这个文件即可，记得要重启sshd<br>&gt;<br> /etc/init.d/ssh restart</p>
-</li>
-<li><p>把 <code>iptables -I INPUT -p tcp -s 要封的IP --dport 骚扰的端口 -j DROP</code> 这条命令放在手边，随时可以执行</p>
-</li>
-</ol>
-<p>攻击日志在/var/log/secure里面，经常查看，如果这个文件不存在,那么可以在 <code>/etc/syslog.conf</code> 里面配置</p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
 
 <nav id="pagination">
   
@@ -454,7 +449,7 @@
   
     <li><a href="/categories/Oracle/">Oracle</a><small>3</small></li>
   
-    <li><a href="/categories/Windows/">Windows</a><small>4</small></li>
+    <li><a href="/categories/Windows/">Windows</a><small>5</small></li>
   
     <li><a href="/categories/github/">github</a><small>1</small></li>
   
@@ -483,6 +478,10 @@
   <ul class="entry">
     
       <li>
+        <a href="/2014/08/28/internet_limit/">Windows系统无Internet访问权限的解决办法</a>
+      </li>
+    
+      <li>
         <a href="/2014/08/27/TTL-expired-in-transit/">ping 时显示TTL expired in transit</a>
       </li>
     
@@ -496,10 +495,6 @@
     
       <li>
         <a href="/2014/08/27/switch_confine_mac/">华为交换机限制某个mac使用网络的方法</a>
-      </li>
-    
-      <li>
-        <a href="/2014/08/27/guangmokuai_qufen/">光模块如何区分单模和多模?使用时的注意事项</a>
       </li>
     
   </ul>

@@ -56,6 +56,47 @@
     <header>
       
         <div class="icon"></div>
+        <time datetime="2014-08-15T15:21:26.000Z"><a href="/2014/08/15/hexo_add_backtotop/">8月 15 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/08/15/hexo_add_backtotop/">Hexo博客优化：添加返回顶部功能</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>1.添加HTML代码。新建文件 /themes/light/layout/_partial/totop.ejs ，在文件中加入HTML代码：</p>
+<pre><code> <span class="tag">&lt;<span class="title">DIV</span> <span class="attribute">style</span>=<span class="value">"DISPLAY: none"</span> <span class="attribute">id</span>=<span class="value">goTopBtn</span> <span class="attribute">title</span>=<span class="value">"Scroll Back to Top"</span>&gt;</span><span class="tag">&lt;<span class="title">IMG</span> <span class="attribute">border</span>=<span class="value">0</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;images/top.jpg"</span>&gt;</span><span class="tag">&lt;/<span class="title">DIV</span>&gt;</span>
+ <span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span>&gt;</span><span class="javascript">goTopEx();</span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
+</code></pre><p>2、在文件hemes/light/layout/_partial/head.ejs 添加</p>
+<pre><code><span class="tag">&lt;<span class="title">SCRIPT</span> <span class="attribute">type</span>=<span class="value">text</span>/<span class="attribute">javascript</span> <span class="attribute">src</span>=<span class="value">"&lt;%- config.root %&gt;js/scrolltop.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">SCRIPT</span>&gt;</span>
+</code></pre>
+      
+    </div>
+    <footer>
+      
+        
+          <div class="alignleft">
+            <a href="/2014/08/15/hexo_add_backtotop/#more" class="more-link">Read More</a>
+          </div>
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+
+
+  <article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
         <time datetime="2014-08-15T12:37:43.000Z"><a href="/2014/08/15/hexo_yohua/">8月 15 2014</a></time>
       
       
@@ -425,49 +466,13 @@ hostname(config-if)# ；接口状态
 
 
 
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-07T02:59:25.000Z"><a href="/2014/08/07/hello-world/">8月 7 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/07/hello-world/">Hello World，Hello Hexo!</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start">Quick Start</h2>
-
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/07/hello-world/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
 
 <nav id="pagination">
   
     <a href="/page/3/" class="alignleft prev">上一页</a>
   
+  
+    <a href="/page/5/" class="alignright next">下一页</a>
   
   <div class="clearfix"></div>
 </nav></div></div>
@@ -492,7 +497,7 @@ hostname(config-if)# ；接口状态
   
     <li><a href="/categories/Oracle/">Oracle</a><small>3</small></li>
   
-    <li><a href="/categories/Windows/">Windows</a><small>5</small></li>
+    <li><a href="/categories/Windows/">Windows</a><small>6</small></li>
   
     <li><a href="/categories/github/">github</a><small>1</small></li>
   
@@ -510,7 +515,7 @@ hostname(config-if)# ；接口状态
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/CRC/" style="font-size: 10.00px;">CRC</a><a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a><a href="/tags/IP/" style="font-size: 10.00px;">IP</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/Oracle/" style="font-size: 16.67px;">Oracle</a><a href="/tags/RAC/" style="font-size: 13.33px;">RAC</a><a href="/tags/U盘，弹出/" style="font-size: 10.00px;">U盘，弹出</a><a href="/tags/arp/" style="font-size: 10.00px;">arp</a><a href="/tags/cisco/" style="font-size: 10.00px;">cisco</a><a href="/tags/crontab/" style="font-size: 10.00px;">crontab</a><a href="/tags/github/" style="font-size: 10.00px;">github</a><a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a><a href="/tags/iftop/" style="font-size: 10.00px;">iftop</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/login/" style="font-size: 10.00px;">login</a><a href="/tags/mac/" style="font-size: 13.33px;">mac</a><a href="/tags/markdown/" style="font-size: 10.00px;">markdown</a><a href="/tags/ping/" style="font-size: 10.00px;">ping</a><a href="/tags/ping，TTL/" style="font-size: 10.00px;">ping，TTL</a><a href="/tags/root/" style="font-size: 10.00px;">root</a><a href="/tags/route/" style="font-size: 10.00px;">route</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a><a href="/tags/ssh/" style="font-size: 20.00px;">ssh</a><a href="/tags/table/" style="font-size: 10.00px;">table</a><a href="/tags/ubuntu/" style="font-size: 13.33px;">ubuntu</a><a href="/tags/vagrant/" style="font-size: 10.00px;">vagrant</a><a href="/tags/vim/" style="font-size: 10.00px;">vim</a><a href="/tags/vps/" style="font-size: 13.33px;">vps</a><a href="/tags/win7/" style="font-size: 10.00px;">win7</a><a href="/tags/上传文件/" style="font-size: 10.00px;">上传文件</a><a href="/tags/交换机/" style="font-size: 13.33px;">交换机</a><a href="/tags/交换机，端口/" style="font-size: 10.00px;">交换机，端口</a><a href="/tags/交换机，背板带宽/" style="font-size: 10.00px;">交换机，背板带宽</a><a href="/tags/优化/" style="font-size: 10.00px;">优化</a><a href="/tags/光线，单模，多模，区分/" style="font-size: 10.00px;">光线，单模，多模，区分</a><a href="/tags/光线，多模，单模，跳线/" style="font-size: 10.00px;">光线，多模，单模，跳线</a><a href="/tags/共享/" style="font-size: 10.00px;">共享</a><a href="/tags/安全/" style="font-size: 10.00px;">安全</a><a href="/tags/快捷键/" style="font-size: 10.00px;">快捷键</a>
+    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/CRC/" style="font-size: 10.00px;">CRC</a><a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a><a href="/tags/IP/" style="font-size: 10.00px;">IP</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/Oracle/" style="font-size: 16.67px;">Oracle</a><a href="/tags/RAC/" style="font-size: 13.33px;">RAC</a><a href="/tags/U盘，弹出/" style="font-size: 10.00px;">U盘，弹出</a><a href="/tags/arp/" style="font-size: 10.00px;">arp</a><a href="/tags/cisco/" style="font-size: 10.00px;">cisco</a><a href="/tags/crontab/" style="font-size: 10.00px;">crontab</a><a href="/tags/github/" style="font-size: 10.00px;">github</a><a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a><a href="/tags/iftop/" style="font-size: 10.00px;">iftop</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/login/" style="font-size: 10.00px;">login</a><a href="/tags/mac/" style="font-size: 13.33px;">mac</a><a href="/tags/markdown/" style="font-size: 10.00px;">markdown</a><a href="/tags/ping/" style="font-size: 10.00px;">ping</a><a href="/tags/ping，TTL/" style="font-size: 10.00px;">ping，TTL</a><a href="/tags/root/" style="font-size: 10.00px;">root</a><a href="/tags/route/" style="font-size: 10.00px;">route</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a><a href="/tags/ssh/" style="font-size: 20.00px;">ssh</a><a href="/tags/table/" style="font-size: 10.00px;">table</a><a href="/tags/ubuntu/" style="font-size: 13.33px;">ubuntu</a><a href="/tags/vagrant/" style="font-size: 10.00px;">vagrant</a><a href="/tags/vim/" style="font-size: 10.00px;">vim</a><a href="/tags/vps/" style="font-size: 13.33px;">vps</a><a href="/tags/win7/" style="font-size: 13.33px;">win7</a><a href="/tags/上传文件/" style="font-size: 10.00px;">上传文件</a><a href="/tags/交换机/" style="font-size: 13.33px;">交换机</a><a href="/tags/交换机，端口/" style="font-size: 10.00px;">交换机，端口</a><a href="/tags/交换机，背板带宽/" style="font-size: 10.00px;">交换机，背板带宽</a><a href="/tags/优化/" style="font-size: 10.00px;">优化</a><a href="/tags/光线，单模，多模，区分/" style="font-size: 10.00px;">光线，单模，多模，区分</a><a href="/tags/光线，多模，单模，跳线/" style="font-size: 10.00px;">光线，多模，单模，跳线</a><a href="/tags/共享/" style="font-size: 10.00px;">共享</a><a href="/tags/安全/" style="font-size: 10.00px;">安全</a><a href="/tags/快捷键/" style="font-size: 10.00px;">快捷键</a>
   </div>
 </div>
 
@@ -519,6 +524,10 @@ hostname(config-if)# ；接口状态
 <div class="widget tag">
   <h3 class="title">最新文章</h3>
   <ul class="entry">
+    
+      <li>
+        <a href="/2014/08/29/win7_login/">怎么去掉WIN7开机时选择用户登陆？</a>
+      </li>
     
       <li>
         <a href="/2014/08/28/internet_limit/">Windows系统无Internet访问权限的解决办法</a>
@@ -534,10 +543,6 @@ hostname(config-if)# ；接口状态
     
       <li>
         <a href="/2014/08/27/ip-default-gateway,ip-default-netwaork/">浅谈ip default-network与ip route的异同</a>
-      </li>
-    
-      <li>
-        <a href="/2014/08/27/switch_confine_mac/">华为交换机限制某个mac使用网络的方法</a>
       </li>
     
   </ul>

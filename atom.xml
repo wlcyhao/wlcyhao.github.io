@@ -4,7 +4,7 @@
   <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wlcyhao.github.io/"/>
-  <updated>2014-08-28T02:20:09.549Z</updated>
+  <updated>2014-08-29T11:20:23.120Z</updated>
   <id>http://wlcyhao.github.io/</id>
   
   <author>
@@ -13,6 +13,37 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[怎么去掉WIN7开机时选择用户登陆？]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/29/win7_login/"/>
+    <id>http://wlcyhao.github.io/2014/08/29/win7_login/</id>
+    <published>2014-08-29T11:15:19.000Z</published>
+    <updated>2014-08-29T11:19:44.000Z</updated>
+    <content type="html"><![CDATA[<p>WIN7在开机时不会自动进入系统，而是停留在一个选择用户的界面，当然有的GHOST版是去掉了这个，但是可能使用纯净版或正版会遇到这个问题。<br><a id="more"></a></p>
+<h2 id="方法/步骤：">方法/步骤：</h2>
+<ul>
+<li><p>“Win + R”快捷键调出运行命令窗口在窗口</p>
+</li>
+<li><p>输入 <code>control userpasswords2</code>或输入<br><code>Rundll32 netplwiz.dll,UsersRunDll</code>后回车</p>
+</li>
+<li><p>在弹出的对画框中选中你想登录的用户名</p>
+</li>
+<li><p>去掉“要使用本机，必须输入用户名和密码”前的勾选！ 确定后，退出。</p>
+</li>
+<li><p>最后会弹出登录的界面,确定</p>
+</li>
+</ul>
+]]></content>
+    <summary type="html"><![CDATA[<p>WIN7在开机时不会自动进入系统，而是停留在一个选择用户的界面，当然有的GHOST版是去掉了这个，但是可能使用纯净版或正版会遇到这个问题。<br>]]></summary>
+    
+      <category term="win7" scheme="http://wlcyhao.github.io/tags/win7/"/>
+    
+      <category term="登陆" scheme="http://wlcyhao.github.io/tags/%E7%99%BB%E9%99%86/"/>
+    
+      <category term="Windows" scheme="http://wlcyhao.github.io/categories/Windows/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Windows系统无Internet访问权限的解决办法]]></title>
@@ -516,29 +547,6 @@ exit
       <category term="ping" scheme="http://wlcyhao.github.io/tags/ping/"/>
     
       <category term="vps" scheme="http://wlcyhao.github.io/tags/vps/"/>
-    
-      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[取消ubuntu让人崩溃的sudo]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/20/cacel_ubuntu_sudo/"/>
-    <id>http://wlcyhao.github.io/2014/08/20/cacel_ubuntu_sudo/</id>
-    <published>2014-08-20T07:23:35.000Z</published>
-    <updated>2014-08-20T07:29:17.000Z</updated>
-    <content type="html"><![CDATA[<p>使用Vagrant，因为大部分box都是基于ubuntu的，初始化之后，它会自动生成一个账号 <em>vagrant</em>，这货不是root，于是执行各种命令前都要加一个<code>sudo</code></p>
-<p>本地虚拟机，就自己一个人用，还要sudo，这种脑残设定太恶心了</p>
-<p>在ubuntu中取消默认的sudo，方法如下：</p>
-<pre><code><span class="built_in">cd</span> ~
-<span class="built_in">echo</span> <span class="string">"sudo bash"</span>&gt;&gt;.bash_login
-</code></pre><p>重新登录之后，你就发现 root 在等你</p>
-]]></content>
-    
-    
-      <category term="ubuntu" scheme="http://wlcyhao.github.io/tags/ubuntu/"/>
-    
-      <category term="vagrant" scheme="http://wlcyhao.github.io/tags/vagrant/"/>
     
       <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
     

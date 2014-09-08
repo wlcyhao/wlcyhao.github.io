@@ -1,0 +1,303 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>dd命令用来测试硬盘读写速度 | Horace&#39;s IT Blog！</title>
+  <meta name="author" content="Horace">
+  
+  <meta name="description" content="有志者,事竟成,破釜沉舟,百二秦关终属楚；苦心人,天不负,卧薪尝胆,三千越甲可吞吴！">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="dd命令用来测试硬盘读写速度"/>
+  <meta property="og:site_name" content="Horace&#39;s IT Blog！"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <link href="/favicon.ico" rel="icon" type="image/x-ico">
+  <link rel="alternate" href="/atom.xml" title="Horace&#39;s IT Blog！" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+
+</head>
+
+<SCRIPT type=text/javascript src="/js/scrolltop.js"></SCRIPT>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">Horace&#39;s IT Blog！</a></h1>
+  <h2><a href="/">仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">归档</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+	<li> <a href="/atom.xml">RSS</a> </li>
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-09-08T00:32:50.000Z"><a href="/2014/09/08/dd_sduhy/">9月 8 2014</a></time>
+      
+      
+  
+    <h1 class="title">dd命令用来测试硬盘读写速度</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>dd 是 Linux/UNIX 下的一个非常有用的命令，作用是用指定大小的块拷贝一个文件，并在拷贝的同时进行指定的转换。<br><a id="more"></a></p>
+<ol>
+<li>命令简介</li>
+</ol>
+<p>dd 的主要选项：<br> 指定数字的地方若以下列字符结尾乘以相应的数字:<br>b=512, c=1, k=1024, w=2, xm=number m</p>
+<p>if=file<br>输入文件名，缺省为标准输入。</p>
+<p>of=file<br>输出文件名，缺省为标准输出。</p>
+<p>ibs=bytes<br>一次读入 bytes 个字节(即一个块大小为 bytes 个字节)。</p>
+<p>obs=bytes<br>一次写 bytes 个字节(即一个块大小为 bytes 个字节)。</p>
+<p>bs=bytes<br>同时设置读写块的大小为 bytes ，可代替 ibs 和 obs 。</p>
+<p>cbs=bytes<br>一次转换 bytes 个字节，即转换缓冲区大小。</p>
+<p>skip=blocks<br>从输入文件开头跳过 blocks 个块后再开始复制。</p>
+<p>seek=blocks<br>从输出文件开头跳过 blocks 个块后再开始复制。(通常只有当输出文件是磁盘或磁带时才有效)。</p>
+<p>count=blocks<br>仅拷贝 blocks 个块，块大小等于 ibs 指定的字节数。</p>
+<p>conv=conversion[,conversion…]<br>用指定的参数转换文件。</p>
+<ul>
+<li>转换参数:</li>
+<li>ascii 转换 EBCDIC 为 ASCII。</li>
+<li>ebcdic 转换 ASCII 为 EBCDIC。</li>
+<li>ibm 转换 ASCII 为 alternate EBCDIC.</li>
+<li>block 把每一行转换为长度为 cbs 的记录，不足部分用空格填充。</li>
+<li>unblock 使每一行的长度都为 cbs ，不足部分用空格填充。</li>
+<li>lcase 把大写字符转换为小写字符。</li>
+<li>ucase 把小写字符转换为大写字符。</li>
+<li>swab 交换输入的每对字节。</li>
+<li>noerror 出错时不停止。</li>
+<li>notrunc 不截短输出文件。</li>
+<li>sync 把每个输入块填充到ibs个字节，不足部分用空(NUL)字符补齐。</li>
+</ul>
+<p>2.实例分析</p>
+<p>2.1.数据备份与恢复<br>2.1.1整盘数据备份与恢复</p>
+<p>备份：<br>dd if=/dev/hdx of=/dev/hdy<br>将本地的/dev/hdx整盘备份到/dev/hdy<br> dd if=/dev/hdx of=/path/to/image<br>将/dev/hdx全盘数据备份到指定路径的image文件<br>dd if=/dev/hdx | gzip &gt;/path/to/image.gz<br>备份/dev/hdx全盘数据，并利用gzip工具进行压缩，保存到指定路径</p>
+<p>恢复：<br>dd if=/path/to/image of=/dev/hdx<br>将备份文件恢复到指定盘<br>gzip -dc /path/to/image.gz | dd of=/dev/hdx<br>将压缩的备份文件恢复到指定盘</p>
+<p>2.1.2.利用netcat远程备份<br>dd if=/dev/hda bs=16065b | netcat &lt; targethost-IP &gt; 1234<br>在源主机上执行此命令备份/dev/hda<br> netcat -l -p 1234 | dd of=/dev/hdc bs=16065b<br>在目的主机上执行此命令来接收数据并写入/dev/hdc<br> netcat -l -p 1234 | bzip2 &gt; partition.img<br> netcat -l -p 1234 | gzip &gt; partition.img</p>
+<p>以上两条指令是目的主机指令的变化分别采用bzip2 gzip对数据进行压缩，并将备份文件保存在当前目录。</p>
+<p>2.1.3.备份MBR<br>备份：<br>dd if=/dev/hdx of=/path/to/image count=1 bs=512</p>
+<p>备份磁盘开始的512Byte大小的MBR信息到指定文件<br> 恢复：<br>dd if=/path/to/image of=/dev/hdx<br>将备份的MBR信息写到磁盘开始部分<br>2.1.4.备份软盘<br>dd if=/dev/fd0 of=disk.img count=1 bs=1440k<br>将软驱数据备份到当前目录的disk.img文件<br>2.1.5.拷贝内存资料到硬盘<br>dd if=/dev/mem of=/root/mem.bin bs=1024<br>将内存里的数据拷贝到root目录下的mem.bin文件<br>2.1.6.从光盘拷贝iso镜像<br>dd if=/dev/cdrom of=/root/cd.iso<br>拷贝光盘数据到root文件夹下，并保存为cd.iso文件</p>
+<p>2.2.增加Swap分区文件大小</p>
+<p>dd if=/dev/zero of=/swapfile bs=1024 count=262144</p>
+<p>创建一个足够大的文件（此处为256M）</p>
+<p>mkswap /swapfile</p>
+<p>把这个文件变成swap文件</p>
+<p>swapon /swapfile</p>
+<p>启用这个swap文件</p>
+<p>/swapfile swap swap defaults 0 0</p>
+<p>在每次开机的时候自动加载swap文件, 需要在 /etc/fstab 文件中增加一行</p>
+<p>2.3.销毁磁盘数据</p>
+<p>dd if=/dev/urandom of=/dev/hda1</p>
+<p>利用随机的数据填充硬盘，在某些必要的场合可以用来销毁数据。执行此操作以后，/dev/hda1将无法挂载，创建和拷贝操作无法执行。</p>
+<p>2.4磁盘管理<br>2.4.1.得到最恰当的block size</p>
+<p>dd if=/dev/zero bs=1024 count=1000000 of=/root/1Gb.file<br> dd if=/dev/zero bs=2048 count=500000 of=/root/1Gb.file<br> dd if=/dev/zero bs=4096 count=250000 of=/root/1Gb.file<br> dd if=/dev/zero bs=8192 count=125000 of=/root/1Gb.file</p>
+<p>通过比较dd指令输出中所显示的命令执行时间，即可确定系统最佳的block size大小</p>
+<p>2.4.2测试硬盘读写速度</p>
+<p>dd if=/root/1Gb.file bs=64k | dd of=/dev/null<br> dd if=/dev/zero of=/root/1Gb.file bs=1024 count=1000000</p>
+<p>通过上两个命令输出的执行时间，可以计算出测试硬盘的读／写速度</p>
+<p>2.4.3.修复硬盘</p>
+<p>dd if=/dev/sda of=/dev/sda</p>
+<p>当硬盘较长时间（比如1，2年）放置不使用后，磁盘上会产生magnetic flux point。当磁头读到这些区域时会遇到困难，并可能导致I/O错误。当这种情况影响到硬盘的第一个扇区时，可能导致硬盘报废。上边的命令有可能使这些数据起死回生。且这个过程是安全，高效的。</p>
+<hr>
+<p>——备注—–附件—-摘抄—<br>这个一般都是用来测磁盘阵列的，比如我们单位买的HP VA7110，14块146G 10k转的硬盘做raid 1+0，测出来读是100MB/s、写是50MB/s、读写是40MB/s、40MB/s，与HP宣传手册上的读160MB/s、写84MB/s还是有较大差距，HP的人说这个最高数据是满配时测的，cache为2G，我们只有1G，硬盘多半是15k的，硬盘肯定是加满的。</p>
+<p>对硬盘性能的了解,可通过以下三种命令:</p>
+<pre><code>使用dd <span class="keyword">if</span>=/dev/<span class="constant">zero</span> <span class="operator">of</span>=/<span class="built_in">file</span> 来测试磁盘的纯写入性能
+ 使用dd <span class="keyword">if</span>=/<span class="built_in">file</span> <span class="operator">of</span>=/dev/<span class="constant">null</span> 来测试磁盘的纯读取性能
+ 使用dd <span class="keyword">if</span>=/file1 <span class="operator">of</span>=/file2 来测试磁盘的读写性能
+</code></pre><p>有一些特殊的设备文件。例如/dev/zero文件代表一个永远输出 0的设备文件，使用它作输入可以得到全为空的文件。因此可用来创建新文件和以覆盖的方式清除旧文件。下面使用dd命令将从zero设备中创建一个10K大小（bs决定每次读写1024字节，count定义读写次数为10次），但内容全为0的文件。</p>
+<pre><code><span class="comment"># dd if=/dev/zero of=file count=10 bs=1024</span>
+ <span class="number">10</span>+<span class="number">0</span> records <span class="operator">in</span>
+ <span class="number">10</span>+<span class="number">0</span> records out
+ <span class="number">10240</span> <span class="keyword">bytes</span> transferred <span class="operator">in</span> <span class="number">0.001408</span> <span class="built_in">secs</span> (<span class="number">7267903</span> b ytes/<span class="built_in">sec</span>)
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">以下是我在vmware测试的虚拟硬盘各项性能(<span class="number">256</span>MB内存,<span class="number">8</span>G硬盘IDE,单<span class="number">64</span>位处理器):</div><div class="line">写:</div><div class="line">www<span class="comment"># dd if=/dev/zero of=myfile bs=1024 count=1000000</span></div><div class="line"><span class="number">1000000</span>+<span class="number">0</span> records <span class="operator">in</span></div><div class="line"><span class="number">1000000</span>+<span class="number">0</span> records out</div><div class="line"><span class="number">1024000000</span> <span class="keyword">bytes</span> transferred <span class="operator">in</span> <span class="number">23.120465</span> <span class="built_in">secs</span> (<span class="number">44289767</span> <span class="keyword">bytes</span>/<span class="built_in">sec</span>)</div><div class="line"></div><div class="line">读:</div><div class="line">www<span class="comment"># dd if=myfile of=/dev/null</span></div><div class="line"><span class="number">2000000</span>+<span class="number">0</span> records <span class="operator">in</span></div><div class="line"><span class="number">2000000</span>+<span class="number">0</span> records out</div><div class="line"><span class="number">1024000000</span> <span class="keyword">bytes</span> transferred <span class="operator">in</span> <span class="number">22.820710</span> <span class="built_in">secs</span> (<span class="number">44871522</span> <span class="keyword">bytes</span>/<span class="built_in">sec</span>)</div><div class="line"></div><div class="line">写读</div><div class="line">www<span class="comment"># dd if=myfile of=myfile2</span></div><div class="line"><span class="number">2000000</span>+<span class="number">0</span> records <span class="operator">in</span></div><div class="line"><span class="number">2000000</span>+<span class="number">0</span> records out</div><div class="line"><span class="number">1024000000</span> <span class="keyword">bytes</span> transferred <span class="operator">in</span> <span class="number">56.255577</span> <span class="built_in">secs</span> (<span class="number">18202640</span> <span class="keyword">bytes</span>/<span class="built_in">sec</span>)</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Linux/">Linux</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/linux/">linux</a>, <a href="/tags/dd/">dd</a>
+  </div>
+
+		<div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"></a><a href="#" class="bds_renren" data-cmd="renren" title="分享到人人网"></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"1","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+
+<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="请将此处替换成文章在你的站点中的ID" data-title="请替换成文章的标题" data-url="请替换成文章的网址"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"horace"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+<!-- 多说公共JS代码 end -->
+
+
+</section>
+
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//baidu.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:wlcyhao.github.io">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Hexo/">Hexo</a><small>4</small></li>
+  
+    <li><a href="/categories/Linux/">Linux</a><small>5</small></li>
+  
+    <li><a href="/categories/Markdown/">Markdown</a><small>2</small></li>
+  
+    <li><a href="/categories/Oracle/">Oracle</a><small>3</small></li>
+  
+    <li><a href="/categories/Windows/">Windows</a><small>7</small></li>
+  
+    <li><a href="/categories/github/">github</a><small>1</small></li>
+  
+    <li><a href="/categories/交换路由/">交换路由</a><small>11</small></li>
+  
+    <li><a href="/categories/服务器运维/">服务器运维</a><small>11</small></li>
+  
+    <li><a href="/categories/虚拟机/">虚拟机</a><small>1</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/CRC/" style="font-size: 10.00px;">CRC</a><a href="/tags/Hexo/" style="font-size: 12.50px;">Hexo</a><a href="/tags/IP/" style="font-size: 10.00px;">IP</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/Oracle/" style="font-size: 15.00px;">Oracle</a><a href="/tags/RAC/" style="font-size: 12.50px;">RAC</a><a href="/tags/U盘，弹出/" style="font-size: 10.00px;">U盘，弹出</a><a href="/tags/arp/" style="font-size: 10.00px;">arp</a><a href="/tags/cisco/" style="font-size: 10.00px;">cisco</a><a href="/tags/crontab/" style="font-size: 10.00px;">crontab</a><a href="/tags/dd/" style="font-size: 10.00px;">dd</a><a href="/tags/github/" style="font-size: 10.00px;">github</a><a href="/tags/hexo/" style="font-size: 12.50px;">hexo</a><a href="/tags/iftop/" style="font-size: 10.00px;">iftop</a><a href="/tags/inode/" style="font-size: 10.00px;">inode</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/login/" style="font-size: 10.00px;">login</a><a href="/tags/mac/" style="font-size: 12.50px;">mac</a><a href="/tags/markdown/" style="font-size: 10.00px;">markdown</a><a href="/tags/ping/" style="font-size: 10.00px;">ping</a><a href="/tags/ping，TTL/" style="font-size: 10.00px;">ping，TTL</a><a href="/tags/root/" style="font-size: 10.00px;">root</a><a href="/tags/route/" style="font-size: 10.00px;">route</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a><a href="/tags/ssh/" style="font-size: 17.50px;">ssh</a><a href="/tags/table/" style="font-size: 10.00px;">table</a><a href="/tags/tint2/" style="font-size: 10.00px;">tint2</a><a href="/tags/ubuntu/" style="font-size: 15.00px;">ubuntu</a><a href="/tags/vagrant/" style="font-size: 10.00px;">vagrant</a><a href="/tags/vim/" style="font-size: 10.00px;">vim</a><a href="/tags/vps/" style="font-size: 12.50px;">vps</a><a href="/tags/win7/" style="font-size: 12.50px;">win7</a><a href="/tags/上传文件/" style="font-size: 10.00px;">上传文件</a><a href="/tags/五笔、编码/" style="font-size: 10.00px;">五笔、编码</a><a href="/tags/交换机/" style="font-size: 12.50px;">交换机</a><a href="/tags/交换机，端口/" style="font-size: 10.00px;">交换机，端口</a><a href="/tags/交换机，背板带宽/" style="font-size: 10.00px;">交换机，背板带宽</a><a href="/tags/优化/" style="font-size: 10.00px;">优化</a><a href="/tags/光线，单模，多模，区分/" style="font-size: 10.00px;">光线，单模，多模，区分</a>
+  </div>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2014/09/08/dd_sduhy/">dd命令用来测试硬盘读写速度</a>
+      </li>
+    
+      <li>
+        <a href="/2014/09/08/ubuntu_tint2/">在Ubuntu 14.04中添加底部任务栏</a>
+      </li>
+    
+      <li>
+        <a href="/2014/09/08/inode/">inode</a>
+      </li>
+    
+      <li>
+        <a href="/2014/09/08/wubi_yinan/">五笔难打字、疑难字、难拆字编码大全</a>
+      </li>
+    
+      <li>
+        <a href="/2014/08/29/win7_login/">怎么去掉WIN7开机时选择用户登陆？</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  <div class="widget tag">
+<h3 class="title">友情链接</h3>
+<ul class="entry">
+<li><a href="http://wlcyhao.github.io/" title="Horace's IT Blog!">Horace</a></li>
+<li><a href="https://github.com/" title="github">Github</a></li>
+<li><a href="http://wlcyhao.ys168.com/" title="ys168网盘">ys168网盘</a></li>
+</ul>
+</div>
+
+
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 Horace
+  
+</div>
+<div class="clearfix"></div>
+
+</footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
+
+<a href="https://github.com/wlcyhao"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/567c3a48d796e2fc06ea80409cc9dd82bf714434/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_darkblue_121621.png"></a>
+
+<DIV style="DISPLAY: none" id=goTopBtn title="返回顶部"><IMG border=0 src="/images/top.jpg"></DIV>
+  <SCRIPT type=text/javascript>goTopEx();</SCRIPT>

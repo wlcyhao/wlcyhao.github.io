@@ -4,7 +4,7 @@
   <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wlcyhao.github.io/"/>
-  <updated>2014-08-29T14:20:14.179Z</updated>
+  <updated>2014-09-08T01:04:55.311Z</updated>
   <id>http://wlcyhao.github.io/</id>
   
   <author>
@@ -13,6 +13,203 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[dd命令用来测试硬盘读写速度]]></title>
+    <link href="http://wlcyhao.github.io/2014/09/08/dd_sduhy/"/>
+    <id>http://wlcyhao.github.io/2014/09/08/dd_sduhy/</id>
+    <published>2014-09-08T00:32:50.000Z</published>
+    <updated>2014-09-08T00:33:49.000Z</updated>
+    <content type="html"><![CDATA[<p>dd 是 Linux/UNIX 下的一个非常有用的命令，作用是用指定大小的块拷贝一个文件，并在拷贝的同时进行指定的转换。<br><a id="more"></a></p>
+<ol>
+<li>命令简介</li>
+</ol>
+<p>dd 的主要选项：<br> 指定数字的地方若以下列字符结尾乘以相应的数字:<br>b=512, c=1, k=1024, w=2, xm=number m</p>
+<p>if=file<br>输入文件名，缺省为标准输入。</p>
+<p>of=file<br>输出文件名，缺省为标准输出。</p>
+<p>ibs=bytes<br>一次读入 bytes 个字节(即一个块大小为 bytes 个字节)。</p>
+<p>obs=bytes<br>一次写 bytes 个字节(即一个块大小为 bytes 个字节)。</p>
+<p>bs=bytes<br>同时设置读写块的大小为 bytes ，可代替 ibs 和 obs 。</p>
+<p>cbs=bytes<br>一次转换 bytes 个字节，即转换缓冲区大小。</p>
+<p>skip=blocks<br>从输入文件开头跳过 blocks 个块后再开始复制。</p>
+<p>seek=blocks<br>从输出文件开头跳过 blocks 个块后再开始复制。(通常只有当输出文件是磁盘或磁带时才有效)。</p>
+<p>count=blocks<br>仅拷贝 blocks 个块，块大小等于 ibs 指定的字节数。</p>
+<p>conv=conversion[,conversion…]<br>用指定的参数转换文件。</p>
+<ul>
+<li>转换参数:</li>
+<li>ascii 转换 EBCDIC 为 ASCII。</li>
+<li>ebcdic 转换 ASCII 为 EBCDIC。</li>
+<li>ibm 转换 ASCII 为 alternate EBCDIC.</li>
+<li>block 把每一行转换为长度为 cbs 的记录，不足部分用空格填充。</li>
+<li>unblock 使每一行的长度都为 cbs ，不足部分用空格填充。</li>
+<li>lcase 把大写字符转换为小写字符。</li>
+<li>ucase 把小写字符转换为大写字符。</li>
+<li>swab 交换输入的每对字节。</li>
+<li>noerror 出错时不停止。</li>
+<li>notrunc 不截短输出文件。</li>
+<li>sync 把每个输入块填充到ibs个字节，不足部分用空(NUL)字符补齐。</li>
+</ul>
+<p>2.实例分析</p>
+<p>2.1.数据备份与恢复<br>2.1.1整盘数据备份与恢复</p>
+<p>备份：<br>dd if=/dev/hdx of=/dev/hdy<br>将本地的/dev/hdx整盘备份到/dev/hdy<br> dd if=/dev/hdx of=/path/to/image<br>将/dev/hdx全盘数据备份到指定路径的image文件<br>dd if=/dev/hdx | gzip &gt;/path/to/image.gz<br>备份/dev/hdx全盘数据，并利用gzip工具进行压缩，保存到指定路径</p>
+<p>恢复：<br>dd if=/path/to/image of=/dev/hdx<br>将备份文件恢复到指定盘<br>gzip -dc /path/to/image.gz | dd of=/dev/hdx<br>将压缩的备份文件恢复到指定盘</p>
+<p>2.1.2.利用netcat远程备份<br>dd if=/dev/hda bs=16065b | netcat &lt; targethost-IP &gt; 1234<br>在源主机上执行此命令备份/dev/hda<br> netcat -l -p 1234 | dd of=/dev/hdc bs=16065b<br>在目的主机上执行此命令来接收数据并写入/dev/hdc<br> netcat -l -p 1234 | bzip2 &gt; partition.img<br> netcat -l -p 1234 | gzip &gt; partition.img</p>
+<p>以上两条指令是目的主机指令的变化分别采用bzip2 gzip对数据进行压缩，并将备份文件保存在当前目录。</p>
+<p>2.1.3.备份MBR<br>备份：<br>dd if=/dev/hdx of=/path/to/image count=1 bs=512</p>
+<p>备份磁盘开始的512Byte大小的MBR信息到指定文件<br> 恢复：<br>dd if=/path/to/image of=/dev/hdx<br>将备份的MBR信息写到磁盘开始部分<br>2.1.4.备份软盘<br>dd if=/dev/fd0 of=disk.img count=1 bs=1440k<br>将软驱数据备份到当前目录的disk.img文件<br>2.1.5.拷贝内存资料到硬盘<br>dd if=/dev/mem of=/root/mem.bin bs=1024<br>将内存里的数据拷贝到root目录下的mem.bin文件<br>2.1.6.从光盘拷贝iso镜像<br>dd if=/dev/cdrom of=/root/cd.iso<br>拷贝光盘数据到root文件夹下，并保存为cd.iso文件</p>
+<p>2.2.增加Swap分区文件大小</p>
+<p>dd if=/dev/zero of=/swapfile bs=1024 count=262144</p>
+<p>创建一个足够大的文件（此处为256M）</p>
+<p>mkswap /swapfile</p>
+<p>把这个文件变成swap文件</p>
+<p>swapon /swapfile</p>
+<p>启用这个swap文件</p>
+<p>/swapfile swap swap defaults 0 0</p>
+<p>在每次开机的时候自动加载swap文件, 需要在 /etc/fstab 文件中增加一行</p>
+<p>2.3.销毁磁盘数据</p>
+<p>dd if=/dev/urandom of=/dev/hda1</p>
+<p>利用随机的数据填充硬盘，在某些必要的场合可以用来销毁数据。执行此操作以后，/dev/hda1将无法挂载，创建和拷贝操作无法执行。</p>
+<p>2.4磁盘管理<br>2.4.1.得到最恰当的block size</p>
+<p>dd if=/dev/zero bs=1024 count=1000000 of=/root/1Gb.file<br> dd if=/dev/zero bs=2048 count=500000 of=/root/1Gb.file<br> dd if=/dev/zero bs=4096 count=250000 of=/root/1Gb.file<br> dd if=/dev/zero bs=8192 count=125000 of=/root/1Gb.file</p>
+<p>通过比较dd指令输出中所显示的命令执行时间，即可确定系统最佳的block size大小</p>
+<p>2.4.2测试硬盘读写速度</p>
+<p>dd if=/root/1Gb.file bs=64k | dd of=/dev/null<br> dd if=/dev/zero of=/root/1Gb.file bs=1024 count=1000000</p>
+<p>通过上两个命令输出的执行时间，可以计算出测试硬盘的读／写速度</p>
+<p>2.4.3.修复硬盘</p>
+<p>dd if=/dev/sda of=/dev/sda</p>
+<p>当硬盘较长时间（比如1，2年）放置不使用后，磁盘上会产生magnetic flux point。当磁头读到这些区域时会遇到困难，并可能导致I/O错误。当这种情况影响到硬盘的第一个扇区时，可能导致硬盘报废。上边的命令有可能使这些数据起死回生。且这个过程是安全，高效的。</p>
+<hr>
+<p>——备注—–附件—-摘抄—<br>这个一般都是用来测磁盘阵列的，比如我们单位买的HP VA7110，14块146G 10k转的硬盘做raid 1+0，测出来读是100MB/s、写是50MB/s、读写是40MB/s、40MB/s，与HP宣传手册上的读160MB/s、写84MB/s还是有较大差距，HP的人说这个最高数据是满配时测的，cache为2G，我们只有1G，硬盘多半是15k的，硬盘肯定是加满的。</p>
+<p>对硬盘性能的了解,可通过以下三种命令:</p>
+<pre><code>使用dd <span class="keyword">if</span>=/dev/<span class="constant">zero</span> <span class="operator">of</span>=/<span class="built_in">file</span> 来测试磁盘的纯写入性能
+ 使用dd <span class="keyword">if</span>=/<span class="built_in">file</span> <span class="operator">of</span>=/dev/<span class="constant">null</span> 来测试磁盘的纯读取性能
+ 使用dd <span class="keyword">if</span>=/file1 <span class="operator">of</span>=/file2 来测试磁盘的读写性能
+</code></pre><p>有一些特殊的设备文件。例如/dev/zero文件代表一个永远输出 0的设备文件，使用它作输入可以得到全为空的文件。因此可用来创建新文件和以覆盖的方式清除旧文件。下面使用dd命令将从zero设备中创建一个10K大小（bs决定每次读写1024字节，count定义读写次数为10次），但内容全为0的文件。</p>
+<pre><code><span class="comment"># dd if=/dev/zero of=file count=10 bs=1024</span>
+ <span class="number">10</span>+<span class="number">0</span> records <span class="operator">in</span>
+ <span class="number">10</span>+<span class="number">0</span> records out
+ <span class="number">10240</span> <span class="keyword">bytes</span> transferred <span class="operator">in</span> <span class="number">0.001408</span> <span class="built_in">secs</span> (<span class="number">7267903</span> b ytes/<span class="built_in">sec</span>)
+</code></pre><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">以下是我在vmware测试的虚拟硬盘各项性能(<span class="number">256</span>MB内存,<span class="number">8</span>G硬盘IDE,单<span class="number">64</span>位处理器):</div><div class="line">写:</div><div class="line">www<span class="comment"># dd if=/dev/zero of=myfile bs=1024 count=1000000</span></div><div class="line"><span class="number">1000000</span>+<span class="number">0</span> records <span class="operator">in</span></div><div class="line"><span class="number">1000000</span>+<span class="number">0</span> records out</div><div class="line"><span class="number">1024000000</span> <span class="keyword">bytes</span> transferred <span class="operator">in</span> <span class="number">23.120465</span> <span class="built_in">secs</span> (<span class="number">44289767</span> <span class="keyword">bytes</span>/<span class="built_in">sec</span>)</div><div class="line"></div><div class="line">读:</div><div class="line">www<span class="comment"># dd if=myfile of=/dev/null</span></div><div class="line"><span class="number">2000000</span>+<span class="number">0</span> records <span class="operator">in</span></div><div class="line"><span class="number">2000000</span>+<span class="number">0</span> records out</div><div class="line"><span class="number">1024000000</span> <span class="keyword">bytes</span> transferred <span class="operator">in</span> <span class="number">22.820710</span> <span class="built_in">secs</span> (<span class="number">44871522</span> <span class="keyword">bytes</span>/<span class="built_in">sec</span>)</div><div class="line"></div><div class="line">写读</div><div class="line">www<span class="comment"># dd if=myfile of=myfile2</span></div><div class="line"><span class="number">2000000</span>+<span class="number">0</span> records <span class="operator">in</span></div><div class="line"><span class="number">2000000</span>+<span class="number">0</span> records out</div><div class="line"><span class="number">1024000000</span> <span class="keyword">bytes</span> transferred <span class="operator">in</span> <span class="number">56.255577</span> <span class="built_in">secs</span> (<span class="number">18202640</span> <span class="keyword">bytes</span>/<span class="built_in">sec</span>)</div></pre></td></tr></table></figure>
+
+]]></content>
+    <summary type="html"><![CDATA[<p>dd 是 Linux/UNIX 下的一个非常有用的命令，作用是用指定大小的块拷贝一个文件，并在拷贝的同时进行指定的转换。<br>]]></summary>
+    
+      <category term="linux" scheme="http://wlcyhao.github.io/tags/linux/"/>
+    
+      <category term="dd" scheme="http://wlcyhao.github.io/tags/dd/"/>
+    
+      <category term="Linux" scheme="http://wlcyhao.github.io/categories/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[在Ubuntu 14.04中添加底部任务栏]]></title>
+    <link href="http://wlcyhao.github.io/2014/09/08/ubuntu_tint2/"/>
+    <id>http://wlcyhao.github.io/2014/09/08/ubuntu_tint2/</id>
+    <published>2014-09-08T00:30:47.000Z</published>
+    <updated>2014-09-08T00:32:15.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="在Ubuntu_14-04中添加底部任务栏">在Ubuntu 14.04中添加底部任务栏</h3>
+<p><a id="more"></a><br>打开终端（Ctrl+Alt+T），然后输入下面的命令：</p>
+<pre><code><span class="built_in">sudo</span> apt-get install tint2
+</code></pre><p>这样就把tint2安装好了。你可以在终端中输入tint2来运行它了，但这不是我们希望的方式，因为我们的并不想这么麻烦每次手工运行它。在此，我们需要让tint2来开机启动，这样每次启动Ubuntu的时候，它都会在桌面底部恭候你了。</p>
+<h3 id="怎样让tint2开机启动？">怎样让tint2开机启动？</h3>
+<p>打开Unity Dash（按下Windows键吧），然后搜索启动程序。</p>
+<p>打开<strong>启动程序</strong>，在那儿猛戳 <strong>添加</strong> 按钮，你就可以添加一个新的开机启动程序了。你可以给它起个好认的名字，那命令那栏输入<strong>tint2</strong>，然后猛戳 <strong>添加</strong> ，然后继续猛戳 <strong>关闭</strong> 来保存。</p>
+<p>好了。赶快注销并重新登录进去看看吧，任务栏会乖乖地在下面等着你了。</p>
+]]></content>
+    <summary type="html"><![CDATA[<h3 id="在Ubuntu_14-04中添加底部任务栏">在Ubuntu 14.04中添加底部任务栏</h3>
+<p>]]></summary>
+    
+      <category term="ubuntu" scheme="http://wlcyhao.github.io/tags/ubuntu/"/>
+    
+      <category term="tint2" scheme="http://wlcyhao.github.io/tags/tint2/"/>
+    
+      <category term="Linux" scheme="http://wlcyhao.github.io/categories/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[inode]]></title>
+    <link href="http://wlcyhao.github.io/2014/09/08/inode/"/>
+    <id>http://wlcyhao.github.io/2014/09/08/inode/</id>
+    <published>2014-09-08T00:28:23.000Z</published>
+    <updated>2014-09-08T00:29:48.000Z</updated>
+    <content type="html"><![CDATA[<p>inode是linux文件系统的一个重要部分，是磁盘上用于描述文件的一种数据结构。它保存了文件的大部分重要信息，包括文件数据块在磁盘上的地址。每个inode都有自己的标识号，称为i-number。<br><a id="more"></a><br>inode保存文件的下列信息：</p>
+<ul>
+<li>文件所有权：拥有文件的用户和组。</li>
+<li>文件访问模式：不同的用户和组是否可以读、写或执行文件。</li>
+<li>文件时间标记：文件最后一次被 修改的时间、最后被访问的时间和inode最后被修改的时间。</li>
+<li>文件类型：是否为常规文件、特殊文件或其他类型的抽象伪装文件。</li>
+</ul>
+<p>文件系统被创建时，会为每个文件系统创建若干数量的inode。该数目是文件系统能容纳的最大文件数。只要不重新初始化文件系统，就不能改变这个数目，否则会损坏该文件系统上所有的数据。很有可能文件系统会将inode用光－－当文件系统中有很多很多小文件时。</p>
+<p>使用ls -i命令可以显示文件的索引号</p>
+<p>Gentoo bin # ls -i mysystem.sh<br> 3702796 mysystem.sh</p>
+<p>文件mysystem.sh的i-number为3702796</p>
+<p>使用df -i命令可以显示文件系统的inode使用情况<br>Gentoo bin # df -i<br> Filesystem Inodes IUsed IFree IUse% Mounted on<br> /dev/hda3 4751360 388148 4363212 9% /<br> udev 64222 407 63815 1% /dev<br> /dev/hda1 26104 34 26070 1% /boot<br> none 64222 1 64221 1% /dev/shm</p>
+<p>使用stat命令可以列出inode中的几乎所有信息</p>
+<p>Gentoo bin # stat mysystem.sh<br> File: `mysystem.sh’<br>Size: 416 Blocks: 8 IO Block: 4096 regular file<br> Device: 303h/771d Inode: 3702796 Links: 1<br> Access: (0755/-rwxr-xr-x) Uid: ( 0/ root) Gid: ( 0/ root)<br> Access: 2007-09-13 11:29:17.000000000 +0800<br> Modify: 2007-09-13 11:29:17.000000000 +0800<br> Change: 2007-09-13 11:29:17.000000000 +0800</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>inode是linux文件系统的一个重要部分，是磁盘上用于描述文件的一种数据结构。它保存了文件的大部分重要信息，包括文件数据块在磁盘上的地址。每个inode都有自己的标识号，称为i-number。<br>]]></summary>
+    
+      <category term="inode" scheme="http://wlcyhao.github.io/tags/inode/"/>
+    
+      <category term="Linux" scheme="http://wlcyhao.github.io/categories/Linux/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[五笔难打字、疑难字、难拆字编码大全]]></title>
+    <link href="http://wlcyhao.github.io/2014/09/08/wubi_yinan/"/>
+    <id>http://wlcyhao.github.io/2014/09/08/wubi_yinan/</id>
+    <published>2014-09-08T00:24:15.000Z</published>
+    <updated>2014-09-08T01:03:34.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="五笔难打字、疑难字、难拆字编码大全">五笔难打字、疑难字、难拆字编码大全</h2>
+<h3 id="一、按笔画数索引">一、按笔画数索引</h3>
+<p><a id="more"></a><br>一画<br>乙 〔NNLL〕 </p>
+<p>二画<br>丁 〔SGH 〕　　七 〔AGN 〕　　九 〔VTN 〕　　匕 〔XTN 〕　<br>刁 〔NGD 〕　　了 〔BNH 〕<br>乃〔ETN 〕　　 乜 〔NNV 〕 </p>
+<p>三画<br>三 〔DGGG〕　　干 〔FGGH〕　　亍 〔FHK 〕　　于 〔GFK 〕　　<br>亏 〔FNV 〕　　才 〔FTE 〕<br>下 〔GHI 〕　　丈 〔DYI 〕　　与 〔GNGD〕　　万 〔DNV 〕　　<br>上 〔HHGG〕　　千 〔TFK 〕<br>乞 〔TNB 〕　　川 〔KTHH〕　　么 〔TCU 〕　　久 〔QYI 〕　　<br>丸 〔VYI 〕　　及 〔EYI 〕<br>亡 〔YNV 〕　　丫 〔YHK 〕　　义 〔YQI 〕　　之 〔PPPP〕　　<br>已 〔NNNN〕　　己 〔NNGN〕<br>巳 〔NNGN〕　　卫 〔BGD 〕　　孑 〔BNHG〕　　孓 〔BYI 〕　　<br>也 〔BNHN〕　　飞 〔NUI 〕<br>习〔NUD 〕　　 乡 〔XTE 〕 </p>
+<p>四画<br>丰 〔DHK 〕　　井 〔FJK 〕　　开 〔GAK 〕　　亓 〔FJJ 〕　　<br>夫 〔FWI 〕　　天 〔GDI 〕<br>元 〔FQB 〕　　无 〔FQV 〕　　云 〔FCU 〕　　专 〔FNYI〕　　<br>丐 〔GHNV〕　　廿 〔AGHG〕<br>五 〔GGHG〕　　支 〔FCU 〕　　卅 〔GKK 〕　　不 〔GII 〕　　<br>牙 〔AHTE〕　　屯 〔GBNV〕<br>互 〔GXGD〕　　中 〔KHK 〕　　内 〔MWI 〕　　午 〔TFJ 〕　　<br>壬 〔TFD 〕　　升 〔TAK 〕<br>夭 〔TAK 〕　　长 〔TAYI〕　　反 〔RCI 〕　　爻 〔QQU 〕　　<br>乏 〔TPI 〕　　氏 〔QAV 〕<br>丹 〔MYD 〕　　乌 〔QNGD〕　　卞 〔YHI 〕　　为 〔YLYI〕　　<br>尹 〔VTE 〕　　尺 〔NYI 〕<br>丑〔NFD 〕　　 巴 〔CNHN〕　 以 〔CYWY〕　 予 〔CBJ 〕　<br>书 〔NNHY〕    贝(mhny) </p>
+<p>五画<br>末 〔GSI 〕　　未 〔FII 〕　　击 〔FMK 〕　　戋 〔GGGT〕　　<br>正 〔GHD 〕　　甘 〔AFD 〕<br>世 〔ANV 〕　　本 〔SGD 〕　　术 〔SYI 〕　　可 〔SKD 〕　　<br>丙 〔GMWI〕　　左 〔DAF 〕<br>丕 〔GIGF〕　　右 〔DKF 〕　　布 〔DMHJ〕　　戊 〔DNYT〕　　<br>平 〔GUHK〕　　东 〔AII 〕<br>卡 〔HHU 〕　　北 〔UX 〕　　 凸 〔HGMG〕　　归 〔JVG 〕　　<br>且 〔EGD 〕　　申 〔JHK 〕<br>甲 〔LHNH〕　　由 〔MHNG〕　　史 〔KQI 〕　　央 〔MDI 〕　　<br>册 〔MMGD〕　　冉 〔MFD 〕<br>凹 〔MMGD〕　　生 〔TGD 〕　　失 〔RWI 〕　　乍 〔THFD〕　　<br>丘 〔RGD 〕　　斥 〔RYI 〕<br>卮 〔RGBV〕　　乎 〔TUHK〕　　丛 〔WWGF〕　　用 〔ETNH〕　　<br>甩 〔ENV 〕　　氐 〔QAYI〕<br>乐 〔QII 〕　　匆 〔QRYI〕　　包 〔QNV 〕　　玄 〔YXU 〕　　<br>兰 〔UFF 〕　　半 〔UFK 〕<br>头 〔UDI 〕　　必 〔NTE 〕　　司 〔NGKD〕　　民 〔NAV 〕　　<br>弗 〔XJK 〕　　疋 〔NHI 〕<br>出 〔BMK 〕　　丝 〔XXGF〕 </p>
+<p>六画<br>戎 〔ADE 〕　　孝 〔FTGN〕　　老 〔FTXB〕　　亚 〔GOGD〕　　<br>亘 〔GJGF〕　　吏 〔GKQI〕<br>再 〔GMFD〕　　戌 〔DGNT〕　　在 〔DHFD〕　　百 〔DJF 〕　　<br>而 〔DMJJ〕　　戍 〔DYNT〕<br>死 〔GQXB〕　　成 〔DNNT〕　　夹 〔GUWI〕　　夷 〔GXWI〕　　<br>尧 〔ATGQ〕　　至 〔GCFF〕<br>乩 〔HKNN〕　　师 〔JGMH〕　　曳 〔JXE 〕　　曲 〔MAD 〕　　<br>网 〔MQQ 〕　　肉 〔MWW 〕<br>年 〔RHFK〕　　朱 〔RII 〕　　丢 〔TFCU〕　　乔 〔TDJJ〕　　<br>乒 〔RGTR〕　　乓 〔RGYU〕<br>向 〔TMKD〕　　囟 〔TLQI〕　　后 〔RGKD〕　　兆 〔IQV 〕　　<br>舛 〔QAHH〕　　产 〔UTE 〕<br>关 〔UDU 〕　　州 〔YTYH〕　　兴 〔IW U〕　　农 〔PEI 〕　　<br>尽 〔NYUU〕　　丞 〔BIGF〕<br>买 〔NUDU〕 </p>
+<p>七画<br>戒 〔AAK 〕　　严 〔GODR〕　　巫 〔AWWI〕　　求 〔FIYI〕　<br>　甫 〔GEHY〕　　更 〔GJQI〕<br>束 〔GKII〕　　两 〔GMWW〕　　丽 〔GMYY〕　　来 〔GOI 〕　　<br>芈 〔GJGH〕　　串 〔KKHK〕<br>邑 〔KCB 〕　　我 〔TRNT〕　　囱 〔TLQI〕　　希 〔QDMH〕　　<br>坐 〔WWFF〕　　龟 〔QJNB〕<br>卵 〔QYTY〕　　岛 〔QYNM〕　　兑 〔UKQB〕　　弟 〔UXHT〕　　<br>君 〔VTKD〕 </p>
+<p>八画<br>奉 〔DWFH〕　　武 〔GAHD〕　　表 〔GEU 〕　　者 〔FTJF〕　　<br>其 〔ADWU〕　　直 〔FHF 〕<br>丧 〔FUEU〕　　或 〔AKGD〕　　事 〔GKVH〕　　枣 〔GMIU〕　　<br>卖 〔FNUD〕　　非 〔DJDD〕<br>些 〔HXFF〕　　果 〔JSI 〕　　畅 〔JHNR〕　　垂 〔TGAF〕　　<br>乖 〔TFUX〕　　秉 〔TGVI〕<br>臾 〔VWI 〕　　卑 〔RTFJ〕　　阜 〔WNNF〕　　乳 〔EBNN〕　　<br>周 〔MFKD〕　　枭 〔QYNS〕<br>氓 〔YNNA〕　　卷 〔UDBB〕　　单 〔UJFJ〕　　肃 〔VIJK〕　　<br>隶 〔VII 〕　　承 〔BDII〕<br>亟 〔BKCG〕</p>
+<p>九画<br>奏 〔DWGD〕　　哉 〔FAKD〕　　甚 〔ADWN〕　　巷 〔AWNB〕　　<br>柬 〔GLII〕　　咸 〔DGKT〕<br>威 〔DGV 〕　　歪 〔GIGH〕　　面 〔DMJD〕　　韭 〔DJDG〕　　<br>临 〔JTYJ〕　　禺 〔JMHY〕<br>幽 〔XXMK〕　　拜 〔RDFH〕　　重 〔TGJF〕　　禹 〔TKMY〕　　<br>俎 〔WWEG〕　　胤 〔TXEN〕<br>养 〔UDYJ〕　　叛 〔UDRC〕　　首 〔UTHF〕　　举 〔IWFH〕　　<br>昼 〔NYJG〕　　咫 〔NYKW〕<br>癸 〔WGDU〕 </p>
+<p>十画<br>艳 〔DHQC〕　　袁 〔FKEU〕　　哥 〔SKSK〕　　鬲 〔GKMH〕　　<br>孬 〔GIVB〕　　乘 〔TUXV〕<br>鬯 〔QOBX〕　　玺 〔QIGY〕　　高 〔YMKF〕　　离 〔YBMC〕　　<br>弱 〔XUXU〕　　哿 〔LKSK〕<br>能 〔CEXX〕 </p>
+<p>十一画<br>焉 〔GHGO〕　　黄 〔AMWU〕　　乾 〔FJTN〕　　啬 〔GULK〕　　<br>戚 〔DHIT〕　　匏 〔DFNN〕<br>爽 〔DQQQ〕　　匙 〔JGHX〕　　象 〔QJEU〕　　够 〔QKQQ〕　　<br>馗 〔VUTH〕　　孰 〔YBVY〕<br>兽 〔ULGK〕 　 艴 〔XJQC〕　　胬 〔VCMW〕 </p>
+<p>十二画<br>棘 〔GMII〕　　黹 〔OGUI〕　　辉 〔OQPL〕　　鼎 〔HNDN〕　　<br>甥 〔TGLL〕　　黍 〔TWIU〕<br>粤 〔TLON〕　　舒 〔WFKB〕　　就 〔YIDN〕　　喾 〔IPTK〕　　<br>巯 〔CAYQ〕　　彘 〔XGXX〕 </p>
+<p>十三画<br>鼓 〔FKUC〕　　赖 〔GKIM〕　　嗣 〔KMAK〕　　叠 〔CCCG〕 </p>
+<p>十四画<br>嘉 〔FKUK〕　　截 〔FWYY〕　　赫 〔FOFO〕　　聚 〔BCTI〕　　<br>斡 〔FJWF〕　　兢 〔DQDQ〕<br>嘏 〔DNHC〕　　臧 〔DNDT〕　　夥 〔JSQQ〕　　舞 〔RLGH〕　　<br>毓 〔TXGQ〕　　睾 〔TLFF〕<br>鼐 〔EHNN〕　　疑 〔XTDH〕　　孵 〔QYTB〕　　暨 〔VCAG〕 </p>
+<p>十五画<br>虢 〔FEHM〕　　颐 〔AHKM〕　　靠 〔TFKD〕　　勰 〔LLLN〕 　　<br>豫 〔CBQE〕　　翰 〔FJWN〕<br>噩 〔GKKK〕　 整 〔GKIH〕　　臻 〔GCFT〕　　冀 〔UXLW〕　　<br>赢 〔 YNKY〕 </p>
+<p>十七画<br>戴 〔FALW〕　　豳 〔EEMK〕　　黻 〔OGUC〕　　黏 〔TWIK〕　　<br>爵 〔ELVF〕　　赢 〔YNKY〕<br>馘〔UTHG〕　　 隳〔BDAN〕 </p>
+<p>十八画<br>馥 〔TJTT〕　　冁 〔UJFE〕 </p>
+<p>十九画<br>黼 〔OGUY〕　　鼗 〔IQFC〕　　蠃 〔YNKY〕　　羸 〔YNKY〕　　<br>疆 〔XFGG〕<br>锤：QTGF       舞：RLGH       浅：IGT        </p>
+<h3 id="二、按拼音索引">二、按拼音索引</h3>
+<p>“凹”：:mmgd　　“翱”：:rdfn     “傲”：:wgqt      　“粤”：:tlon<br>               ————————-B—————————-<br>“靶”：:afcn    “霸”：:fafe　   “拜”：:rdfh         “稗”：:trtf<br>“版”：:thgc    “拌”：:rufh　　 “伴”：:wufh　　     “半”：:ufk<br>“绊”：:xufh    “豹”：:eeqy　   “碑”：:drtf　　     “悲”：:djdn<br>“卑”：:rtfj    “辈”：:djdl　　 “贝”： mhny         “敝”：:umit　　<br>“弊”：:umia    “鞭”：:afwq　   “彪”：:hame　       “鳖”：:umig　　<br>“憋”：:umin    “斌”：:ygah　   “濒”：:ihim　       “秉”：:tgvi　　<br>“拨”：:rnty    “博”：:fgef　　“搏”：:rgef　       “膊”：:egef　　<br>“哺”：:kgey    “埠”：:fwnf　　 “簿”：:tigf　　<br>               ————————-C—————————-<br>“蚕”：:gdju　　“槽”：:sgmj    “策”：:tgmi 　“豺”：:eeft　　<br>“搀”：:rqku　　“谗”：:yqku    “厂”：:dgt　  “曹”：:gmaj<br>“槽”：SGMJ     “乘”：:tuxv　　“承”：:bdii　 “成”：DNNT<br>“虫”：:jhny    “丑”：:nfd　　“亍”：:fhk     “锄”：:qegl　　<br>“楚”：:ssnh　　“处”：:thi     “捶”：:rtgf    “锤”：:qtgf　　<br>“垂”：:tgaf　　“寸”：:fghy    “撮”：:rjbc    “刺 ”：gmi<br>               ————————-D—————————-<br>“歹”：:gqi　  “耽”：:bpqn　　 “丹”：:myd　　    “蛋”：NHJ<br>“岛”：:qynm   “凳”：WGKM      “氐”：:qayi        “第”：:txht　　<br>“帝”：UPMH    “碘”：:dmaw　　 “典”：:mawu　      “叼”：:kngg<br>“懂”：:natf　 “毒”：:gxgu　 　“犊”：:trfd 　     “锻”：:qwdc<br>               ————————-E—————————-<br>“蛾”：:jtrt　　   “峨”：:mtrt　　“鹅”：:trng　　“娥”：:vtrt<br>“饿”：:qntt　　   “耳”：:bghg 　 “尔”： qi      “贰”：:afmi　　<br>               ————————-F—————————-<br>“筏”：:twar    “伐”：:wat　 　“乏”：:tpi　 　“阀”：:uwae<br>“翻”：TOLN　   “飞”：:nui     “非”：DJD      “缶”：:rmk　<br>“夫”：:fwi　   “敷”：:geht　　“釜”：:wqfu　  “脯”：:egey<br>“赋”：:mgah    “阜”：:wnnf　　“父”：:wqu　   “缚”：:xgef<br>               ————————-G—————————-<br>“尬”：:dnwj　　 “丐”：:ghnv　 “尴”：:dnjl    “感”：:dgkn　　<br>“皋”：:rdfj　　“革”：:afj　　“根”：:svey    “跟”：:khve　　<br>“耕”：:difj　　 “更”：:gjqi　 “庚”：:yvwi    “寡”： pde<br>“羹”：:ugod　   “躬”：:tmdx　 “共”：AW       “辜”：:duj　 　<br>“瓜”：:rcyi     “罐”：:rmay　 “惯”：:nxfm　  “贯”：:xfmu　　<br>“瑰”：:grqc     “鬼”：:rqci　 “裹”：:yjse　<br>　　<br>               ————————-H—————————-<br>“喊”：:kdgt　　 “撼”：:rdgn      “憾”：:ndgn　　“毫”：:yptn　　<br>“黑”：:lfou　　“很”：:tvey      “哼”：:kybh　　“亨”：:ybj　 　<br>“喉”：:kwnd　　“猴”：:qtwd     “弧”：:xrcy　　 “互”：:gxgd　　<br>“缓”：:xefc　　“换”：:rqmd     “惠”： gjh         “昏”：:qajf　<br>“豁”：:pdhk　　 “惑”：:akgn　　<br>               ————————-J—————————-<br>“击”：:fmk     “稽”： tdnm      “棘”：:gmii　　“脊”：:iwef　　<br>“既”：:vcaq　　“荚”：:aguw      “颊”：:guwm　　“甲”：:lhnh　　<br>“兼”：:uvou　　“缄”：:xdgt      “拣”：:ranw　　“减”：:udgt　　<br>“践”：:khgt　　“贱”：:mgt       “见”：:mqb　　 “件”：:wrhh　　<br>“溅”：:imgt　　“建”：:vfhp      “谏”：:ygli    “降”：:btah　　<br>“浇”：:iatq　　“嚼”：:kelf　 　 “睫”：:hgvh    “戒”：:aak　　<br>“巾”：:mhk　　“斤”：:rtth　　   “谨”：:yakg    “韭”：:djdg　　<br>“九”：:vtn　 　“厩”：:dvcq　　  “救”：:fiyt    “臼”：:vthg　　<br>“舅”：:vllb　　“巨”：AN（D）     “疽”：:uegd　 “倦”：:wudb<br>“眷”：:udhf　　“卷”：:udbb　　   “撅”：:rduw　　“攫”：:rhhc<br>“抉”：:rnwy　　“爵”：:elvf　   　“君”：:vtkd　　“俊”：:wcwt<br>注：焗（不能用86版五笔打出来）。<br>               ————————-K—————————-<br>“卡”：:hhu　    “慨”：:nvcq　　“慷”：:nyvi　　“糠”：:oyvi<br>“靠”：:tfkd　 　“克”：:dqb　 　“亏”：:fnv　　<br>               ————————-L—————————-<br>“喇”：:kgkj    “来”：:goi　 　“澜”：:iugi　  “谰”：:yugi　　<br>“揽”：:rjtq    “览”：:jtyq　　“懒”：:ngkm　　“缆”：:xjtq　　<br>“滥”：:ijtl    “榔”：:syvb　　“狼”：:qtye　　“廊”：:yyvb　　<br>“朗”：:yvce    “浪”：:iyve　　“牢”：:prhj　　“乐”：QI<br>“勒”：:afln　  “镰”：:qyuo    “敛”：:wgit　　“脸”：:ewgi　　<br>“炼”：:oanw　  “练”：:xanw    “粮”：:oyve　　“撩”：:rdui　　<br>“聊”：:bqtb 　 “僚”：:wdui    “疗”：:ubk　　 “燎”：:odui　　<br>“潦”：:idui　　“镣”：:qdui    “尥”：:dnqy     “临”：:jtyj　　<br>“龄”：:hwbc　  “榴”：:sqyl　　“留”：:qyvl     “六”：:uygy　　<br>“窿”：:pwbg　  “卤”：HLQ      “鹿”：:ynjx　 　“旅”：:ytey<br>“率”：:yxif　　“卵”：:qyty　　<br>               ————————-M—————————-<br>“麦”：:gtu　　 “忙”：:nynn    “矛”：:cbtr　　“茂”：:adnt　　<br>“貌”：:eerq　　“美”：:ugdu    “寐”：:pnhi　　“妹”：:vfiy　　<br>“门”：:uyhn　　“冕”：:jqkq    “免”：:qkqb　　“勉”：:qkql　　<br>“娩”：:vqkq　　“缅”：:xdmd    “面”：:dmjd　　“蔑”：:aldt　　<br>“灭”：:goi　　 “鸣”：:kqyg    “末”：:gsi　　 “么”：TC<br>“牟”：:crhj　　“某”：:afsu　　“拇”：:rxgu    “姆”：:vxgu　　<br>               ————————-N—————————-<br>“哪”：:kvfb　　“乃”：:etn　　“囊”：:gkhe    “脑”：EYB<br>“蔫”：:agho　　“年”：:rhfk　　“廿”：:aghg    “鸟”：:qyng　　<br>“孽”：:awnb    “凝”：:uxth　　“扭”：:rnfg　　“纽”：:xnfg　　<br>“脓”：:epey    “浓”：:ipey　　“疟”：:uagd　　<br>               ————————-O—————————-<br>“哦”：:ktrt　　“鸥”：:aqqg    “藕”：:adiy　　“偶”：:wjmy　<br>               ————————-P—————————-<br>“爬”：:rhyc　　“耙”：:dicn    “排”：:rdjd    “牌”：:thgf　　<br>“徘”：:tdjd　　“湃”：:irdf　　“派”：:irey    “判”：:udjh<br>“叛”：:udrc　　“耪”：:diuy　　“砰”：:dguh    “抨”：:rguh　　<br>“片”：:thgn　　“撇”：:rumt　　“瞥”：:umih    “频”：:hidm<br>“苹”：:aguh　　“萍”：:aigh　　“瓶”：:uagn    “婆”：:ihcv　　<br>“破”：:dhcy　　“莆”：:agey　　“圃”：:lgey    “普”：:uogj　<br>               ————————-Q—————————-<br>“妻”：:gvhv　　“气”：:rnb　　 “其”：adw      “遣”：:khgp<br>“歉”：:uvow　　“羌”：:udnb　　“墙”：:ffuk　　“蔷”：:afuk<br>“且”：:egd　　 “擒”：:rwyc　　“禽”：:wybc　　“球”：:gfiy<br>“求”：:fiyi　　“曲”：:mad　 　“躯”：:tmdq　　“龋”：:hwby<br>“犬”：:dgty　　“缺”：:rmnw　　“炔”：:onwy　　“榷”：:spwy<br>“雀”：:iwyf　　“群”：:vtkd　　<br>               ————————-R—————————-<br>“瓤”：:ykky　　“壤”：:fyke    “攘”：:ryke　　“嚷”：:kyke　　<br>“扰”：:rdnn　　“绕”：:xatq    “壬”：:tfd 　　“刃”：:vyi　 　<br>“绒”：:xadt 　 “柔”：:cbts<br>               ————————-S—————————-<br>“伞”：:wuhj　  “丧”：:fueu　　“陕”：:bguw　  “膳”：:eudk<br>“善”：:uduk　　“烧”：:oatq　　“舌”：:tdd　 　“身”：:tmdt<br>“甚”： adwn    “升”：:tak　　“盛”：:dnnl　　“剩”：:tuxj　　<br>“失”：:rwi     “尸”：:nngt　　“士”：:fghg　　“世”：:anv　　<br>“市”：:ymhj    “手”：:rtgh　　“戍”：:dynt　　“耍”：:dmjv　　<br>“甩”：:env     “睡”：:htgf　　“岁”： mqu     “瞬”：:heph　　<br>“舜”：:epqh    “搜”：:rvhc　　“艘”：:tevc     “属”：:ntky　<br>“鼠”： vnu     “斯”：:adwr　　“撕”：:radr　　 “嘶”：:kadr<br>“肆”：:dvfh　　“似”：:wnyw　　“巳”：:nngn　   “塑”：:ubtf　　<br>“溯”：:iube　　“肃”：:vijk　  “穗”：:tgjn     “祟”：:bmfi　<br>               ————————-T—————————-<br>“糖”：:oyvk　　“躺”：:tmdk　　“掏”：:rqrm    “逃”：:iqpv　　<br>“套”：:ddu　　“藤”：:aeui　　“腾”：:eudc    “誊”：:udyf　　<br>“添”：IGDN     “舔”：:tdgn　　“腆”：:emaw　　“挑”：:riqn<br>“眺”：:hiqn　  “跳”：:khiq　　“廷”：:tfpd　　“彤”：:myet<br>“头”：:udi　   “凸”：:hgmg 　 “兔”：:qkqy　　“退”：:vepi<br>“吞”：:gdkf　　“屯”：:gbnv　　“鸵”：:qynx　　“唾”：:ktgf<br>               ————————-W—————————-<br>“瓦”：:gnyn　  　“袜”：:pugs　　“歪”：:gigh　　“挽”：:rqkq<br>“亡”：:ynv　　   “妄”：:ynvf　　 “伪”： wyl     “问”：:ukd　 　<br>“瓮”：:wcgn      “呜”：:kqng　　 “钨”：:qqng　　“毋”：:xde　　<br>“五”：:gghg      “午”：:tfj　    “舞”：:rlgh　　“侮”：:wtxu　　<br>“坞”：:fqng      “戊”：:dnyt　   “兀”：:gqv　　<br>               ————————-X—————————-<br>“西”：:sghg　　   “夕”：:qtny　　  “霞”：:fnhc    “暇”：:jnhc　　<br>“峡”：:mguw　　   “乡”：:xte　　   “翔”：udng     “晓”：:jatq<br>“楔”：:sdhd　     “卸”：:rhbh　  　“辛”：uygh     “兴”：IW<br>“行”：:tfhh　　   “兄”：:kqb       “羞”：:udnf　　“锈”：:qten　　<br>“戌”：:dgnt　   　“血”：:tld       “熏”：:tglo　　“讯”：:ynfh　　<br>“迅”：:nfpk　　<br>              ————————-Y—————————-<br>“鸦”：:ahtg       “鸭”：LQYG      “呀”：:kaht  　 “丫”：:uhk　 　<br>“芽”：:aaht　　   “牙”：:ahte     “蚜”：:jaht　　“雅”：:ahty　　<br>“哑”：:kgog　　   “亚”：:gogd     “讶”：:yaht　　“焉”：:ghgo　　<br>“蜒”：:jthp　　   “演”：:ipgw     “彦”：:uter　　“央”：:mdi　 　<br>“鸯”：:mdqg　　   “秧”：:tmdy     “痒”：:uudk　　“漾”：:iugi　　<br>“幺”：:xnny       “曳”：:jxe　　  “夜”：:ywty    “弋”：:agny<br>“夷”：:gxwi　　   “遗”：:khgp　   “胰”：:egxw　　“疑”：:xtdh<br>“姨”：:vgxw　   　“彝”：:xgoa　   “已”：:nnnn　　“乙”：:nnll<br>“亦”：you         “肄”：:xtdh　　 “赢”：:ynky　　“庸”：:yveh　　<br>“用”：:etnh       “由”：:mhng　　 “卣”：HL       “迂”：:gfpk　　<br>“禺”：:jmhy       “隅”：:bjmy　　 “羽”：nnyg     “聿”：VFH<br>“予”：:cbj        “御”：:trhb　　 “渊”：:itoh　　“冤”：:pqky　　<br>“缘”：:xxey       “曰”：:jhng　　<br>               ————————-Z—————————-<br>“凿”：:ogub　　 “枣”：:gmiu　  “早”：:jhnh      “乍”：:thfd　　<br>“炸”：:othf　　 “窄”：:pwtf　　“毡”：:tfnk      “栈”：:sgt　　<br>“杖”：:sdyy　　 “丈”：:dyi　　 “仗”：:wdyy      “兆”：:iqv<br>“整”：:gkih　　 “正”：:ghd　   “止”：:hhhg　    “舟”：:tei<br>“株”：:sriy　　 “茱”：:ariu　　“铢”：:qriy　　  “珠”：:griy<br>“竹”：:ttgh　   “瞩”：:hnty　　“爪”：:rhyi　　  “抓”：rrhy<br>“足”：:khu      “州”：YTYH     “自”：:thd       “制”：:rmhj　　<br>“追”：:wnnp</p>
+<h3 id="三、特殊字:">三、特殊字:</h3>
+<p>戈：AGNT       弋：AGNY       阝：BNH3      卩：BNH2        凵：BNH4<br>盛:DNNL        勤:AKGL        武:GAH          贰:AFM         竹:TTG           羽:NNＹ　　绕:XAT         户:YNE         彦:UTER        殷:RVNC        翘:ATGN          废:YNTY     舆:WFL         凹:MMGD         凸:HGM         戈:AGNT        弋:AGNY          戊:DNY      戌:DGN         夕:QTNY        丫:UHK         兆:IQV         兜:QRNQ          鹿:YNJ    嗤:KBHJ       鼠:VNU         尴尬:DNDN       粤:TLO         养:UDYJ          羊UDJ       革:AF          垂:TGA        曳:JXE          甲:LHNH        乙:NNL            弓:XNG     臼:VTH        刁:NGD        曹:GMA         舞:RLG         典:MAW</p>
+<h3 id="四、其他常用字：">四、其他常用字：</h3>
+<p>“拜”五笔编码:rdfh　　“凹”五笔编码:mmgd　　“翱”五笔编码:rdfn　　“靶”五笔编码:afcn<br>“耙”五笔编码:dicn　　“霸”五笔编码:fafe　　“傲”五笔编码:wgqt　　“稗”五笔编码:trtf<br>“版”五笔编码:thgc　　“拌”五笔编码:rufh　　“伴”五笔编码:wufh　　“半”五笔编码:ufk<br>“绊”五笔编码:xufh　　“豹”五笔编码:eeqy　　“碑”五笔编码:drtf　　“悲”五笔编码:djdn<br>“卑”五笔编码:rtfj　　“辈”五笔编码:djdl　　“敝”五笔编码:umit　　“弊”五笔编码:umia<br>“鞭”五笔编码:afwq　　“彪”五笔编码:hame　　“鳖”五笔编码:umig　　“憋”五笔编码:umin<br>“斌”五笔编码:ygah　　“濒”五笔编码:ihim　　“秉”五笔编码:tgvi　　“拨”五笔编码:rnty<br>“博”五笔编码:fgef　　“搏”五笔编码:rgef　　“膊”五笔编码:egef　　“哺”五笔编码:kgey<br>“埠”五笔编码:fwnf　　“簿”五笔编码:tigf　　“蚕”五笔编码:gdju　　“槽”五笔编码:sgmj<br>“策”五笔编码:tgmi　　“豺”五笔编码:eeft　　“搀”五笔编码:rqku　　“谗”五笔编码:yqku<br>“厂”五笔编码:dgt　 　“乘”五笔编码:tuxv　　“承”五笔编码:bdii　　“虫”五笔编码:jhny<br>“丑”五笔编码:nfd　 　“锄”五笔编码:qegl　　“楚”五笔编码:ssnh　　“处”五笔编码:thi<br>“舜”五笔编码:epqh　　“斯”五笔编码:adwr　　“撕”五笔编码:radr　　“嘶”五笔编码:kadr<br>“肆”五笔编码:dvfh　　“似”五笔编码:wnyw　　“巳”五笔编码:nngn　　“捶”五笔编码:rtgf<br>“锤”五笔编码:qtgf　　“垂”五笔编码:tgaf　　“寸”五笔编码:fghy　　“撮”五笔编码:rjbc<br>“歹”五笔编码:gqi　 　“耽”五笔编码:bpqn　　“丹”五笔编码:myd　 　“岛”五笔编码:qynm<br>“第”五笔编码:txht　　“碘”五笔编码:dmaw　　“典”五笔编码:mawu　　“叼”五笔编码:kngg<br>“懂”五笔编码:natf　　“毒”五笔编码:gxgu　　“犊”五笔编码:trfd　　“锻”五笔编码:qwdc<br>“蛾”五笔编码:jtrt　　“峨”五笔编码:mtrt　　“鹅”五笔编码:trng　　“娥”五笔编码:vtrt<br>“饿”五笔编码:qntt　　“耳”五笔编码:bghg　　“贰”五笔编码:afmi　　“筏”五笔编码:twar<br>“伐”五笔编码:wat　 　“乏”五笔编码:tpi　 　“阀”五笔编码:uwae　　“飞”五笔编码:nui<br>“夫”五笔编码:fwi　 　“敷”五笔编码:geht　　“釜”五笔编码:wqfu　　“脯”五笔编码:egey<br>“赋”五笔编码:mgah　　“阜”五笔编码:wnnf　　“父”五笔编码:wqu　 　“缚”五笔编码:xgef<br>“感”五笔编码:dgkn　　“皋”五笔编码:rdfj　　“革”五笔编码:afj　　 “根”五笔编码:svey<br>“跟”五笔编码:khve　　“耕”五笔编码:difj　　“更”五笔编码:gjqi　 “庚”五笔编码:yvwi<br>“羹”五笔编码:ugod　　“躬”五笔编码:tmdx　　“辜”五笔编码:duj　 　“瓜”五笔编码:rcyi<br>“罐”五笔编码:rmay　　“惯”五笔编码:nxfm　　“贯”五笔编码:xfmu　　“瑰”五笔编码:grqc<br>“鬼”五笔编码:rqci　　“裹”五笔编码:yjse　　“喊”五笔编码:kdgt　　“撼”五笔编码:rdgn<br>“憾”五笔编码:ndgn　　“毫”五笔编码:yptn　　“黑”五笔编码:lfou　　“很”五笔编码:tvey<br>“哼”五笔编码:kybh　　“亨”五笔编码:ybj　 　“喉”五笔编码:kwnd　　“猴”五笔编码:qtwd<br>“弧”五笔编码:xrcy　　“互”五笔编码:gxgd　　“缓”五笔编码:xefc　　“换”五笔编码:rqmd<br>“昏”五笔编码:qajf　　“豁”五笔编码:pdhk　　“惑”五笔编码:akgn　　“击”五笔编码:fmk<br>“棘”五笔编码:gmii　　“脊”五笔编码:iwef　　“既”五笔编码:vcaq　　“荚”五笔编码:aguw<br>“颊”五笔编码:guwm　　“甲”五笔编码:lhnh　　“兼”五笔编码:uvou　　“缄”五笔编码:xdgt<br>“拣”五笔编码:ranw　　“减”五笔编码:udgt　　“践”五笔编码:khgt　　“贱”五笔编码:mgt<br>“见”五笔编码:mqb　　 “件”五笔编码:wrhh　　“溅”五笔编码:imgt　　“建”五笔编码:vfhp<br>“降”五笔编码:btah　　“浇”五笔编码:iatq　　“嚼”五笔编码:kelf　　“睫”五笔编码:hgvh<br>“戒”五笔编码:aak　　 “巾”五笔编码:mhk　　 “斤”五笔编码:rtth　　“谨”五笔编码:yakg<br>“韭”五笔编码:djdg　　“九”五笔编码:vtn　 　“厩”五笔编码:dvcq　　“救”五笔编码:fiyt<br>“臼”五笔编码:vthg　　“舅”五笔编码:vllb　　“疽”五笔编码:uegd　　“倦”五笔编码:wudb<br>“眷”五笔编码:udhf　　“卷”五笔编码:udbb　　“撅”五笔编码:rduw　　“攫”五笔编码:rhhc<br>“抉”五笔编码:rnwy　　“爵”五笔编码:elvf　　“君”五笔编码:vtkd　　“俊”五笔编码:wcwt<br>“卡”五笔编码:hhu　 　“慨”五笔编码:nvcq　　“慷”五笔编码:nyvi　　“糠”五笔编码:oyvi<br>“靠”五笔编码:tfkd　　“克”五笔编码:dqb　 　“亏”五笔编码:fnv　　 “喇”五笔编码:kgkj<br>“来”五笔编码:goi　 　“澜”五笔编码:iugi　　“谰”五笔编码:yugi　　“揽”五笔编码:rjtq<br>“览”五笔编码:jtyq　　“懒”五笔编码:ngkm　　“缆”五笔编码:xjtq　　“滥”五笔编码:ijtl<br>“榔”五笔编码:syvb　　“狼”五笔编码:qtye　　“廊”五笔编码:yyvb　　“朗”五笔编码:yvce<br>“浪”五笔编码:iyve　　“牢”五笔编码:prhj　　“勒”五笔编码:afln　　“镰”五笔编码:qyuo<br>“敛”五笔编码:wgit　　“脸”五笔编码:ewgi　　“炼”五笔编码:oanw　　“练”五笔编码:xanw<br>“粮”五笔编码:oyve　　“撩”五笔编码:rdui　　“聊”五笔编码:bqtb　　“僚”五笔编码:wdui<br>“疗”五笔编码:ubk　　 “燎”五笔编码:odui　　“潦”五笔编码:idui　　“镣”五笔编码:qdui<br>“临”五笔编码:jtyj　　“龄”五笔编码:hwbc　　“榴”五笔编码:sqyl　　“留”五笔编码:qyvl<br>“六”五笔编码:uygy　　“窿”五笔编码:pwbg　　“鹿”五笔编码:ynjx　　“旅”五笔编码:ytey<br>“率”五笔编码:yxif　　“卵”五笔编码:qyty　　“麦”五笔编码:gtu　　 “忙”五笔编码:nynn<br>“矛”五笔编码:cbtr　　“茂”五笔编码:adnt　　“貌”五笔编码:eerq　　“美”五笔编码:ugdu<br>“寐”五笔编码:pnhi　　“妹”五笔编码:vfiy　　“门”五笔编码:uyhn　　“冕”五笔编码:jqkq<br>“免”五笔编码:qkqb　　“勉”五笔编码:qkql　　“娩”五笔编码:vqkq　　“缅”五笔编码:xdmd<br>“面”五笔编码:dmjd　　“蔑”五笔编码:aldt　　“灭”五笔编码:goi　　 “鸣”五笔编码:kqyg<br>“末”五笔编码:gsi　　 “牟”五笔编码:crhj　　“某”五笔编码:afsu　　“拇”五笔编码:rxgu<br>“姆”五笔编码:vxgu　　“哪”五笔编码:kvfb　　“乃”五笔编码:etn　 　“囊”五笔编码:gkhe<br>“蔫”五笔编码:agho　　“年”五笔编码:rhfk　　“鸟”五笔编码:qyng　　“孽”五笔编码:awnb<br>“凝”五笔编码:uxth　　“扭”五笔编码:rnfg　　“纽”五笔编码:xnfg　　“脓”五笔编码:epey<br>“浓”五笔编码:ipey　　“疟”五笔编码:uagd　　“哦”五笔编码:ktrt　　“鸥”五笔编码:aqqg<br>“藕”五笔编码:adiy　　“偶”五笔编码:wjmy　　“爬”五笔编码:rhyc　　“排”五笔编码:rdjd<br>“牌”五笔编码:thgf　　“徘”五笔编码:tdjd　　“湃”五笔编码:irdf　　“派”五笔编码:irey<br>“判”五笔编码:udjh　　“叛”五笔编码:udrc　　“耪”五笔编码:diuy　　“砰”五笔编码:dguh<br>“抨”五笔编码:rguh　　“片”五笔编码:thgn　　“撇”五笔编码:rumt　　“瞥”五笔编码:umih<br>“频”五笔编码:hidm　　“苹”五笔编码:aguh　　“萍”五笔编码:aigh　　“瓶”五笔编码:uagn<br>“婆”五笔编码:ihcv　　“破”五笔编码:dhcy　　“莆”五笔编码:agey　　“圃”五笔编码:lgey<br>“普”五笔编码:uogj　　“妻”五笔编码:gvhv　　“气”五笔编码:rnb　　 “遣”五笔编码:khgp<br>“歉”五笔编码:uvow　　“羌”五笔编码:udnb　　“墙”五笔编码:ffuk　　“蔷”五笔编码:afuk<br>“且”五笔编码:egd　　 “擒”五笔编码:rwyc　　“禽”五笔编码:wybc　　“球”五笔编码:gfiy<br>“求”五笔编码:fiyi　　“曲”五笔编码:mad　 　“躯”五笔编码:tmdq　　“龋”五笔编码:hwby<br>“犬”五笔编码:dgty　　“缺”五笔编码:rmnw　　“炔”五笔编码:onwy　　“榷”五笔编码:spwy<br>“雀”五笔编码:iwyf　　“群”五笔编码:vtkd　　“瓤”五笔编码:ykky　　“壤”五笔编码:fyke<br>“攘”五笔编码:ryke　　“嚷”五笔编码:kyke　　“扰”五笔编码:rdnn　　“绕”五笔编码:xatq<br>“壬”五笔编码:tfd 　　“刃”五笔编码:vyi　 　“绒”五笔编码:xadt 　“柔”五笔编码:cbts<br>“伞”五笔编码:wuhj　　“丧”五笔编码:fueu　　“陕”五笔编码:bguw　　“膳”五笔编码:eudk<br>“善”五笔编码:uduk　　“烧”五笔编码:oatq　　“舌”五笔编码:tdd　 　“身”五笔编码:tmdt<br>“升”五笔编码:tak　 　“盛”五笔编码:dnnl　　“剩”五笔编码:tuxj　　“失”五笔编码:rwi<br>“尸”五笔编码:nngt　　“士”五笔编码:fghg　　“世”五笔编码:anv　 　“市”五笔编码:ymhj<br>“手”五笔编码:rtgh　　“戍”五笔编码:dynt　　“耍”五笔编码:dmjv　　“甩”五笔编码:env<br>“睡”五笔编码:htgf　　“瞬”五笔编码:heph　　“搜”五笔编码:rvhc　　“艘”五笔编码:tevc<br>“塑”五笔编码:ubtf　　“溯”五笔编码:iube　　“肃”五笔编码:vijk　　“穗”五笔编码:tgjn<br>“祟”五笔编码:bmfi　　“糖”五笔编码:oyvk　　“躺”五笔编码:tmdk　　“掏”五笔编码:rqrm<br>“逃”五笔编码:iqpv　　“套”五笔编码:ddu　 　“藤”五笔编码:aeui　　“腾”五笔编码:eudc<br>“誊”五笔编码:udyf　　“舔”五笔编码:tdgn　　“腆”五笔编码:emaw　　“挑”五笔编码:riqn<br>“眺”五笔编码:hiqn　　“跳”五笔编码:khiq　　“廷”五笔编码:tfpd　　“彤”五笔编码:myet<br>“头”五笔编码:udi　 　“凸”五笔编码:hgmg　　“兔”五笔编码:qkqy　　“退”五笔编码:vepi<br>“吞”五笔编码:gdkf　　“屯”五笔编码:gbnv　　“鸵”五笔编码:qynx　　“唾”五笔编码:ktgf<br>“瓦”五笔编码:gnyn　　“袜”五笔编码:pugs　　“歪”五笔编码:gigh　　“挽”五笔编码:rqkq<br>“亡”五笔编码:ynv　　 “妄”五笔编码:ynvf　　“问”五笔编码:ukd　 　“瓮”五笔编码:wcgn<br>“呜”五笔编码:kqng　　“钨”五笔编码:qqng　　“毋”五笔编码:xde　　 “五”五笔编码:gghg<br>“午”五笔编码:tfj　 　“舞”五笔编码:rlgh　　“侮”五笔编码:wtxu　　“坞”五笔编码:fqng<br>“戊”五笔编码:dnyt　　“西”五笔编码:sghg　　“夕”五笔编码:qtny　　“霞”五笔编码:fnhc<br>“暇”五笔编码:jnhc　　“峡”五笔编码:mguw　　“乡”五笔编码:xte　　 “晓”五笔编码:jatq<br>“楔”五笔编码:sdhd　　“卸”五笔编码:rhbh　　“行”五笔编码:tfhh　　“兄”五笔编码:kqb<br>“羞”五笔编码:udnf　　“锈”五笔编码:qten　　“戌”五笔编码:dgnt　　“血”五笔编码:tld<br>“熏”五笔编码:tglo　　“讯”五笔编码:ynfh　　“迅”五笔编码:nfpk　　“鸦”五笔编码:ahtg<br>“呀”五笔编码:kaht　　“丫”五笔编码:uhk　 　“芽”五笔编码:aaht　　“牙”五笔编码:ahte<br>“蚜”五笔编码:jaht　　“雅”五笔编码:ahty　　“哑”五笔编码:kgog　　“亚”五笔编码:gogd<br>“讶”五笔编码:yaht　　“焉”五笔编码:ghgo　　“蜒”五笔编码:jthp　　“演”五笔编码:ipgw<br>“彦”五笔编码:uter　　“央”五笔编码:mdi　 　“鸯”五笔编码:mdqg　　“秧”五笔编码:tmdy<br>“痒”五笔编码:uudk　　“漾”五笔编码:iugi　　“曳”五笔编码:jxe　　 “夜”五笔编码:ywty<br>“夷”五笔编码:gxwi　　“遗”五笔编码:khgp　　“胰”五笔编码:egxw　　“疑”五笔编码:xtdh<br>“姨”五笔编码:vgxw　　“彝”五笔编码:xgoa　　“已”五笔编码:nnnn　　“乙”五笔编码:nnll<br>“肄”五笔编码:xtdh　　“赢”五笔编码:ynky　　“庸”五笔编码:yveh　　“用”五笔编码:etnh<br>“由”五笔编码:mhng　　“迂”五笔编码:gfpk　　“隅”五笔编码:bjmy　　“予”五笔编码:cbj<br>“御”五笔编码:trhb　　“渊”五笔编码:itoh　　“冤”五笔编码:pqky　　“缘”五笔编码:xxey<br>“曰”五笔编码:jhng　　“凿”五笔编码:ogub　　“枣”五笔编码:gmiu　　“早”五笔编码:jhnh<br>“乍”五笔编码:thfd　　“炸”五笔编码:othf　　“窄”五笔编码:pwtf　　“毡”五笔编码:tfnk<br>“栈”五笔编码:sgt　　 “杖”五笔编码:sdyy　　“丈”五笔编码:dyi　　 “仗”五笔编码:wdyy<br>“整”五笔编码:gkih　　“正”五笔编码:ghd　 　“止”五笔编码:hhhg　　“舟”五笔编码:tei<br>“株”五笔编码:sriy　　“茱”五笔编码:ariu　　“铢”五笔编码:qriy　　“珠”五笔编码:griy<br>“属”五笔编码:ntky　　“瞩”五笔编码:hnty　　“爪”五笔编码:rhyi　　“足”五笔编码:khu<br>“亍”五笔编码:fhk　　 “兀”五笔编码:gqv　　 “丐”五笔编码:ghnv　　“廿”五笔编码:aghg<br>“禺”五笔编码:jmhy　　“氐”五笔编码:qayi　　“兆”五笔编码:iqv　　 “谏”五笔编码:ygli<br>“尥”五笔编码:dnqy　　“尬”五笔编码:dnwj　　“尴”五笔编码:dnjl　　“弋”五笔编码:agny<br>“制”五笔编码:rmhj　　“追”五笔编码:wnnp　　“幺”五笔编码:xnny　　“自”五笔编码:thd<br>“缶”五笔编码:rmk　 　“竹”五笔编码:ttgh　　“曹”五笔编码:gmaj　　“粤”五笔编码:tlon</p>
+<h3 id="五、个人日常总结（个人总结来的，希望有点用处：）">五、个人日常总结（个人总结来的，希望有点用处：）</h3>
+<p>舞：RLGH　此字的关键就是L上，L键上是四个竖（丨）<br>甚：艹三八乙　adwn<br>其：艹三八　adw<br>尔：勹小　qi 注意这个字，上半部分是勹，而不是冖（宝盖）<br>予： 卩　CB　注意这个字下面是个耳朵旁<br>套：大镸　DD（U）注意这个字中的镸存在于D键上<br>鹿：广乙刂匕　YNJX<br>脑：月文凵　月文凵<br>成：厂乙乙丿　DNNT<br>添：氵一大 　IGDN<br>舟：TE<br>帝：六冖冂丨　UPMH<br>第： 弓丨丿　TXHT<br>典：冂艹八　MAW<br>禺：日冂丨丶　JMHY<br>州：丶丿丶丨　YTYH<br>欠： 人　QW<br>更：一曰乂　GJQ<br>派：IRE（Y）<br>瓜： 厶丿　RCY<br>瓦：一乙丶乙　gnyn<br>么：丿厶　TC<br>聿：彐二丨VFH<br>兆：IQ（V）<br>兴：IW<br>共： 八AW<br>戉：ANTY<br>乐：QI<br>飞：NU<br>雀：小亻主IWY<br>自：丿目TH（D）<br>乘：禾丬匕TUX<br>非：三刂三DJD<br>卤：HLQ<br>卣：HL<br>巨：匚（左框）AN（D）  </p>
+<p>NO.10曹 舞 典<br>这类字从字形上看就知道难拆.正确拆法为: 曹:GMA 舞:RLG 典:MAW<br>NO.9弓 臼 刁<br>往往越是简单的字越是打不出.正确拆法为: 弓:XNG 臼:VTH 刁:NGD<br>NO.8甲 乙<br>这两个字是很多人一看到就要卡壳的那种,正确的拆法为: 甲:LHNH 乙:NNL<br>NO.7垂 曳 鼠<br>打这类字你会感叹还是打拼音的好. 正确的拆法为: 垂:TGA 曳:JXE 鼠:VNU<br>NO.6养 羊 革<br>这几个字我碰到就会歇菜. 正确的拆法为:养:UDYJ 羊UDJ 革:AF<br>NO.5尴尬 粤<br>注意啦,不会打这三个字的朋友应该好好反省一下,尴尬的左边不是九字,粤字的上面是口字,实在看不清放到WORD里放大就可以了. 正确的拆法为:尴尬:DNDN 粤:TLO<br>NO.4兜 鹿 嗤<br>如果想不通的话就死记硬背, 正确的拆法为:兜:QRNQ 鹿:YNJ 嗤:KBHJ<br>NO.3夕 丫 兆<br>我早说过简单的字不好拆了吧. 正确的拆法为:夕:QTNY 丫:UHK 兆:IQV<br>NO.2戈 弋 戊 戌<br>这类字对于打五笔的人来说简直就是恶梦,只能庆幸它们的出现频率很低,要实在是碰上了只能自认倒霉. 正确的拆法为:戈:AGNT 弋:AGNY 戊:DNY 戌:DGN<br>NO.1凹 凸<br>这两个字的变态程度就不用我多说了,碰上了就直接切换到拼音输入法.正确的拆法为:凹:MMGD 凸:HGM  </p>
+<p>还有一些比较难打的字如下:<br>盛:DNNL 勤:AKGL 武:GAH 贰:AFM 竹:TTG 羽:NNＹ　　绕:XAT 户:YNE 彦:UTER 殷:RVNC 翘:ATGN 废:YNTY 舆:WFL<br>蔻 编码apfl 本来应该拆为apfc才对，不过和“劳动”重码，王永民认为“劳动”这个词比较常用，所以把“蔻”字的最后一笔放到L键上了。   </p>
+<p>寇 编码pfqc 这个字很好拆，把它放上来只是为了和上面的的“蔻”字作比较，这个最后一码就拆成c哦，不要拆成L了。   </p>
+<p>鼠:vnu 臼 + 竖勾(一折,是N) + 两点<br>翔:udng 两点 + 羊(d) +<br>乌:qng<br>鸟:qyng<br>亦:you<br>沈:ipq<br>兵:rgw<br>婚:vq<br>昏:qajf<br>剩:tuxj 禾 + 北的左边 + 匕 + 竖心旁<br>乖:tfu 一撇 + 十 + 北的左边<br>厅:ds<br>幼:xln<br>乙:nnl<br>迹：yopi (中间的是”亚”字，故为点横+亚 + 走之底)<br>哦：ktr (一撇，一个提手旁）<br>撇：rumt<br>糟: ogmj （<br>曹: gmaj 一横，一门，一草头，一日)<br>匹: aqv (右框 + 儿 + 最后一笔是”折弯勾”即包围结构,需要N-&gt;B-&gt;V)<br>亏: fnv 二 + 折 + 最后一笔是”折弯勾”即包围结构,需要N-&gt;B-&gt;V<br>垂: tga 一撇 + 一横 + 一个草头<br>愚: jmhn 一日 + 一门 + 一 卜<br>麦: gtu 王 + 一撇 +<br>羊: udj<br>养: udyj 两点 + 羊 + 一捺 + 两竖<br>赫: fof 土 + 亚 + 土<br>矛: cbt 又 + 叩的右边 + 一撇<br>氏: qa q(撇竖勾) + a(弋)<br>戈: agnt a(全字) + g(一横) + n(一勾) + t(一撇) 这一横没什么道理,只不过是为了区分开戈和弋<br>弋: agny a(全字) + g(一横) + n(一勾) + y(一点)<br>豹: eeqy e(豹头) + e(家底) + q(勺壳) + y(一点)<br>斤: rtt r(全字) + 一撇 + 再一撇<br>丘: rgd r(斤) + 一横 + 横复杂结构结尾曲  </p>
+<p>Q:金鱼儿夕,鸟儿Q 还有:兜的左上角,勺的壳壳<br>W:人八W 登的帽子<br>E:家乡豹用月采毛衣 E<br>R:白手气头斤两撇<br>T:  </p>
+<p>Y:言文方广捺圭亩Y<br>U:立辛六病门两点U  </p>
+<p>醒-SGJ　场-FNRT　物-TR　派－IRE 瑰-GRQC　赘－GQTM　埸-FJQR　魇-DDRC　狭-QTGW 遭-GMAP　丈－DYI　西-SGHG　连-LPK　穿－PWAT　亡－YNV　户-YNE　柔-CBTS　单-UJFJ　乡-XTE　片-THGN　仗－WDYY　饿-QNT　乏－TPI　予－CBJ　添－IGDN　养-UDYJ　兀－GQV　追-WNNP　牙-AH　齐-YJJ　媲-VTLX 寒-PFJU　声-FNR　羊－UDJ　特-TRFF　卡－HHU　雅－AHTY　茗-AQKF　万-DNV　龄－HWBC　秧－TMDY　亦-YOU　斜－WTUF　竹-TTG　叛－UDRC　连-LPK　眷-UDHF　盛-DNNL　敷-GEHT　戋－GGGT　撇-RUMT　舟－TEI　卑－RTFJ　疏－NHYQ　贱－MGT　瘪－UTHX　矛-CBT　甘－AFD　巴－CNH　仿-WYN　拜－RDFH　狭-QTGW　余－WTU　鹅－TRNG　赛-PFJM　肃-VIJK　晓-JAT　衅-TLUF　肺－EGM　哀－YEU　乙－NNL　段-WDMC　牛－RHK　午－TFJ　伞—WUHJ　貌—EERQ 雀—IWYF　缘—XXEY 兰—UFF 舆—WFLW 舞—RLGH 丹—MYD 　彤—MYE 凸—HGMG 凹—MMGD　麦—GTU 克—DQ 匆—QRYI 刁—NGD　肆—DVFH 丫—UHK<br>爪—RHYI  </p>
+<p>遭：GMAP     凹:MMGD     凸:HGM      拜:RDFH     盛: dnnl<br>甲:LHNH      乙:NNL      垂:TGA      曳:JXE（即：日匕+识别码 彡）<br>鼠:VNU       养:UDYJ     尬:DNDN   粤:TLO      羊:UDJ<br>藏:ADNT    冇:DMB       兜:QRNQ      鹿:YNJ     嗤:KBHJ<br>丫:UHK     兆:IQV     戈:AGNT      弋:AGNY      戊:DNY   戌:DGN勤:AKGL     武:GAH     贰:AFM       竹:TTG      羽:NNY      绕:XAT      户:YNE      彦:UTER  殷:RVNC      翘:ATGN  废:YNTY     舆:WFL     亏：FNV    贯：XFM    噩：GKKK<br>套：DDU        赢：YNKY      舞：RLG     撇：RUMT      匹：AQV    幼：XLN       愚：JMHN   武：GAH     剩：TUXJ    乖：TFU    离:YBMC 卫：BG  矜：CBTN   预：CBD      囊：GKHE   凳：WGKM    赛：PFJM  雅：AHTY     拽:RJX     野：JFC  戍：dynt      姊：vtnt      肃：v i j    鹅：trng     枣：gmiu     兼：uvo     尤：dnv </p>
+<p>以上部分来源于互联网友总结，本人搜集于此，供大家学习，谢谢网络上其他网友的贡献。</p>
+]]></content>
+    <summary type="html"><![CDATA[<h2 id="五笔难打字、疑难字、难拆字编码大全">五笔难打字、疑难字、难拆字编码大全</h2>
+<h3 id="一、按笔画数索引">一、按笔画数索引</h3>
+<p>]]></summary>
+    
+      <category term="五笔、编码" scheme="http://wlcyhao.github.io/tags/%E4%BA%94%E7%AC%94%E3%80%81%E7%BC%96%E7%A0%81/"/>
+    
+      <category term="Windows" scheme="http://wlcyhao.github.io/categories/Windows/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[怎么去掉WIN7开机时选择用户登陆？]]></title>
@@ -426,129 +623,6 @@ exit
       <category term="共享" scheme="http://wlcyhao.github.io/tags/%E5%85%B1%E4%BA%AB/"/>
     
       <category term="Windows" scheme="http://wlcyhao.github.io/categories/Windows/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[删除U盘时提示无法停止‘通用卷’设备的解决方法]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/21/stop_u/"/>
-    <id>http://wlcyhao.github.io/2014/08/21/stop_u/</id>
-    <published>2014-08-21T13:15:10.000Z</published>
-    <updated>2014-08-21T13:16:47.000Z</updated>
-    <content type="html"><![CDATA[<p>安全删除U盘时，大家常常会遇到提示“无法停止‘通用卷’设备，请稍候再停止该设备。”这种情况下可以强行拔下U盘吗？当然不可以！这时候如果强行拔除的话，很容易损坏计算机U口或者你的U盘。如果你的U盘上有重要的资料，很有可能就此毁坏了。那么应该怎么办呢？<br><a id="more"></a><br>第一种方法: </p>
-<p>往往我们在把U盘的文件或者数据取出来的时候，都是用的“复制”“粘贴”方式，而如果复制的是U盘上的文件，这个文件就会一直放在系统的剪切板里，处于待用状态。而如果这种情况下我们要删除U盘的话，就会出现上面的无法停止U盘的提示。 </p>
-<p>相应的解决办法就是：清空你的剪切板，或者在你的硬盘上随便进行一下复制某文件再粘贴的操作，这时候你再去删除U盘提示符，看看是不是顺利删除了？ </p>
-<p>第二种方法： </p>
-<p>如果觉得上面那种方法还无效的话，可以使用下面这个方法： </p>
-<p>同时按下键盘的”Ctrl”＋”Alt”＋”Del”组合键，这时会出现”任务管理器”的窗口，单击”进程”标签，在”映像名称”中寻找”rundll32.exe”进程，选择”rundll32.exe”进程，然后点击”结束进程”，这时会弹出任务管理器警告，问你确定是否关闭此进程，点击”是”，即关闭了”rundll32.exe”进程。再删除U盘就可以正常删除了。 </p>
-<p>使用这种方法时请注意：如果有多个”rundll32.exe”进程，需要将多个”rundll32.exe”进程全部关闭。 </p>
-<p>第三种方法： </p>
-<p>这种方法同样是借助了任务管理器，同时按下键盘的”Ctrl”＋”Alt”＋”Del”组合键，出现”任务管理器”的窗口，单击”进程”，寻找”EXPLORER.EXE”进程并结束它。这时候你会发现你的桌面不见了，请不要惊慌，继续进行下面的操作，在任务管理器中点击“文件”——“新建任务”——输入EXPLORER.EXE——确定。再删除U盘，你会发现可以安全删除了。 </p>
-<p>第四种方法： </p>
-<p>这种方法最简单，但最耗时，那就是，重启你的电脑。 </p>
-<p>如果觉得出现问题的时候才解决有些麻烦，可以采用下面这个提前的预防措施： </p>
-<p>关闭系统的预览功能。<br>方法：双击我的电脑——工具——文件夹选项——常规——任务——使用windows传统风格的文件夹，然后点击确定就行了。这样一劳永逸了。 </p>
-<p>小窍门：目前有些U盘的技术很到位了，有的U盘直接插拔也可以的。但无论是多好的U盘，有一种时候是绝对不能直接插拔的，那就是仔细看你U盘的那个小红灯，小灯在不停闪的时候表示正在不停地读写数据，这时候千万不能拔，否则轻则损坏数据，重则U盘报废。</p>
-]]></content>
-    <summary type="html"><![CDATA[<p>安全删除U盘时，大家常常会遇到提示“无法停止‘通用卷’设备，请稍候再停止该设备。”这种情况下可以强行拔下U盘吗？当然不可以！这时候如果强行拔除的话，很容易损坏计算机U口或者你的U盘。如果你的U盘上有重要的资料，很有可能就此毁坏了。那么应该怎么办呢？<br>]]></summary>
-    
-      <category term="U盘，弹出" scheme="http://wlcyhao.github.io/tags/U%E7%9B%98%EF%BC%8C%E5%BC%B9%E5%87%BA/"/>
-    
-      <category term="Windows" scheme="http://wlcyhao.github.io/categories/Windows/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[如何用拼音输入法输入不会读的字？]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/21/pingyin_input/"/>
-    <id>http://wlcyhao.github.io/2014/08/21/pingyin_input/</id>
-    <published>2014-08-21T13:08:39.000Z</published>
-    <updated>2014-08-21T15:27:34.000Z</updated>
-    <content type="html"><![CDATA[<p>遇到不会读的字，怎么用拼音打？网友提供小技巧：<br><a id="more"></a><br>可以先打个“u”然后打各个部首的读音，就能出来哦，如图所示！在搜狗拼音、谷歌拼音、QQ输入法下都成功测试过。</p>
-<p><img src="/img/4602.jpg" alt="pinyin"></p>
-]]></content>
-    <summary type="html"><![CDATA[<p>遇到不会读的字，怎么用拼音打？网友提供小技巧：<br>]]></summary>
-    
-      <category term="拼音，输入法" scheme="http://wlcyhao.github.io/tags/%E6%8B%BC%E9%9F%B3%EF%BC%8C%E8%BE%93%E5%85%A5%E6%B3%95/"/>
-    
-      <category term="Windows" scheme="http://wlcyhao.github.io/categories/Windows/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[在Markdown文档中插入表格(table)]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/21/markdown_insert_table/"/>
-    <id>http://wlcyhao.github.io/2014/08/21/markdown_insert_table/</id>
-    <published>2014-08-21T02:01:00.000Z</published>
-    <updated>2014-08-21T07:26:13.000Z</updated>
-    <content type="html"><![CDATA[<p>插入表格算是Markdown的扩展语法</p>
-<p>使用很简单，示例如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">| <span class="class">Tables</span>        | <span class="class">Are</span>           | <span class="class">Cool</span>  |  </div><div class="line">| ------------- |-------------- | ------|  </div><div class="line">| col <span class="number">3</span> is      | right-aligned | <span class="char">$1</span>600 |  </div><div class="line">| col <span class="number">2</span> is      <span class="localvars">| centered      |</span>   <span class="char">$1</span>2 | </div><div class="line"><span class="localvars">| zebra stripes | are neat      |</span>    <span class="char">$1</span> |</div></pre></td></tr></table></figure>
-
-<a id="more"></a>
-
-<p>效果如下：</p>
-<table>
-<thead>
-<tr>
-<th>Tables</th>
-<th>Are</th>
-<th>Cool</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>col 3 is</td>
-<td>right-aligned</td>
-<td>$1600</td>
-</tr>
-<tr>
-<td>col 2 is</td>
-<td>centered</td>
-<td>$12</td>
-</tr>
-<tr>
-<td>zebra stripes</td>
-<td>are neat</td>
-<td>$1</td>
-</tr>
-</tbody>
-</table>
-<p><strong>注：</strong>表头和数据行之间用<code>|----|</code>隔开</p>
-]]></content>
-    <summary type="html"><![CDATA[<p>插入表格算是Markdown的扩展语法</p>
-<p>使用很简单，示例如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">| <span class="class">Tables</span>        | <span class="class">Are</span>           | <span class="class">Cool</span>  |  </div><div class="line">| ------------- |-------------- | ------|  </div><div class="line">| col <span class="number">3</span> is      | right-aligned | <span class="char">$1</span>600 |  </div><div class="line">| col <span class="number">2</span> is      <span class="localvars">| centered      |</span>   <span class="char">$1</span>2 | </div><div class="line"><span class="localvars">| zebra stripes | are neat      |</span>    <span class="char">$1</span> |</div></pre></td></tr></table></figure>
-
-]]></summary>
-    
-      <category term="markdown" scheme="http://wlcyhao.github.io/tags/markdown/"/>
-    
-      <category term="table" scheme="http://wlcyhao.github.io/tags/table/"/>
-    
-      <category term="Markdown" scheme="http://wlcyhao.github.io/categories/Markdown/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[ping服务器网速的工具]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/20/ping_network_speed/"/>
-    <id>http://wlcyhao.github.io/2014/08/20/ping_network_speed/</id>
-    <published>2014-08-20T07:35:44.000Z</published>
-    <updated>2014-08-20T07:36:34.000Z</updated>
-    <content type="html"><![CDATA[<p>购买vps之前评测中国用户访问速度，或者网站运营异常的时候测试网速，判断dns是否配置正确，都可以简单 ping一下，初步了解情况</p>
-<ol>
-<li>面向国内用户的中文网站，用 <a href="http://ping.chinaz.com/" target="_blank" rel="external">http://ping.chinaz.com/</a></li>
-<li>面向全球用户的英文网站，用 <a href="http://www.just-ping.com/" target="_blank" rel="external">http://www.just-ping.com/</a></li>
-</ol>
-]]></content>
-    
-    
-      <category term="ping" scheme="http://wlcyhao.github.io/tags/ping/"/>
-    
-      <category term="vps" scheme="http://wlcyhao.github.io/tags/vps/"/>
-    
-      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
     
   </entry>
   

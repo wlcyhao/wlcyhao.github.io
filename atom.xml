@@ -4,7 +4,7 @@
   <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wlcyhao.github.io/"/>
-  <updated>2014-09-08T01:12:10.914Z</updated>
+  <updated>2014-09-10T09:52:05.616Z</updated>
   <id>http://wlcyhao.github.io/</id>
   
   <author>
@@ -129,11 +129,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[inode]]></title>
+    <title><![CDATA[理解inode]]></title>
     <link href="http://wlcyhao.github.io/2014/09/08/inode/"/>
     <id>http://wlcyhao.github.io/2014/09/08/inode/</id>
     <published>2014-09-08T00:28:23.000Z</published>
-    <updated>2014-09-08T00:29:48.000Z</updated>
+    <updated>2014-09-08T06:16:45.000Z</updated>
     <content type="html"><![CDATA[<p>inode是linux文件系统的一个重要部分，是磁盘上用于描述文件的一种数据结构。它保存了文件的大部分重要信息，包括文件数据块在磁盘上的地址。每个inode都有自己的标识号，称为i-number。<br><a id="more"></a><br>inode保存文件的下列信息：</p>
 <ul>
 <li>文件所有权：拥有文件的用户和组。</li>

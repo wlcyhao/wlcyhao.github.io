@@ -56,138 +56,6 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-08-09T06:56:54.000Z"><a href="/2014/08/09/cisco-swith-interface-mode/">8月 9 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/09/cisco-swith-interface-mode/">Cisco交换机接口模式精解</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <p>cisco网络中，交换机在局域网中最终稳定状态的接口类型主要有四种：access/ trunk/ multi/ dot1q-tunnel。  </p>
-<p>1、access: 主要用来接入终端设备，如PC机、服务器、打印服务器等。<br>2、trunk: 主要用在连接其它交换机，以便在线路上承载多个vlan。<br>3、multi: 在一个线路中承载多个vlan，但不像trunk,它不对承载的数据打 标签。主要用于接入支持多vlan的服务器或者一些网络分析设备。现在基本不使用此类接口，在cisco的网络设备中，也基本不支持此类接口了。<br>4、dot1q-tunnel: 用在Q-in-Q隧道配置中。<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/09/cisco-swith-interface-mode/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-09T06:45:22.000Z"><a href="/2014/08/09/switch-and-router-command/">8月 9 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/09/switch-and-router-command/">交换机&amp;路由器命令小全（带中文注释）</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="1-_交换机支持的命令：">1. 交换机支持的命令：</h2>
-<p>交换机基本状态： </p>
-<pre><code>
-switch: ；ROM状态， 路由器是rommon>
-
-hostname> ；用户模式
-
-hostname# ；特权模式
-
-hostname(config)# ；全局配置模式
-
-hostname(config-if)# ；接口状态
-</code></pre>
-
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/09/switch-and-router-command/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
-        <time datetime="2014-08-09T03:19:25.000Z"><a href="/2014/08/09/RAC-Promblem-solution/">8月 9 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/08/09/RAC-Promblem-solution/">Oracle RAC安装过程中碰到问题及解决方法</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h2 id="这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。">这一篇主要讨论整个RAC安装过程中碰到的问题以及是如何解决的。</h2>
-<h3 id="错误一：">错误一：</h3>
-<p>配置共享磁盘的问题。如果共享磁盘本身有内容，可能会导致在安装完CLUSTERWARE后，执行root.sh时出错，错误信息为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed <span class="keyword">to</span> upgrade Oracle Cluster Registry <span class="keyword">configuration</span>。</div></pre></td></tr></table></figure>
-
-
-
-<p>这时可以利用dd命令来清除ocr和voting disk的共享磁盘。类似命令为：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dd <span class="variable">if=</span>/dev/zero <span class="variable">of=</span>/dev/rdsk/c2t0d2s3 <span class="variable">bs=</span><span class="number">1073741824</span> <span class="variable">count=</span><span class="number">1</span></div></pre></td></tr></table></figure>
-
-<p>其中of指定需要清除的共享磁盘设备，而bs指定该设备的空间大小。<br>清除之后，再次运行root.sh，则问题消失。<br>
-      
-    </div>
-    <footer>
-      
-        
-          <div class="alignleft">
-            <a href="/2014/08/09/RAC-Promblem-solution/#more" class="more-link">Read More</a>
-          </div>
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-
-
-  <article class="post">
-  
-  <div class="post-content">
-    <header>
-      
-        <div class="icon"></div>
         <time datetime="2014-08-09T02:59:39.000Z"><a href="/2014/08/09/VirtuleMachine-Support64bit/">8月 9 2014</a></time>
       
       
@@ -416,7 +284,7 @@ hostname(config-if)# ；接口状态
   
     <li><a href="/categories/交换路由/">交换路由</a><small>11</small></li>
   
-    <li><a href="/categories/服务器运维/">服务器运维</a><small>14</small></li>
+    <li><a href="/categories/服务器运维/">服务器运维</a><small>11</small></li>
   
     <li><a href="/categories/虚拟机/">虚拟机</a><small>1</small></li>
   
@@ -428,7 +296,7 @@ hostname(config-if)# ；接口状态
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/CRC/" style="font-size: 10.00px;">CRC</a><a href="/tags/Hexo/" style="font-size: 13.33px;">Hexo</a><a href="/tags/IP/" style="font-size: 10.00px;">IP</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/Oracle/" style="font-size: 16.67px;">Oracle</a><a href="/tags/RAC/" style="font-size: 13.33px;">RAC</a><a href="/tags/U盘，弹出/" style="font-size: 10.00px;">U盘，弹出</a><a href="/tags/arp/" style="font-size: 10.00px;">arp</a><a href="/tags/cisco/" style="font-size: 10.00px;">cisco</a><a href="/tags/crontab/" style="font-size: 10.00px;">crontab</a><a href="/tags/dd/" style="font-size: 10.00px;">dd</a><a href="/tags/git/" style="font-size: 10.00px;">git</a><a href="/tags/github/" style="font-size: 10.00px;">github</a><a href="/tags/hexo/" style="font-size: 13.33px;">hexo</a><a href="/tags/iftop/" style="font-size: 10.00px;">iftop</a><a href="/tags/inode/" style="font-size: 10.00px;">inode</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/login/" style="font-size: 13.33px;">login</a><a href="/tags/mac/" style="font-size: 13.33px;">mac</a><a href="/tags/markdown/" style="font-size: 10.00px;">markdown</a><a href="/tags/ping/" style="font-size: 10.00px;">ping</a><a href="/tags/ping，TTL/" style="font-size: 10.00px;">ping，TTL</a><a href="/tags/root/" style="font-size: 10.00px;">root</a><a href="/tags/route/" style="font-size: 10.00px;">route</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a><a href="/tags/ssh/" style="font-size: 20.00px;">ssh</a><a href="/tags/table/" style="font-size: 10.00px;">table</a><a href="/tags/tint2/" style="font-size: 10.00px;">tint2</a><a href="/tags/ubuntu/" style="font-size: 16.67px;">ubuntu</a><a href="/tags/vagrant/" style="font-size: 10.00px;">vagrant</a><a href="/tags/vim/" style="font-size: 10.00px;">vim</a><a href="/tags/vps/" style="font-size: 16.67px;">vps</a><a href="/tags/win7/" style="font-size: 13.33px;">win7</a><a href="/tags/上传文件/" style="font-size: 10.00px;">上传文件</a><a href="/tags/五笔、编码/" style="font-size: 10.00px;">五笔、编码</a><a href="/tags/交换机/" style="font-size: 13.33px;">交换机</a><a href="/tags/交换机，端口/" style="font-size: 10.00px;">交换机，端口</a><a href="/tags/交换机，背板带宽/" style="font-size: 10.00px;">交换机，背板带宽</a><a href="/tags/优化/" style="font-size: 10.00px;">优化</a>
+    <a href="/tags/Blog/" style="font-size: 10.00px;">Blog</a><a href="/tags/CRC/" style="font-size: 10.00px;">CRC</a><a href="/tags/Hexo/" style="font-size: 12.50px;">Hexo</a><a href="/tags/IP/" style="font-size: 10.00px;">IP</a><a href="/tags/Markdown/" style="font-size: 10.00px;">Markdown</a><a href="/tags/Oracle/" style="font-size: 15.00px;">Oracle</a><a href="/tags/RAC/" style="font-size: 12.50px;">RAC</a><a href="/tags/U盘，弹出/" style="font-size: 10.00px;">U盘，弹出</a><a href="/tags/arp/" style="font-size: 10.00px;">arp</a><a href="/tags/cisco/" style="font-size: 10.00px;">cisco</a><a href="/tags/crontab/" style="font-size: 10.00px;">crontab</a><a href="/tags/dd/" style="font-size: 10.00px;">dd</a><a href="/tags/github/" style="font-size: 10.00px;">github</a><a href="/tags/hexo/" style="font-size: 12.50px;">hexo</a><a href="/tags/iftop/" style="font-size: 10.00px;">iftop</a><a href="/tags/inode/" style="font-size: 10.00px;">inode</a><a href="/tags/linux/" style="font-size: 20.00px;">linux</a><a href="/tags/login/" style="font-size: 10.00px;">login</a><a href="/tags/mac/" style="font-size: 12.50px;">mac</a><a href="/tags/markdown/" style="font-size: 10.00px;">markdown</a><a href="/tags/ping/" style="font-size: 10.00px;">ping</a><a href="/tags/ping，TTL/" style="font-size: 10.00px;">ping，TTL</a><a href="/tags/root/" style="font-size: 10.00px;">root</a><a href="/tags/route/" style="font-size: 10.00px;">route</a><a href="/tags/sqlplus/" style="font-size: 10.00px;">sqlplus</a><a href="/tags/ssh/" style="font-size: 17.50px;">ssh</a><a href="/tags/table/" style="font-size: 10.00px;">table</a><a href="/tags/tint2/" style="font-size: 10.00px;">tint2</a><a href="/tags/ubuntu/" style="font-size: 15.00px;">ubuntu</a><a href="/tags/vagrant/" style="font-size: 10.00px;">vagrant</a><a href="/tags/vim/" style="font-size: 10.00px;">vim</a><a href="/tags/vps/" style="font-size: 12.50px;">vps</a><a href="/tags/win7/" style="font-size: 12.50px;">win7</a><a href="/tags/上传文件/" style="font-size: 10.00px;">上传文件</a><a href="/tags/五笔、编码/" style="font-size: 10.00px;">五笔、编码</a><a href="/tags/交换机/" style="font-size: 12.50px;">交换机</a><a href="/tags/交换机，端口/" style="font-size: 10.00px;">交换机，端口</a><a href="/tags/交换机，背板带宽/" style="font-size: 10.00px;">交换机，背板带宽</a><a href="/tags/优化/" style="font-size: 10.00px;">优化</a><a href="/tags/光线，单模，多模，区分/" style="font-size: 10.00px;">光线，单模，多模，区分</a>
   </div>
 </div>
 
@@ -439,23 +307,23 @@ hostname(config-if)# ；接口状态
   <ul class="entry">
     
       <li>
-        <a href="/2014/09/11/ssh_login_fuwuqisudu/">提高ssh登录服务器的响应速度</a>
-      </li>
-    
-      <li>
-        <a href="/2014/09/11/securecrt_vps_luanma/">修复secureCRT登录vps中文乱码问题</a>
-      </li>
-    
-      <li>
-        <a href="/2014/09/11/ssh_keygen/">ssh指定私钥的配置管理</a>
-      </li>
-    
-      <li>
         <a href="/2014/09/08/dd_sduhy/">dd命令用来测试硬盘读写速度</a>
       </li>
     
       <li>
         <a href="/2014/09/08/ubuntu_tint2/">在Ubuntu 14.04中添加底部任务栏</a>
+      </li>
+    
+      <li>
+        <a href="/2014/09/08/inode/">理解inode</a>
+      </li>
+    
+      <li>
+        <a href="/2014/09/08/wubi_yinan/">五笔难打字、疑难字、难拆字编码大全</a>
+      </li>
+    
+      <li>
+        <a href="/2014/08/29/win7_login/">怎么去掉WIN7开机时选择用户登陆？</a>
       </li>
     
   </ul>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wlcyhao.github.io/"/>
-  <updated>2014-09-11T02:45:32.715Z</updated>
+  <updated>2014-09-11T02:51:29.628Z</updated>
   <id>http://wlcyhao.github.io/</id>
   
   <author>
@@ -13,84 +13,6 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
-  
-  <entry>
-    <title><![CDATA[提高ssh登录服务器的响应速度]]></title>
-    <link href="http://wlcyhao.github.io/2014/09/11/ssh_login_fuwuqisudu/"/>
-    <id>http://wlcyhao.github.io/2014/09/11/ssh_login_fuwuqisudu/</id>
-    <published>2014-09-11T02:41:15.000Z</published>
-    <updated>2014-09-11T02:42:02.000Z</updated>
-    <content type="html"><![CDATA[<p>server A—&gt; server B<br><a id="more"></a><br>从A登录B，修改服务器B上的ssh配置文件:<code>/etc/ssh/sshd_config</code> 在文件尾部添加一行</p>
-<p><code>UseDNS no</code></p>
-<p>重启sshd，明显可以感觉到ssh登录速度的提升</p>
-]]></content>
-    <summary type="html"><![CDATA[<p>server A—&gt; server B<br>]]></summary>
-    
-      <category term="ssh" scheme="http://wlcyhao.github.io/tags/ssh/"/>
-    
-      <category term="login" scheme="http://wlcyhao.github.io/tags/login/"/>
-    
-      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[修复secureCRT登录vps中文乱码问题]]></title>
-    <link href="http://wlcyhao.github.io/2014/09/11/securecrt_vps_luanma/"/>
-    <id>http://wlcyhao.github.io/2014/09/11/securecrt_vps_luanma/</id>
-    <published>2014-09-11T02:37:41.000Z</published>
-    <updated>2014-09-11T02:39:42.000Z</updated>
-    <content type="html"><![CDATA[<p>让vps正常显示中文，只需要三步<br><a id="more"></a><br>1、 <code>vim ~/.profile</code>加入下面一行 export LANG=”zh_CN.UTF-8”</p>
-<p>2、 修改SecureCRT 编码<br>选项-&gt;会话选项-&gt;外观-&gt;字符编码-&gt;uft-8，退出重新登录就行了</p>
-<p>3、 让vim支持中文显示，修改文件（如果没有就新建一个）:~/.vimrc，添加下面三行</p>
-<pre><code><span class="keyword">set</span> encoding=utf-<span class="number">8</span>
-<span class="keyword">set</span> fileencodings=utf-<span class="number">8</span>,gb2312,gb18030,gbk
-<span class="keyword">set</span> termencoding=utf-<span class="number">8</span>
-</code></pre>]]></content>
-    <summary type="html"><![CDATA[<p>让vps正常显示中文，只需要三步<br>]]></summary>
-    
-      <category term="linux" scheme="http://wlcyhao.github.io/tags/linux/"/>
-    
-      <category term="vps" scheme="http://wlcyhao.github.io/tags/vps/"/>
-    
-      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[ssh指定私钥的配置管理]]></title>
-    <link href="http://wlcyhao.github.io/2014/09/11/ssh_keygen/"/>
-    <id>http://wlcyhao.github.io/2014/09/11/ssh_keygen/</id>
-    <published>2014-09-11T02:33:12.000Z</published>
-    <updated>2014-09-11T02:34:37.000Z</updated>
-    <content type="html"><![CDATA[<p>用ssh 公钥认证方式登录非常常见，快速方便，通常就是用<code>ssh-keygen -t rsa</code>在 ~/.ssh 目录下生成默认名称的id_rsa和id_rsa.pub 文件<br><a id="more"></a><br>特别是git流行之后，用ssh的方式访问git服务器，部署起来最容易</p>
-<p>实际上，ssh 私钥的名称和生成地点都可以单独指定的, <strong>和硬件操作系统无关</strong></p>
-<p>你可以在任意一台服务器上生成 公钥,私钥对，保存起来，到处分发使用</p>
-<p>指定的配置文件叫做 ssh_config , man ssh_config ，有详细说明</p>
-<h2 id="个性化指定_私钥的步骤">个性化指定 私钥的步骤</h2>
-<p>vi ~/.ssh/config文件，加入如下 配置行</p>
-<pre><code>Host xxxx
-IdentityFile 私钥文件名（不是id_rsa.pub)
-Port 端口号
-User 你登陆xxxx服务器用的账号
-<span class="keyword">...</span>
-</code></pre><p>注意：</p>
-<ul>
-<li>这个文件没有格式，一行一条记录，不需要tab缩进</li>
-<li>你可以在这个文件里面指定多个Host</li>
-<li>一个 Host开头的行 到下一个 Host开头的行 是 这个host的细节设置</li>
-<li>全局的ssh config 文件在 <code>/etc/ssh/ssh_config</code></li>
-</ul>
-]]></content>
-    <summary type="html"><![CDATA[<p>用ssh 公钥认证方式登录非常常见，快速方便，通常就是用<code>ssh-keygen -t rsa</code>在 ~/.ssh 目录下生成默认名称的id_rsa和id_rsa.pub 文件<br>]]></summary>
-    
-      <category term="git" scheme="http://wlcyhao.github.io/tags/git/"/>
-    
-      <category term="ssh" scheme="http://wlcyhao.github.io/tags/ssh/"/>
-    
-      <category term="服务器运维" scheme="http://wlcyhao.github.io/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%90%E7%BB%B4/"/>
-    
-  </entry>
   
   <entry>
     <title><![CDATA[dd命令用来测试硬盘读写速度]]></title>
@@ -614,6 +536,93 @@ redistribute static
       <category term="海明码" scheme="http://wlcyhao.github.io/tags/%E6%B5%B7%E6%98%8E%E7%A0%81/"/>
     
       <category term="交换路由" scheme="http://wlcyhao.github.io/categories/%E4%BA%A4%E6%8D%A2%E8%B7%AF%E7%94%B1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[光纤跳线如何区分单模和多模]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/21/qufen_guanxian/"/>
+    <id>http://wlcyhao.github.io/2014/08/21/qufen_guanxian/</id>
+    <published>2014-08-21T13:46:59.000Z</published>
+    <updated>2014-08-21T13:49:07.000Z</updated>
+    <content type="html"><![CDATA[<p>单模光纤：中心玻璃芯较细（芯径一般为9或10μm），只能传一种模式的光。因此，其模间色散很小，适用于远程通讯，但其色度色散起主要作用，这样单模光纤对光源的谱宽和稳定性有较高的要求，即谱宽要窄，稳定性要好;远距离情况使用。<br><a id="more"></a><br>单模跳线的印字有”<strong>SM</strong>“或“G652”、“G655”、“G657”、“9/125”的字样，<strong>颜色是淡黄色</strong></p>
+<p>多模光纤：中心玻璃芯较粗（50或62.5μm），可传多种模式的光。但其模间色散较大，这就限制了传输数字信号的频率，而且随距离的增加会更加严重。例如：600MB/KM的光纤在2KM时则只有300MB的带宽了。因此，多模光纤传输的距离就比较近，一般只有几公里。</p>
+<p>多模跳线的印字有“<strong>MM</strong>“或”OM3″,”50/125″、”62.5/125″的字样，<strong>颜色是橙黄色</strong></p>
+]]></content>
+    <summary type="html"><![CDATA[<p>单模光纤：中心玻璃芯较细（芯径一般为9或10μm），只能传一种模式的光。因此，其模间色散很小，适用于远程通讯，但其色度色散起主要作用，这样单模光纤对光源的谱宽和稳定性有较高的要求，即谱宽要窄，稳定性要好;远距离情况使用。<br>]]></summary>
+    
+      <category term="光线，多模，单模，跳线" scheme="http://wlcyhao.github.io/tags/%E5%85%89%E7%BA%BF%EF%BC%8C%E5%A4%9A%E6%A8%A1%EF%BC%8C%E5%8D%95%E6%A8%A1%EF%BC%8C%E8%B7%B3%E7%BA%BF/"/>
+    
+      <category term="交换路由" scheme="http://wlcyhao.github.io/categories/%E4%BA%A4%E6%8D%A2%E8%B7%AF%E7%94%B1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[windows下定期自动备份本地文件(文件夹)]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/21/beifen_wenjianjia/"/>
+    <id>http://wlcyhao.github.io/2014/08/21/beifen_wenjianjia/</id>
+    <published>2014-08-21T13:36:32.000Z</published>
+    <updated>2014-08-21T13:42:42.000Z</updated>
+    <content type="html"><![CDATA[<p>虽然网上有一些免费的文件自动备份软件，但是没有自己编写一段批处理来完成备份任务来的放心，而且不用占用系统资源。</p>
+<p>下面介绍一下如何利用批处理完成本地文件或者文件夹的备份。<br><a id="more"></a><br>该方法可把某文件夹下的文件同步到另外的文件夹，可忽略已经存在的文件，可根据文件日期来判断复制最新的文件。</p>
+<p>首先建立一个文本文件，复制以下代码：</p>
+<pre><code>@echo off
+echo 正在复制”<span class="keyword">C</span>:\a”文件夹的内容至”<span class="keyword">D</span>:\b”文件夹下……
+xcopy “<span class="keyword">C</span>:\a” “<span class="keyword">D</span>:\b” /e/<span class="keyword">I</span>/d/h/r/y
+echo 正在复制”<span class="keyword">C</span>:\c”文件夹的内容至”<span class="keyword">D</span>:\d”文件夹下……
+xcopy “<span class="keyword">C</span>:\c” “<span class="keyword">D</span>:\d” /e/<span class="keyword">I</span>/d/h/r/y
+exit
+</code></pre><p>保存该文本文件，修改文件名为X.bat 其中X可以任意命名。<br>打开”控制面板”—“计划任务”添加计划任务，计划任务里的执行目标为该批处理文件，设定在什么时候执行，我们可以设置为每天的05:00执行此批处理，这样每天就会执行该备份，让我们的文件永远有备份，再也不会为文件丢失而发愁了。</p>
+<p>注释: 代码里的双引号(“”)以内的内容是文件夹路径，可以根据实际情况修改，前面是需要备份的文件夹路径，后面是备份文件夹路径。<br>如果需要备份更多的文件夹只需要多个xcopy 后面的格式和代码中相同，不要忘记两个路径之间有一个空格</p>
+<pre><code>参数说明：
+/e：拷贝所有子目录，包括空子目录；
+/<span class="keyword">I</span>： 如果目标文件或目录不存在且拷贝的文件数多于一，则假设目标为目录；
+/d：只拷贝文件日期与在目标文件后的文件（即修改过的源文件）
+/h：同时拷贝隐藏文件和系统文件
+/r：拷贝并覆盖只读文件
+/y： 复制文件审核设置（不显示已有文件覆盖确认）
+</code></pre><p>以上参数可以根据需要添加，推荐都加上最好。</p>
+<p>下面就根据上面的代码扩展更多应用。<br>比如远程备份文件夹，给文件夹以日期命名。<br>下面给大家来讲解：<br>远程备份文件夹需要远程共享了文件夹<br>如果已经共享了该文件夹我们只需要修改代码中的需要备份的文件夹路径就可以了　</p>
+<p>例如：我需要远程定期备份远程主机上的”a”文件夹,代码如下</p>
+<pre><code>@echo off
+echo 正在复制主机192.168.0.2的”a”文件夹的内容至”D:<span class="command">\b</span>”文件夹下……
+xcopy “<span class="command">\\</span>192.168.0.2<span class="command">\a</span>” “D:<span class="command">\b</span>” /e/I/d/h/r/y
+exit
+</code></pre><p>其他和上面方法一样，保存为.bat文件，添加计划任务就行了。</p>
+<p>如果我想以日期的形式保存文件夹，而且每天都有一个备份，那么我可以这样。</p>
+<pre><code>@<span class="keyword">echo</span> off
+<span class="keyword">echo</span> 正在复制主机<span class="number">192</span>.<span class="number">168</span>.<span class="number">0</span>.<span class="number">2</span>的”a”文件夹的内容至”D:\b”文件夹下……
+<span class="winutils">xcopy</span> “\\<span class="number">192</span>.<span class="number">168</span>.<span class="number">0</span>.<span class="number">2</span>\a” “D:\<span class="envvar">%te%</span>\” /e/I/d/h/r/y
+<span class="flow">exit</span>
+</code></pre><p>这样就可以为每天的备份放到每个以日期命名的文件夹里了<br>其中/e参数可以不要，因为每天备份都是以一个新的文件夹开始的，那么就没有文件日期的问题了。</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>虽然网上有一些免费的文件自动备份软件，但是没有自己编写一段批处理来完成备份任务来的放心，而且不用占用系统资源。</p>
+<p>下面介绍一下如何利用批处理完成本地文件或者文件夹的备份。<br>]]></summary>
+    
+      <category term="批处理，自动备份" scheme="http://wlcyhao.github.io/tags/%E6%89%B9%E5%A4%84%E7%90%86%EF%BC%8C%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD/"/>
+    
+      <category term="Windows" scheme="http://wlcyhao.github.io/categories/Windows/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[windows7 连接共享时提示出现了一个错误(null)的解决办法]]></title>
+    <link href="http://wlcyhao.github.io/2014/08/21/win7_vmware_netshare/"/>
+    <id>http://wlcyhao.github.io/2014/08/21/win7_vmware_netshare/</id>
+    <published>2014-08-21T13:23:25.000Z</published>
+    <updated>2014-08-21T13:24:29.000Z</updated>
+    <content type="html"><![CDATA[<p>在windows7下跑vmware测东西，虚拟机器上不了网，启动连接共享的时候提示：internet连接共享访问被启用时，出现了一个错误(null)<br><a id="more"></a><br>这是因为关掉了系统防火墙的原因。</p>
+<p>解决办法很简单：</p>
+<p>点击 Windows + R 在运行窗口中输入 services.msc 。</p>
+<p>找到 windows Firewall 服务，点击启动即可。</p>
+]]></content>
+    <summary type="html"><![CDATA[<p>在windows7下跑vmware测东西，虚拟机器上不了网，启动连接共享的时候提示：internet连接共享访问被启用时，出现了一个错误(null)<br>]]></summary>
+    
+      <category term="win7" scheme="http://wlcyhao.github.io/tags/win7/"/>
+    
+      <category term="共享" scheme="http://wlcyhao.github.io/tags/%E5%85%B1%E4%BA%AB/"/>
+    
+      <category term="Windows" scheme="http://wlcyhao.github.io/categories/Windows/"/>
     
   </entry>
   

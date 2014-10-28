@@ -4,7 +4,7 @@
   <subtitle><![CDATA[仗剑红尘已是癫，有酒平步上青天，游星戏斗弄日月，醉卧云端笑人间！]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://wlcyhao.github.io/"/>
-  <updated>2014-09-11T02:51:29.628Z</updated>
+  <updated>2014-10-28T07:25:21.682Z</updated>
   <id>http://wlcyhao.github.io/</id>
   
   <author>
@@ -13,6 +13,53 @@
   </author>
   
   <generator uri="http://zespia.tw/hexo/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Ruby on]]></title>
+    <link href="http://wlcyhao.github.io/2014/10/28/Ruby-on/"/>
+    <id>http://wlcyhao.github.io/2014/10/28/Ruby-on/</id>
+    <published>2014-10-28T07:15:02.000Z</published>
+    <updated>2014-10-28T07:18:37.000Z</updated>
+    <content type="html"><![CDATA[<p><a href="https://camo.githubusercontent.com/ecd301a2ef57f1ed83e5b051036767454f25328e/687474703a2f2f7777322e73696e61696d672e636e2f6c617267652f35653863623336366a7731653832683167787379366a32306a663065386a73322e6a7067" target="_blank"><img src="https://camo.githubusercontent.com/ecd301a2ef57f1ed83e5b051036767454f25328e/687474703a2f2f7777322e73696e61696d672e636e2f6c617267652f35653863623336366a7731653832683167787379366a32306a663065386a73322e6a7067" alt="" data-canonical-src="http://ww2.sinaimg.cn/large/5e8cb366jw1e82h1gxsy6j20jf0e8js2.jpg" style="max-width:100%;"></a></p><br><a id="more"></a><br><p>为了在他们NB闪闪地聊Ruby时我能不跟个傻子似的呆若木鸡，为了回报那条「一月30K」的招聘启事对我的激励，为了不糟蹋收藏夹里面好些个Ruby相关的文章，也为了见识一下ROR（Ruby on Rails）的伟大，我决定以身犯难，拨开迷雾，学习ROR。</p>
+
+<p>BTW，虽然Ruby的伟大之处十分得益于ROR，但Ruby毕竟是基础，ROR毕竟是框架，所以新开的这个分类叫做Ruby，向<strong>松本行弘</strong>致敬。同时遵循Ruby的命名规范，首字母大写。</p>
+
+<p>Ruby中文社区的很多前辈在指导我们这些后生学习ROR时都说，没有Ruby基础的也可以直接上手Rails，不过最好稍微了解一点，不必太多，然后在rails中慢慢学习和体会ruby的闪光点。我很听话，照办。</p>
+
+<p>关于Ruby和Rails的教程，数不胜数，文字和视频都有。我已经在为知笔记造过一次轮子了，不想在这里重复，而且我造出的轮子自用可以，拿出来就略献丑了。因此本文不再写Ruby教程之类的东西（也许以后把轮子打磨的漂亮之后会分享），而是列举一下目前发现的不错的文章、视频资料。</p>
+
+
+
+<h3><br><a name="user-content-%E7%AB%99%E7%82%B9" class="anchor" href="#%E7%AB%99%E7%82%B9" aria-hidden="true"><span class="octicon octicon-link"></span></a>站点</h3>
+
+<ul class="task-list"><br><li><p><a href="http://ruby-china.org/" target="_blank" rel="external">Ruby China</a>Ruby中文社区，注册一个账号，去里面发现好东西，必看</p></li><br><li><p><a href="http://railscasts-china.com/" target="_blank" rel="external">Railscasts China</a>Ruby视频教程，五花八门，琳琅满目，必看</p></li><br><li><p><a href="http://tryruby.org/levels/1/challenges/0" target="_blank" rel="external">Code School - TryRuby</a> 可以在线书写和执行Ruby代码</p></li><br></ul>
+
+<h3><br><a name="user-content-%E6%96%B9%E6%B3%95%E8%AE%BA%E8%B7%AF%E7%BA%BF%E5%9B%BE" class="anchor" href="#%E6%96%B9%E6%B3%95%E8%AE%BA%E8%B7%AF%E7%BA%BF%E5%9B%BE" aria-hidden="true"><span class="octicon octicon-link"></span></a>方法论、路线图</h3>
+
+<ul class="task-list"><br><li><p><a href="http://ruby-china.org/wiki" target="_blank" rel="external">Ruby China | Wiki</a>这里面的每篇文章都要看。入门的话，只要看<a href="http://ruby-china.org/wiki/start_leaning_rails" target="_blank" rel="external">Ruby China | 如何从零开始学会 Rails - Wiki</a></p></li><br><li><p><a href="http://yedingding.com/2013/04/22/rails-for-beginners.html" target="_blank" rel="external">Rails 初学者指南 | The Voice of Dingding Ye</a></p></li><br></ul>
+
+<h3><br><a name="user-content-%E6%95%99%E7%A8%8B" class="anchor" href="#%E6%95%99%E7%A8%8B" aria-hidden="true"><span class="octicon octicon-link"></span></a>教程</h3>
+
+<ul class="task-list"><br><li><p><a href="https://www.ruby-lang.org/zh_cn/documentation/quickstart/" target="_blank" rel="external">20分钟体验 Ruby</a>强烈推荐，快速对Ruby有个认识</p></li><br><li><p><a href="http://221.173.127.35:82/1Q2W3E4R5T6Y7U8I9O0P1Z2X3C4V5B/read.pudn.com/downloads74/ebook/268092/Ruby%E8%AF%AD%E8%A8%80%E5%85%A5%E9%97%A8%E6%95%99%E7%A8%8Bv1.0.pdf" target="_blank" rel="external">Ruby语言入门教程v1.0.pdf</a>虽然有点久远，但是整理的很好，我从这里面收获很多</p></li><br><li><p><a href="http://saito.im/slide/ruby-new.html" target="_blank" rel="external">Ruby.new</a>一个Slide，简洁、漂亮、实用，收获很多</p></li><br><li><p><a href="http://railstutorial-china.org/" target="_blank" rel="external">Ruby on Rails 教程</a>中文版可以在线阅读，多人推荐</p></li><br><li><p><a href="http://guides.ruby-china.org/" target="_blank" rel="external">Ruby on Rails Guides 中文</a>中文版，版本是3.2.8，英文好的直接读官方的版本4<a href="http://guides.rubyonrails.org/" target="_blank" rel="external">Ruby on Rails Guides</a></p></li><br><li><p><a href="http://edu.51cto.com/course/course_id-418.html" target="_blank" rel="external">诱人的Ruby-入门篇（共18个课时）_51CTO视频课程</a></p></li><br><li><p><a href="http://www.codeschool.com/paths/ruby" target="_blank" rel="external">Ruby - Code School</a></p></li><br></ul>
+
+<h3><br><a name="user-content-%E5%85%B6%E4%BB%96" class="anchor" href="#%E5%85%B6%E4%BB%96" aria-hidden="true"><span class="octicon octicon-link"></span></a>其他</h3>
+
+<ul class="task-list"><br><li><p><a href="http://railsapps.github.io/" target="_blank" rel="external">Rails Examples and Tutorials · RailsApps</a> </p></li><br><li><p><a href="http://www.diguage.com/archives/tag/ruby" target="_blank" rel="external">Ruby | “地瓜哥”博客网</a></p></li><br><li><p>wiki里面说的所有参考书目，都可以在<a href="http://so.baiduyun.me/" target="_blank" rel="external">这里</a>搜索下载</p></li><br></ul>
+
+<p>具体某个技术细节相关的文章就不列举了。这些是从我的为知笔记转移过来的，虽然五花八门，但我自己的话还是会跟着wiki里面的路线图走，这些权当参考吧。</p>
+
+<p>今天在railcasts上看了一个视频，15分钟写一个简单博客，真真感受到rails的强大和便利。一个命令，rails帮你搞定的远超乎你的想象。据说rails采用默认机制，默认为用户设置好，用户可以自行修改。真不错！</p>
+
+
+
+]]></content>
+    <summary type="html"><![CDATA[<p><a href="https://camo.githubusercontent.com/ecd301a2ef57f1ed83e5b051036767454f25328e/687474703a2f2f7777322e73696e61696d672e636e2f6c617267652f35653863623336366a7731653832683167787379366a32306a663065386a73322e6a7067" target="_blank"><img src="https://camo.githubusercontent.com/ecd301a2ef57f1ed83e5b051036767454f25328e/687474703a2f2f7777322e73696e61696d672e636e2f6c617267652f35653863623336366a7731653832683167787379366a32306a663065386a73322e6a7067" alt="" data-canonical-src="http://ww2.sinaimg.cn/large/5e8cb366jw1e82h1gxsy6j20jf0e8js2.jpg" style="max-width:100%;"></a></p><br>]]></summary>
+    
+      <category term="Ruby" scheme="http://wlcyhao.github.io/tags/Ruby/"/>
+    
+      <category term="Ruby" scheme="http://wlcyhao.github.io/categories/Ruby/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[dd命令用来测试硬盘读写速度]]></title>
@@ -600,27 +647,6 @@ exit
 <p>下面介绍一下如何利用批处理完成本地文件或者文件夹的备份。<br>]]></summary>
     
       <category term="批处理，自动备份" scheme="http://wlcyhao.github.io/tags/%E6%89%B9%E5%A4%84%E7%90%86%EF%BC%8C%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD/"/>
-    
-      <category term="Windows" scheme="http://wlcyhao.github.io/categories/Windows/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[windows7 连接共享时提示出现了一个错误(null)的解决办法]]></title>
-    <link href="http://wlcyhao.github.io/2014/08/21/win7_vmware_netshare/"/>
-    <id>http://wlcyhao.github.io/2014/08/21/win7_vmware_netshare/</id>
-    <published>2014-08-21T13:23:25.000Z</published>
-    <updated>2014-08-21T13:24:29.000Z</updated>
-    <content type="html"><![CDATA[<p>在windows7下跑vmware测东西，虚拟机器上不了网，启动连接共享的时候提示：internet连接共享访问被启用时，出现了一个错误(null)<br><a id="more"></a><br>这是因为关掉了系统防火墙的原因。</p>
-<p>解决办法很简单：</p>
-<p>点击 Windows + R 在运行窗口中输入 services.msc 。</p>
-<p>找到 windows Firewall 服务，点击启动即可。</p>
-]]></content>
-    <summary type="html"><![CDATA[<p>在windows7下跑vmware测东西，虚拟机器上不了网，启动连接共享的时候提示：internet连接共享访问被启用时，出现了一个错误(null)<br>]]></summary>
-    
-      <category term="win7" scheme="http://wlcyhao.github.io/tags/win7/"/>
-    
-      <category term="共享" scheme="http://wlcyhao.github.io/tags/%E5%85%B1%E4%BA%AB/"/>
     
       <category term="Windows" scheme="http://wlcyhao.github.io/categories/Windows/"/>
     
